@@ -13,7 +13,7 @@
                             <tr>
                                 <th style="width: 30px;">#</th>
                                 <th>Name</th>
-                                <th>Email</th>
+                                <th>NRP</th>
                                 <th>Role</th>
                                 <th style="width: 50px">Action</th>
                             </tr>
@@ -72,7 +72,7 @@
             }, {
                 data: 'name',
             }, {
-                data: 'email',
+                data: 'nrp',
             }, {
                 data: 'role',
             }, {
@@ -122,7 +122,7 @@
             id = table.row(row).data().id
             $.get(url_index + '/' + id).done(function(result) {
                 $('#name').val(result.data.name)
-                $('#email').val(result.data.email)
+                $('#nrp').val(result.data.nrp)
                 $('#password').val('')
                 $('#role').val(result.data.role).change()
                 $('#form').attr('action', url_index + '/' + id)
@@ -152,7 +152,7 @@
             $('#modal_form_title').html('Tambah Data')
             $('#modal_form').modal('show')
             $('#name').val('')
-            $('#email').val('')
+            $('#nrp').val('')
             $('#password').val('')
             $('#role').val('user').change()
         }

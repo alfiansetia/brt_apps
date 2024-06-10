@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Carbon;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -23,6 +24,7 @@ class User extends Authenticatable
         'password',
         'avatar',
         'role',
+        'last_login',
     ];
 
     /**
@@ -51,6 +53,14 @@ class User extends Authenticatable
     public function is_admin()
     {
         return $this->role == 'admin';
+    }
+
+    public function last_login_parse()
+    {
+        if ($this->last_login) {
+            return Carbon::parse($this->last_login)->diffForHumans();
+        }
+        return '';
     }
 
     public function scopeFilter($query, array $filters)

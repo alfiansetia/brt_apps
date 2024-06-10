@@ -11,7 +11,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        view()->composer(
+            [
+                'layouts.template',
+            ],
+            function ($view) {
+                $view->with('user', auth()->user());
+            }
+        );
     }
 
     /**

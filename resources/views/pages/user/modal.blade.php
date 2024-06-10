@@ -18,9 +18,9 @@
                                 placeholder="Please Enter Name" minlength="3" maxlength="25" required>
                         </div>
                         <div class="form-group">
-                            <label class="control-label" for="email">Email :</label>
-                            <input type="email" name="email" class="form-control" id="email"
-                                placeholder="Please Enter Email" required>
+                            <label class="control-label" for="nrp">NRP :</label>
+                            <input type="text" name="nrp" class="form-control" id="nrp"
+                                placeholder="Please Enter NRP" required>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="password">Password :</label>

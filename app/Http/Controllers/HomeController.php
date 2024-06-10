@@ -23,6 +23,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $data['jumlah'] = 1;
+        $data['nilai'] = 1;
+        $data['terpakai'] = 1;
+        $data['tidak_terpakai'] = 1;
+        $data['baik'] = 1;
+        $data['rusak'] = 1;
+        return view('home', compact('data'));
     }
 }
