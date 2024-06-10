@@ -47,4 +47,19 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function is_admin()
+    {
+        return $this->role == 'admin';
+    }
+
+    public function scopeFilter($query, array $filters)
+    {
+        if (isset($filters['name'])) {
+            $query->where('name', 'like', '%' . $filters['name'] . '%');
+        }
+        if (isset($filters['nrp'])) {
+            $query->where('nrp', 'like', '%' . $filters['nrp'] . '%');
+        }
+    }
 }
