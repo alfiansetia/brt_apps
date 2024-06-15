@@ -41,7 +41,7 @@ class LoginController extends Controller
 
     public function username()
     {
-        return 'nrp';
+        return 'email';
     }
 
     protected function authenticated(Request $request, $user)

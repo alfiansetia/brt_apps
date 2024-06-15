@@ -14,14 +14,16 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('nrp')->unique();
+            $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('avatar')->nullable();
             $table->enum('role', ['user', 'admin'])->default('user');
             $table->dateTime('last_login')->nullable()->after('password');
+            $table->unsignedBigInteger('pool_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->foreign('pool_id')->references('id')->on('pools')->nullOnDelete()->cascadeOnUpdate();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

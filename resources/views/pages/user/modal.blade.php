@@ -1,7 +1,7 @@
 @push('modal')
     <div class="modal animated fade fadeInDown" id="modal_form" role="dialog" aria-labelledby="exampleModalCenterTitle"
         aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modal_form_title">Add Data</h5>
@@ -18,9 +18,9 @@
                                 placeholder="Please Enter Name" minlength="3" maxlength="25" required>
                         </div>
                         <div class="form-group">
-                            <label class="control-label" for="nrp">NRP :</label>
-                            <input type="text" name="nrp" class="form-control" id="nrp"
-                                placeholder="Please Enter NRP" required>
+                            <label class="control-label" for="email">Email :</label>
+                            <input type="text" name="email" class="form-control" id="email"
+                                placeholder="Please Enter Email" required>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="password">Password :</label>
@@ -42,7 +42,7 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times mr-1"
                                 data-toggle="tooltip" title="Close"></i>Close</button>
-                        <button type="button" id="modal_form_submit" class="btn btn-primary"><i
+                        <button type="submit" id="modal_form_submit" class="btn btn-primary"><i
                                 class="fas fa-paper-plane mr-1" data-toggle="tooltip" title="Save"></i>Save</button>
                     </div>
                 </form>

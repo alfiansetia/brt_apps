@@ -20,11 +20,12 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'nrp',
+        'email',
         'password',
         'avatar',
         'role',
         'last_login',
+        'pool_id'
     ];
 
     /**
@@ -71,5 +72,10 @@ class User extends Authenticatable
         if (isset($filters['nrp'])) {
             $query->where('nrp', 'like', '%' . $filters['nrp'] . '%');
         }
+    }
+
+    public function pool()
+    {
+        return $this->belongsTo(Pool::class);
     }
 }

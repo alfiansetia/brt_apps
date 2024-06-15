@@ -10,17 +10,17 @@
             <form method="POST" action="{{ route('login') }}" class="needs-validation" novalidate="">
                 @csrf
                 <div class="form-group">
-                    <label for="nrp">NRP</label>
-                    <input id="nrp" type="text" class="form-control @error('nrp') is-invalid @enderror"
-                        name="nrp" tabindex="1" placeholder="Please Input NRP" value="{{ old('nrp') }}" required
+                    <label for="email">Email</label>
+                    <input id="email" type="text" class="form-control @error('email') is-invalid @enderror"
+                        name="email" tabindex="1" placeholder="Please Input Email" value="{{ old('email') }}" required
                         autofocus>
-                    @error('nrp')
+                    @error('email')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
                     <div class="invalid-feedback">
-                        Please fill in your NRP
+                        Please fill in your Email
                     </div>
                 </div>
                 <div class="form-group">

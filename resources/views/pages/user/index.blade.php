@@ -13,7 +13,8 @@
                             <tr>
                                 <th style="width: 30px;">#</th>
                                 <th>Name</th>
-                                <th>NRP</th>
+                                <th>Email</th>
+                                <th>Pool</th>
                                 <th>Role</th>
                                 <th style="width: 50px">Action</th>
                             </tr>
@@ -43,7 +44,8 @@
 
         var table = $("#table").DataTable({
             processing: true,
-            rowId: 'id',
+            serverSide: true,
+            searchDelay: 500,
             ajax: url_index,
             dom: "<'dt--top-section'<'row'<'col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center'B><'col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3'f>>>" +
                 "<'table-responsive'tr>" +
@@ -72,7 +74,16 @@
             }, {
                 data: 'name',
             }, {
-                data: 'nrp',
+                data: 'email',
+            }, {
+                data: 'pool_id',
+                render: function(data, type, row, meta) {
+                    if (type == 'display') {
+                        return data != null ? pool.name : '';
+                    } else {
+                        return data
+                    }
+                }
             }, {
                 data: 'role',
             }, {
@@ -117,12 +128,22 @@
             },
         });
 
+        $(".dataTables_filter input").unbind().bind("input", function(e) {
+            if (this.value.length >= 3 || e.keyCode == 13) {
+                table.search(this.value).draw();
+            }
+            if (this.value == "") {
+                table.search("").draw();
+            }
+            return;
+        });
+
         $('#table tbody').on('click', 'tr td:not(:first-child):not(:last-child)', function() {
             row = $(this).parents('tr')[0];
             id = table.row(row).data().id
             $.get(url_index + '/' + id).done(function(result) {
                 $('#name').val(result.data.name)
-                $('#nrp').val(result.data.nrp)
+                $('#email').val(result.data.email)
                 $('#password').val('')
                 $('#role').val(result.data.role).change()
                 $('#form').attr('action', url_index + '/' + id)
@@ -141,7 +162,8 @@
             send_delete(url_index + "/" + id)
         });
 
-        $('#modal_form_submit').click(function() {
+        $('#form').submit(function(e) {
+            e.preventDefault()
             send_ajax('form', $('#modal_form_submit').val())
         })
 
@@ -152,7 +174,7 @@
             $('#modal_form_title').html('Tambah Data')
             $('#modal_form').modal('show')
             $('#name').val('')
-            $('#nrp').val('')
+            $('#email').val('')
             $('#password').val('')
             $('#role').val('user').change()
         }

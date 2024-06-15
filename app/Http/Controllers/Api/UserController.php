@@ -7,6 +7,7 @@ use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
 {
@@ -16,8 +17,10 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $filters = $request->only(['name', 'nrp']);
-        $data = User::filter($filters)->get();
-        return $this->response('', UserResource::collection($data), 200);
+        $query = User::query()->filter($filters);
+        return DataTables::eloquent($query)->setTransformer(function ($item) {
+            return UserResource::make($item)->resolve();
+        })->toJson();
     }
 
     /**
@@ -29,14 +32,14 @@ class UserController extends Controller
             $request,
             [
                 'name'      => 'required',
-                'nrp'       => 'required|unique:users,nrp',
+                'email'     => 'required|unique:users,email',
                 'role'      => 'required|in:user,admin',
                 'password'  => 'required|min:5'
             ]
         );
         $user = User::create([
             'name'      => $request->name,
-            'nrp'       => $request->nrp,
+            'email'     => $request->email,
             'password'  => Hash::make($request->password),
             'role'      => $request->role,
         ]);
