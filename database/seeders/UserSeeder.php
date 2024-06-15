@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Pool;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -27,7 +28,12 @@ class UserSeeder extends Seeder
             'password'      => Hash::make('user12345'),
             'role'          => 'user'
         ]);
+        $pool = Pool::all();
 
-        User::factory(46000)->create();
+        foreach ($pool as $item) {
+            User::factory(50)->create([
+                'pool_id' => $item->id
+            ]);
+        }
     }
 }
