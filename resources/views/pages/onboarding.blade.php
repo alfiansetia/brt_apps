@@ -1,4 +1,4 @@
-@extends('layouts.template', ['title' => 'Dashboard'])
+@extends('layouts.template', ['title' => 'Onboarding'])
 @push('css')
     <!-- CSS Libraries -->
 @endpush
@@ -14,15 +14,15 @@
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                 <div class="card card-statistic-1">
                     <div class="card-icon bg-{{ $color[$rand] }}">
-                        {!! $item['icon'] !!}
+                        <img src="{{ $item['image'] }}" alt="" width="100%">
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
-                            {{-- <h4>{{ $item->name }}</h4> --}}
+                            <h4>{{ $item->name }}</h4>
                         </div>
-                        <div class="card-body">
+                        {{-- <div class="card-body">
                             {{ $item['name'] }}
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>

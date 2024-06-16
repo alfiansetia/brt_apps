@@ -17,4 +17,13 @@ class Pool extends Model
             $query->where('name', 'like', '%' . $filters['name'] . '%');
         }
     }
+
+    public function getImageAttribute($value)
+    {
+        if ($value && file_exists(public_path('assets/img/pool/' . $value))) {
+            return asset('assets/img/pool/' . $value);
+        } else {
+            return asset('assets/img/noimage.jpg');
+        }
+    }
 }

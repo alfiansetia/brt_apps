@@ -11,6 +11,10 @@
             <li class="{{ $title == 'Dashboard' ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('home') }}"><i class="fas fa-fire"></i><span>Dashboard</span></a>
             </li>
+            <li class="{{ $title == 'Onboarding' ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('onboarding.index') }}"><i
+                        class="fas fa-fire"></i><span>Onboarding</span></a>
+            </li>
             <li class="{{ $title == 'Laporan' ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('home') }}"><i
                         class="fas fa-calendar-check"></i><span>Laporan</span></a>
