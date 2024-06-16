@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-12 col-md-12 col-lg-7">
             <div class="card">
-                <form method="post" class="needs-validation" novalidate="" action="{{ route('profile.update') }}">
+                <form method="post" id="pr" class="needs-validation" action="{{ route('profile.update') }}">
                     @csrf
                     <div class="card-header">
                         <h4>Edit Profile</h4>
@@ -27,13 +27,14 @@
                                 @enderror
                             </div>
                             <div class="form-group col-md-6 col-12">
-                                <label for="nrp">NRP</label>
-                                <input type="text" id="nrp" class="form-control @error('nrp') is-invalid @enderror"
-                                    value="{{ $user->nrp }}" required readonly disabled>
+                                <label for="email">Email</label>
+                                <input type="text" id="email"
+                                    class="form-control @error('email') is-invalid @enderror" value="{{ $user->email }}"
+                                    required readonly disabled>
                                 <div class="invalid-feedback">
-                                    Please fill in the NRP
+                                    Please fill in the Email
                                 </div>
-                                @error('nrp')
+                                @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -42,14 +43,14 @@
                         </div>
                     </div>
                     <div class="card-footer text-right">
-                        <button class="btn btn-primary">Save Changes</button>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
                     </div>
                 </form>
             </div>
         </div>
         <div class="col-12 col-md-12 col-lg-5">
             <div class="card">
-                <form method="post" class="needs-validation" novalidate="" action="{{ route('password.update') }}">
+                <form method="post" id="pw" class="needs-validation" action="{{ route('password.update') }}">
                     @csrf
                     @method('PUT')
                     <div class="card-header">
@@ -88,7 +89,7 @@
                         </div>
                     </div>
                     <div class="card-footer text-right">
-                        <button class="btn btn-primary">Save Changes</button>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
                     </div>
                 </form>
             </div>
@@ -97,4 +98,36 @@
 @endsection
 
 @push('js')
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.20.1/dist/jquery.validate.min.js"></script>
+    <script>
+        $('#pw').validate({
+            errorElement: 'span',
+            errorPlacement: function(error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function(element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function(element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+                $(element).addClass('is-valid');
+            },
+        })
+
+        $('#pr').validate({
+            errorElement: 'span',
+            errorPlacement: function(error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function(element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function(element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+                $(element).addClass('is-valid');
+            },
+        })
+    </script>
 @endpush
