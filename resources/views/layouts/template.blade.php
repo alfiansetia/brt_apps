@@ -141,7 +141,7 @@
                     $('#modal_form').modal('hide')
                 },
                 error: function(xhr, status, error) {
-                    show_toast('error', xhr.responseJSON.message || 'Server Error!')
+                    handleResponseForm(xhr, 'form')
                 }
             })
         }
@@ -161,6 +161,35 @@
             })
         }
 
+        function handleResponseForm(jqXHR, formID) {
+            let message = jqXHR.responseJSON.message
+            if (jqXHR.status != 422) {
+                show_toast('error', message)
+            } else {
+                let errors = jqXHR.responseJSON.errors || {};
+                let errorKeys = Object.keys(errors);
+
+                for (let i = 0; i < errorKeys.length; i++) {
+                    let fieldName = errorKeys[i];
+                    let errorMessage = errors[fieldName][0];
+                    $('#' + formID + ' [name="' + fieldName + '"]').addClass('is-invalid');
+                    $('#' + formID + ' [name="' + fieldName + '"]').removeClass('is-valid');
+                    $('#' + formID + ' .err_' + fieldName).text(errorMessage).show();
+                }
+            }
+        }
+
+        function clear_validate(formID) {
+            let form = $('#' + formID);
+            form.find('.error.invalid-feedback').each(function() {
+                $(this).hide().text('');
+            });
+            form.find('input.is-invalid, textarea.is-invalid, select.is-invalid').each(function() {
+                $(this).removeClass('is-invalid');
+                $(this).removeClass('is-valid');
+            });
+        }
+
         $(document).ready(function() {
             $(document).ajaxStart(function() {
                 $.blockUI({
@@ -176,8 +205,8 @@
     @stack('js')
 
     <!-- Template JS File -->
-    <script src="{{ asset('assets/js/scripts.js') }}"></script>
-    <script src="{{ asset('assets/js/custom.js') }}"></script>
+    {{-- <script src="{{ asset('assets/js/scripts.js') }}"></script>
+    <script src="{{ asset('assets/js/custom.js') }}"></script> --}}
 
     @if (session()->has('success'))
         <script>

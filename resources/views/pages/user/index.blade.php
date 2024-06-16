@@ -1,7 +1,7 @@
 @extends('layouts.template', ['title' => 'Data User'])
 @push('css')
     <link rel="stylesheet" href="{{ asset('lib/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('lib//select2/dist/css/select2.min.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css">
 @endpush
 @section('content')
     <div class="row">
@@ -38,9 +38,48 @@
     <script src="{{ asset('lib/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 
     <script src="{{ asset('lib/select2/dist/js/select2.full.min.js') }}"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script> --}}
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.20.1/dist/jquery.validate.min.js"></script>
+
     <script>
         var url_index = "{{ route('api.users.index') }}"
         var id = 0
+        var perpage = 20
+
+        // $(document).ready(function() {
+
+        $(".select2").select2()
+
+        $("#pool").select2({
+            placeholder: 'Select Pool',
+            allowClear: true,
+            ajax: {
+                url: "{{ route('api.pool.paginate') }}",
+                data: function(params) {
+                    return {
+                        name: params.term || '',
+                        page: params.page || 1,
+                        perpage: perpage,
+                    };
+                },
+                processResults: function(data, params) {
+                    params.page = params.page || 1;
+                    return {
+                        results: $.map(data.data, function(item) {
+                            return {
+                                text: item.name,
+                                id: item.id,
+                            }
+                        }),
+                        pagination: {
+                            more: (params.page * perpage) < data.total
+                        }
+                    };
+                },
+            }
+        })
+
+        // })
 
         var table = $("#table").DataTable({
             processing: true,
@@ -79,7 +118,7 @@
                 data: 'pool_id',
                 render: function(data, type, row, meta) {
                     if (type == 'display') {
-                        return data != null ? pool.name : '';
+                        return data != null ? row.pool.name : '';
                     } else {
                         return data
                     }
@@ -139,13 +178,23 @@
         });
 
         $('#table tbody').on('click', 'tr td:not(:first-child):not(:last-child)', function() {
+            clear_validate('form')
             row = $(this).parents('tr')[0];
             id = table.row(row).data().id
             $.get(url_index + '/' + id).done(function(result) {
                 $('#name').val(result.data.name)
                 $('#email').val(result.data.email)
                 $('#password').val('')
+                $('#password').attr('required', false)
                 $('#role').val(result.data.role).change()
+                if (result.data.pool_id != null) {
+                    let option = new Option(result.data.pool.name, result.data.pool_id,
+                        true, true);
+                    $('#pool').append(option).trigger('change');
+                } else {
+                    $('#pool').val('').change()
+
+                }
                 $('#form').attr('action', url_index + '/' + id)
                 $('#modal_form_title').html('Edit Data')
                 $('#modal_form_submit').val('PUT')
@@ -164,10 +213,27 @@
 
         $('#form').submit(function(e) {
             e.preventDefault()
-            send_ajax('form', $('#modal_form_submit').val())
+        }).validate({
+            errorElement: 'span',
+            errorPlacement: function(error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function(element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function(element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+                $(element).addClass('is-valid');
+            },
+            submitHandler: function(form) {
+                send_ajax('form', $('#modal_form_submit').val())
+            }
         })
 
         function modal_add() {
+            $('#password').attr('required', true)
+            clear_validate('form')
             $('#modal_form_password_help').hide()
             $('#form').attr('action', url_index)
             $('#modal_form_submit').val('POST')
@@ -177,6 +243,7 @@
             $('#email').val('')
             $('#password').val('')
             $('#role').val('user').change()
+            $('#pool').val('').change()
         }
     </script>
 @endpush

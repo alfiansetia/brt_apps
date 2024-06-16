@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('pool_id')->nullable();
             $table->string('code');
-            $table->enum('type', ['Maxi', 'Artic'])->default('Maxi');
+            $table->enum('type', ['maxi', 'artic'])->default('maxi');
             $table->string('desc')->nullable();
             $table->timestamps();
             $table->foreign('pool_id')->references('id')->on('pools')->nullOnDelete()->cascadeOnUpdate();

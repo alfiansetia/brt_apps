@@ -3,17 +3,30 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\PoolResource;
 use App\Models\Pool;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class PoolController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $filters = $request->only(['name']);
+        $query = Pool::query()->filter($filters);
+        return DataTables::eloquent($query)->setTransformer(function ($item) {
+            return PoolResource::make($item)->resolve();
+        })->toJson();
+    }
+
+    public function paginate(Request $request)
+    {
+        $filters = $request->only(['name']);
+        $data = Pool::query()->filter($filters)->paginate(intval($request->perpage) ?? 10);
+        return PoolResource::collection($data);
     }
 
     /**

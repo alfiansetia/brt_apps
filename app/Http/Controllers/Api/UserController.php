@@ -17,7 +17,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $filters = $request->only(['name', 'nrp']);
-        $query = User::query()->filter($filters);
+        $query = User::query()->with('pool')->filter($filters);
         return DataTables::eloquent($query)->setTransformer(function ($item) {
             return UserResource::make($item)->resolve();
         })->toJson();
@@ -34,7 +34,8 @@ class UserController extends Controller
                 'name'      => 'required',
                 'email'     => 'required|unique:users,email',
                 'role'      => 'required|in:user,admin',
-                'password'  => 'required|min:5'
+                'password'  => 'required|min:5',
+                'pool'      => 'required|exists:pools,id',
             ]
         );
         $user = User::create([
@@ -42,6 +43,7 @@ class UserController extends Controller
             'email'     => $request->email,
             'password'  => Hash::make($request->password),
             'role'      => $request->role,
+            'pool_id'   => $request->pool,
         ]);
         return $this->response('Sukses Tambah Data!', new UserResource($user), 200);
     }
@@ -51,7 +53,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return $this->response('', new UserResource($user), 200);
+        return $this->response('', new UserResource($user->load('pool')), 200);
     }
 
 
@@ -66,13 +68,15 @@ class UserController extends Controller
                 'name'      => 'required',
                 'email'     => 'required|unique:users,email,' . $user->id,
                 'role'      => 'required|in:user,admin',
-                'password'  => 'nullable|min:5'
+                'password'  => 'nullable|min:5',
+                'pool'      => 'required|exists:pools,id',
             ]
         );
         $param = [
             'name'      => $request->name,
             'email'     => $request->email,
             'role'      => $request->role,
+            'pool_id'   => $request->pool,
         ];
         if ($request->filled('password')) {
             $param['password'] = Hash::make($request->password);

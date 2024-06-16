@@ -16,11 +16,13 @@
                             <label class="control-label" for="name">Name :</label>
                             <input type="text" name="name" class="form-control" id="name"
                                 placeholder="Please Enter Name" minlength="3" maxlength="25" required>
+                            <span class="error invalid-feedback err_name" style="display: hide;"></span>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="email">Email :</label>
-                            <input type="text" name="email" class="form-control" id="email"
+                            <input type="email" name="email" class="form-control" id="email"
                                 placeholder="Please Enter Email" required>
+                            <span class="error invalid-feedback err_email" style="display: hide;"></span>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="password">Password :</label>
@@ -29,6 +31,14 @@
                             <small id="modal_form_password_help" class="form-text text-muted" style="display: none">
                                 Kosongkan jika tidak ingin mengganti password.
                             </small>
+                            <span class="error invalid-feedback err_password" style="display: hide;"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="pool">Pool :</label>
+                            <select name="pool" id="pool" class="form-control select2" style="width: 100%;"
+                                required>
+                            </select>
+                            <span class="error invalid-feedback err_pool" style="display: hide;"></span>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="role">Role :</label>
@@ -37,6 +47,7 @@
                                 <option value="admin">Admin</option>
                                 <option value="user">User</option>
                             </select>
+                            <span class="error invalid-feedback err_role" style="display: hide;"></span>
                         </div>
                     </div>
                     <div class="modal-footer">

@@ -23,6 +23,8 @@ class UserResource extends JsonResource
             'role'              => $this->role,
             'email_verified_at' => $this->email_verified_at,
             'is_admin'          => $this->is_admin(),
+            'pool_id'           => $this->pool_id,
+            'pool'              => new PoolResource($this->whenLoaded('pool')),
         ];
     }
 }

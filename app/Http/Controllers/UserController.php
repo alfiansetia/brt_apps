@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pool;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -12,6 +13,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('pages.user.index');
+        $pools = Pool::all();
+        return view('pages.user.index', compact('pools'));
     }
 }
