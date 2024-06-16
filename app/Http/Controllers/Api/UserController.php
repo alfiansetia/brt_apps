@@ -23,6 +23,13 @@ class UserController extends Controller
         })->toJson();
     }
 
+    public function paginate(Request $request)
+    {
+        $filters = $request->only(['name', 'email']);
+        $data = User::query()->filter($filters)->with('pool')->paginate(intval($request->limit) ?? 10);
+        return UserResource::collection($data);
+    }
+
     /**
      * Store a newly created resource in storage.
      */

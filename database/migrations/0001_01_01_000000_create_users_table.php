@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('avatar')->nullable();
             $table->enum('role', ['user', 'admin'])->default('user');
-            $table->dateTime('last_login')->nullable()->after('password');
+            $table->dateTime('last_login')->nullable();
             $table->unsignedBigInteger('pool_id')->nullable();
             $table->rememberToken();
             $table->timestamps();

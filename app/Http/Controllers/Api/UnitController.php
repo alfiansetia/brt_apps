@@ -3,25 +3,30 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UnitResource;
 use App\Models\Unit;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class UnitController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $filters = $request->only(['pool_id', 'code', 'type']);
+        $query = Unit::query()->with('pool')->filter($filters);
+        return DataTables::eloquent($query)->setTransformer(function ($item) {
+            return UnitResource::make($item)->resolve();
+        })->toJson();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function paginate(Request $request)
     {
-        //
+        $filters = $request->only(['pool_id', 'code', 'type']);
+        $data = Unit::query()->filter($filters)->with('pool')->paginate(intval($request->limit) ?? 10);
+        return UnitResource::collection($data);
     }
 
     /**
@@ -29,7 +34,19 @@ class UnitController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'pool'  => 'required|exists:pools,id',
+            'code'  => 'required|unique:units,code',
+            'type'  => 'required|in:maxi,artic',
+            'desc'  => 'nullable|max:200',
+        ]);
+        $unit = Unit::create([
+            'pool_id'   => $request->pool,
+            'code'      => $request->code,
+            'type'      => $request->type,
+            'desc'      => $request->desc,
+        ]);
+        return $this->response('Sukses Tambah Data!', new UnitResource($unit), 200);
     }
 
     /**
@@ -37,15 +54,7 @@ class UnitController extends Controller
      */
     public function show(Unit $unit)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Unit $unit)
-    {
-        //
+        return new UnitResource($unit->load('pool'));
     }
 
     /**
@@ -53,7 +62,19 @@ class UnitController extends Controller
      */
     public function update(Request $request, Unit $unit)
     {
-        //
+        $this->validate($request, [
+            'pool'  => 'required|exists:pools,id',
+            'code'  => 'required|unique:units,code,' . $unit->id,
+            'type'  => 'required|in:maxi,artic',
+            'desc'  => 'nullable|max:200',
+        ]);
+        $unit->update([
+            'pool_id'   => $request->pool,
+            'code'      => $request->code,
+            'type'      => $request->type,
+            'desc'      => $request->desc,
+        ]);
+        return $this->response('Sukses Ubah Data!', new UnitResource($unit), 200);
     }
 
     /**
@@ -61,6 +82,7 @@ class UnitController extends Controller
      */
     public function destroy(Unit $unit)
     {
-        //
+        $unit->delete();
+        return $this->response('Sukses Hapus Data!', new UnitResource($unit), 200);
     }
 }

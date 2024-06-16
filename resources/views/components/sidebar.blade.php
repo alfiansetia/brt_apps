@@ -33,6 +33,9 @@
                         <li class="{{ $title == 'Data User' ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('users.index') }}">User</a>
                         </li>
+                        <li class="{{ $title == 'Data Unit' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('units.index') }}">Unit</a>
+                        </li>
                     </ul>
                 </li>
             @endif

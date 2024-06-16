@@ -25,7 +25,7 @@ class PoolController extends Controller
     public function paginate(Request $request)
     {
         $filters = $request->only(['name']);
-        $data = Pool::query()->filter($filters)->paginate(intval($request->perpage) ?? 10);
+        $data = Pool::query()->filter($filters)->paginate(intval($request->limit) ?? 10);
         return PoolResource::collection($data);
     }
 

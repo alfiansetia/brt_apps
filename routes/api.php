@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\PoolController;
 use App\Http\Controllers\Api\ProfileController;
+use App\Http\Controllers\Api\UnitController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -17,6 +18,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::get('pool-paginate', [PoolController::class, 'paginate'])->name('api.pool.paginate');
     Route::resource('pool', PoolController::class)->names('api.pool');
+
+    Route::get('unit-paginate', [UnitController::class, 'paginate'])->name('api.unit.paginate');
+    Route::resource('unit', UnitController::class)->names('api.unit');
 
     Route::group(['middleware' => ['role:admin']], function () {
         Route::apiResource('users', UserController::class)->names('api.users');

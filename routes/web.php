@@ -4,6 +4,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OnboardingController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UnitController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -26,7 +27,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::put('/profile', [ProfileController::class, 'password'])->name('password.update');
 
 
-    Route::group(['middleware' => ['role:admin']], function () {
-        Route::get('users', [UserController::class, 'index'])->name('users.index');
-    });
+    // Route::group(['middleware' => ['role:admin']], function () {
+    Route::get('users', [UserController::class, 'index'])->name('users.index');
+    Route::get('units', [UnitController::class, 'index'])->name('units.index');
+    // });
 });

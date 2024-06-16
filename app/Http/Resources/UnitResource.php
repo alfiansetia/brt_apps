@@ -23,6 +23,7 @@ class UnitResource extends JsonResource
             'desc'              => $this->desc,
             'pool_id'           => $this->pool_id,
             'pool'              => new PoolResource($this->whenLoaded('pool')),
+            'image'             => $this->image,
         ];
     }
 }
