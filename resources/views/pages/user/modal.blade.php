@@ -15,13 +15,13 @@
                         <div class="form-group">
                             <label class="control-label" for="name">Name :</label>
                             <input type="text" name="name" class="form-control" id="name"
-                                placeholder="Please Enter Name" minlength="3" maxlength="25" required>
+                                placeholder="Please Enter Name" maxlength="100" required>
                             <span class="error invalid-feedback err_name" style="display: hide;"></span>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="email">Email :</label>
                             <input type="email" name="email" class="form-control" id="email"
-                                placeholder="Please Enter Email" required>
+                                placeholder="Please Enter Email" maxlength="200" required>
                             <span class="error invalid-feedback err_email" style="display: hide;"></span>
                         </div>
                         <div class="form-group">

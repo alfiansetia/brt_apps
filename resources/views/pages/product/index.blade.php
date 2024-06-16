@@ -1,4 +1,4 @@
-@extends('layouts.template', ['title' => 'Data User'])
+@extends('layouts.template', ['title' => 'Data Product'])
 @push('css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/dataTables.bootstrap4.min.css"
         integrity="sha512-PT0RvABaDhDQugEbpNMwgYBCnGCiTZMh9yOzUsJHDgl/dMhD9yjHAwoumnUk3JydV3QTcIkNDuN40CJxik5+WQ=="
@@ -15,10 +15,11 @@
                         <thead>
                             <tr>
                                 <th style="width: 30px;">#</th>
+                                <th>Category</th>
                                 <th>Name</th>
-                                <th>Email</th>
-                                <th>Pool</th>
-                                <th>Role</th>
+                                <th>Code</th>
+                                <th>Type</th>
+                                <th>Desc</th>
                                 <th style="width: 50px">Action</th>
                             </tr>
                         </thead>
@@ -29,7 +30,7 @@
             </div>
         </div>
     </div>
-    @include('pages.user.modal')
+    @include('pages.product.modal')
 @endsection
 
 @push('js')
@@ -45,19 +46,17 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.20.1/dist/jquery.validate.min.js"></script>
 
     <script>
-        var url_index = "{{ route('api.users.index') }}"
+        var url_index = "{{ route('api.products.index') }}"
         var id = 0
         var perpage = 20
 
-        // $(document).ready(function() {
-
         $(".select2").select2()
 
-        $("#pool").select2({
-            placeholder: 'Select Pool',
+        $("#category").select2({
+            placeholder: 'Select Category!',
             allowClear: true,
             ajax: {
-                url: "{{ route('api.pools.paginate') }}",
+                url: "{{ route('api.categories.paginate') }}",
                 data: function(params) {
                     return {
                         name: params.term || '',
@@ -81,8 +80,6 @@
                 },
             }
         })
-
-        // })
 
         var table = $("#table").DataTable({
             processing: true,
@@ -114,20 +111,22 @@
                     return meta.row + meta.settings._iDisplayStart + 1;
                 }
             }, {
-                data: 'name',
-            }, {
-                data: 'email',
-            }, {
-                data: 'pool_id',
+                data: 'category_id',
                 render: function(data, type, row, meta) {
                     if (type == 'display') {
-                        return data != null ? row.pool.name : '';
+                        return data != null ? row.category.name : '';
                     } else {
                         return data
                     }
                 }
             }, {
-                data: 'role',
+                data: 'name',
+            }, {
+                data: 'code',
+            }, {
+                data: 'type',
+            }, {
+                data: 'desc',
             }, {
                 data: 'id',
                 sortable: false,
@@ -186,18 +185,17 @@
             id = table.row(row).data().id
             $.get(url_index + '/' + id).done(function(result) {
                 $('#name').val(result.data.name)
-                $('#email').val(result.data.email)
-                $('#password').val('')
-                $('#password').attr('required', false)
-                $('#role').val(result.data.role).change()
-                if (result.data.pool_id != null) {
-                    let option = new Option(result.data.pool.name, result.data.pool_id,
+                $('#code').val(result.data.code)
+                $('#desc').val(result.data.desc)
+                $('#type').val(result.data.type).change()
+                if (result.data.category_id != null) {
+                    let option = new Option(result.data.category.name, result.data.category_id,
                         true, true);
-                    $('#pool').append(option).trigger('change');
+                    $('#category').append(option).trigger('change');
                 } else {
-                    $('#pool').val('').change()
-
+                    $('#category').val('').change()
                 }
+
                 $('#form').attr('action', url_index + '/' + id)
                 $('#modal_form_title').html('Edit Data')
                 $('#modal_form_submit').val('PUT')
@@ -235,22 +233,20 @@
         })
 
         $('#modal_form').on('shown.bs.modal', function() {
-            $('#name').focus();
+            $('#code').focus();
         })
 
         function modal_add() {
-            $('#password').attr('required', true)
             clear_validate('form')
-            $('#modal_form_password_help').hide()
             $('#form').attr('action', url_index)
             $('#modal_form_submit').val('POST')
             $('#modal_form_title').html('Tambah Data')
             $('#modal_form').modal('show')
             $('#name').val('')
-            $('#email').val('')
-            $('#password').val('')
-            $('#role').val('user').change()
-            $('#pool').val('').change()
+            $('#code').val('')
+            $('#desc').val('')
+            $('#type').val('oil').change()
+            $('#category').val('').change()
         }
     </script>
 @endpush

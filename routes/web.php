@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OnboardingController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UnitController;
 use Illuminate\Support\Facades\Auth;
@@ -30,5 +32,7 @@ Route::group(['middleware' => ['auth']], function () {
     // Route::group(['middleware' => ['role:admin']], function () {
     Route::get('users', [UserController::class, 'index'])->name('users.index');
     Route::get('units', [UnitController::class, 'index'])->name('units.index');
+    Route::get('categories', [CategoryController::class, 'index'])->name('categories.index');
+    Route::get('products', [ProductController::class, 'index'])->name('products.index');
     // });
 });

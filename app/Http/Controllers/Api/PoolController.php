@@ -30,19 +30,19 @@ class PoolController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name'  => 'required|max:200',
+            'icon'  => 'required|max:200',
+        ]);
+        $pool = Pool::create([
+            'name'      => $request->name,
+            'icon'      => $request->icon,
+        ]);
+        return $this->response('Sukses Tambah Data!', new PoolResource($pool), 200);
     }
 
     /**
@@ -50,15 +50,7 @@ class PoolController extends Controller
      */
     public function show(Pool $pool)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Pool $pool)
-    {
-        //
+        return new PoolResource($pool);
     }
 
     /**
@@ -66,7 +58,15 @@ class PoolController extends Controller
      */
     public function update(Request $request, Pool $pool)
     {
-        //
+        $this->validate($request, [
+            'name'  => 'required|max:200',
+            'icon'  => 'required|max:200',
+        ]);
+        $pool->update([
+            'name'      => $request->name,
+            'icon'      => $request->icon,
+        ]);
+        return $this->response('Sukses Ubah Data!', new PoolResource($pool), 200);
     }
 
     /**
@@ -74,6 +74,7 @@ class PoolController extends Controller
      */
     public function destroy(Pool $pool)
     {
-        //
+        $pool->delete();
+        return $this->response('Sukses Hapus Data!', new PoolResource($pool), 200);
     }
 }

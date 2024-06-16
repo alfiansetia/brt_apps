@@ -45,7 +45,7 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.20.1/dist/jquery.validate.min.js"></script>
 
     <script>
-        var url_index = "{{ route('api.unit.index') }}"
+        var url_index = "{{ route('api.units.index') }}"
         var id = 0
         var perpage = 20
 
@@ -55,7 +55,7 @@
             placeholder: 'Select Pool',
             allowClear: true,
             ajax: {
-                url: "{{ route('api.pool.paginate') }}",
+                url: "{{ route('api.pools.paginate') }}",
                 data: function(params) {
                     return {
                         name: params.term || '',
@@ -234,7 +234,6 @@
 
         function modal_add() {
             clear_validate('form')
-            $('#modal_form_password_help').hide()
             $('#form').attr('action', url_index)
             $('#modal_form_submit').val('POST')
             $('#modal_form_title').html('Tambah Data')

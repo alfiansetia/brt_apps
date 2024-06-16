@@ -1,4 +1,4 @@
-@extends('layouts.template', ['title' => 'Data User'])
+@extends('layouts.template', ['title' => 'Data Category'])
 @push('css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/dataTables.bootstrap4.min.css"
         integrity="sha512-PT0RvABaDhDQugEbpNMwgYBCnGCiTZMh9yOzUsJHDgl/dMhD9yjHAwoumnUk3JydV3QTcIkNDuN40CJxik5+WQ=="
@@ -16,9 +16,7 @@
                             <tr>
                                 <th style="width: 30px;">#</th>
                                 <th>Name</th>
-                                <th>Email</th>
-                                <th>Pool</th>
-                                <th>Role</th>
+                                <th>Desc</th>
                                 <th style="width: 50px">Action</th>
                             </tr>
                         </thead>
@@ -29,7 +27,7 @@
             </div>
         </div>
     </div>
-    @include('pages.user.modal')
+    @include('pages.category.modal')
 @endsection
 
 @push('js')
@@ -45,44 +43,11 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.20.1/dist/jquery.validate.min.js"></script>
 
     <script>
-        var url_index = "{{ route('api.users.index') }}"
+        var url_index = "{{ route('api.categories.index') }}"
         var id = 0
         var perpage = 20
 
-        // $(document).ready(function() {
-
         $(".select2").select2()
-
-        $("#pool").select2({
-            placeholder: 'Select Pool',
-            allowClear: true,
-            ajax: {
-                url: "{{ route('api.pools.paginate') }}",
-                data: function(params) {
-                    return {
-                        name: params.term || '',
-                        page: params.page || 1,
-                        limit: perpage,
-                    };
-                },
-                processResults: function(data, params) {
-                    params.page = params.page || 1;
-                    return {
-                        results: $.map(data.data, function(item) {
-                            return {
-                                text: item.name,
-                                id: item.id,
-                            }
-                        }),
-                        pagination: {
-                            more: (params.page * perpage) < data.total
-                        }
-                    };
-                },
-            }
-        })
-
-        // })
 
         var table = $("#table").DataTable({
             processing: true,
@@ -116,18 +81,7 @@
             }, {
                 data: 'name',
             }, {
-                data: 'email',
-            }, {
-                data: 'pool_id',
-                render: function(data, type, row, meta) {
-                    if (type == 'display') {
-                        return data != null ? row.pool.name : '';
-                    } else {
-                        return data
-                    }
-                }
-            }, {
-                data: 'role',
+                data: 'desc',
             }, {
                 data: 'id',
                 sortable: false,
@@ -186,18 +140,8 @@
             id = table.row(row).data().id
             $.get(url_index + '/' + id).done(function(result) {
                 $('#name').val(result.data.name)
-                $('#email').val(result.data.email)
-                $('#password').val('')
-                $('#password').attr('required', false)
-                $('#role').val(result.data.role).change()
-                if (result.data.pool_id != null) {
-                    let option = new Option(result.data.pool.name, result.data.pool_id,
-                        true, true);
-                    $('#pool').append(option).trigger('change');
-                } else {
-                    $('#pool').val('').change()
+                $('#desc').val(result.data.desc)
 
-                }
                 $('#form').attr('action', url_index + '/' + id)
                 $('#modal_form_title').html('Edit Data')
                 $('#modal_form_submit').val('PUT')
@@ -239,18 +183,13 @@
         })
 
         function modal_add() {
-            $('#password').attr('required', true)
             clear_validate('form')
-            $('#modal_form_password_help').hide()
             $('#form').attr('action', url_index)
             $('#modal_form_submit').val('POST')
             $('#modal_form_title').html('Tambah Data')
             $('#modal_form').modal('show')
             $('#name').val('')
-            $('#email').val('')
-            $('#password').val('')
-            $('#role').val('user').change()
-            $('#pool').val('').change()
+            $('#desc').val('')
         }
     </script>
 @endpush

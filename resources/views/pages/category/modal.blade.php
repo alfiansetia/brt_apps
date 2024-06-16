@@ -13,26 +13,10 @@
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
-                            <label class="control-label" for="pool">Pool :</label>
-                            <select name="pool" id="pool" class="form-control select2" style="width: 100%;"
-                                required>
-                            </select>
-                            <span class="error invalid-feedback err_pool" style="display: hide;"></span>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label" for="code">Code :</label>
-                            <input type="text" name="code" class="form-control" id="code"
-                                placeholder="Please Enter Code" maxlength="200" required>
-                            <span class="error invalid-feedback err_code" style="display: hide;"></span>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label" for="type">Type :</label>
-                            <select name="type" id="type" class="form-control select2" style="width: 100%;"
-                                required>
-                                <option value="maxi">Maxi</option>
-                                <option value="artic">Artic</option>
-                            </select>
-                            <span class="error invalid-feedback err_type" style="display: hide;"></span>
+                            <label class="control-label" for="name">Name :</label>
+                            <input type="text" name="name" class="form-control" id="name"
+                                placeholder="Please Enter Name" maxlength="200" required>
+                            <span class="error invalid-feedback err_name" style="display: hide;"></span>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="desc">Desc :</label>
