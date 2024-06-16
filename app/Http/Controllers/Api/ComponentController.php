@@ -3,25 +3,30 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ComponentResource;
 use App\Models\Component;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class ComponentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $filters = $request->only(['name']);
+        $query = Component::query()->filter($filters);
+        return DataTables::eloquent($query)->setTransformer(function ($item) {
+            return ComponentResource::make($item)->resolve();
+        })->toJson();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function paginate(Request $request)
     {
-        //
+        $filters = $request->only(['name']);
+        $data = Component::query()->filter($filters)->paginate(intval($request->limit) ?? 10);
+        return ComponentResource::collection($data);
     }
 
     /**
@@ -29,7 +34,15 @@ class ComponentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name'      => 'required|max:200',
+            'desc'      => 'nullable|max:200',
+        ]);
+        $component = Component::create([
+            'name'          => $request->name,
+            'desc'          => $request->desc,
+        ]);
+        return $this->response('Sukses Tambah Data!', new ComponentResource($component), 200);
     }
 
     /**
@@ -37,15 +50,7 @@ class ComponentController extends Controller
      */
     public function show(Component $component)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Component $component)
-    {
-        //
+        return new ComponentResource($component);
     }
 
     /**
@@ -53,7 +58,15 @@ class ComponentController extends Controller
      */
     public function update(Request $request, Component $component)
     {
-        //
+        $this->validate($request, [
+            'name'      => 'required|max:200',
+            'desc'      => 'nullable|max:200',
+        ]);
+        $component->update([
+            'name'          => $request->name,
+            'desc'          => $request->desc,
+        ]);
+        return $this->response('Sukses Ubah Data!', new ComponentResource($component), 200);
     }
 
     /**
@@ -61,6 +74,7 @@ class ComponentController extends Controller
      */
     public function destroy(Component $component)
     {
-        //
+        $component->delete();
+        return $this->response('Sukses Hapus Data!', new ComponentResource($component), 200);
     }
 }

@@ -24,12 +24,14 @@
                     <a class="nav-link" href="{{ route('home') }}"><i class="fas fa-cubes"></i><span>Aset</span></a>
                 </li>
                 <li class="menu-header">Master</li>
-                <li
-                    class="nav-item dropdown {{ $title == 'Data User' || $title == 'Data Kategori' || $title == 'Data Jenis' || $title == 'Data Lokasi' ? 'active' : '' }}">
+                @php
+                    $array = ['Data User', 'Data Unit', 'Data Category', 'Data Product', 'Data Component'];
+                @endphp
+                <li class="nav-item dropdown {{ in_array($title, $array) ? 'active show' : '' }}">
                     <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
                             class="fas fa-database"></i>
                         <span>Master Data</span></a>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu {{ in_array($title, $array) ? 'active show' : '' }}">
                         <li class="{{ $title == 'Data User' ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('users.index') }}">User</a>
                         </li>
@@ -41,6 +43,9 @@
                         </li>
                         <li class="{{ $title == 'Data Product' ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('products.index') }}">Product</a>
+                        </li>
+                        <li class="{{ $title == 'Data Component' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('components.index') }}">Component</a>
                         </li>
                     </ul>
                 </li>
