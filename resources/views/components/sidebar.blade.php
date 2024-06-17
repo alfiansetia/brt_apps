@@ -37,7 +37,7 @@
                     <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
                             class="fas fa-database"></i>
                         <span>Master Data</span></a>
-                    <ul class="dropdown-menu {{ in_array($title, $array) ? 'active show' : '' }}">
+                    <ul class="dropdown-menu {{ in_array($title, $array) ? 'active' : '' }}">
                         <li class="{{ $title == 'Data User' ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('users.index') }}">User</a>
                         </li>
