@@ -119,7 +119,7 @@
             alias: 'numeric',
             groupSeparator: '.',
             autoGroup: true,
-            digits: 1,
+            digits: 2,
             rightAlign: false,
             removeMaskOnSubmit: true,
             autoUnmask: true,
@@ -275,13 +275,13 @@
                 }
             }, {
                 data: 'amount',
-                // render: function(data, type, row, meta) {
-                //     if (type == 'display') {
-                //         return hrg(data);
-                //     } else {
-                //         return data
-                //     }
-                // }
+                render: function(data, type, row, meta) {
+                    if (type == 'display') {
+                        return hrgd(data) + ' Liter';
+                    } else {
+                        return data
+                    }
+                }
             }, {
                 data: 'type',
             }, {

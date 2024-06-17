@@ -100,6 +100,16 @@
             return parseInt(x).toLocaleString('id-ID')
         }
 
+        function hrgd(x) {
+            const num = parseFloat(x);
+            const fixedNum = num.toFixed(1);
+            return parseFloat(fixedNum).toLocaleString('id-ID', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+        }
+
+
         function ajax_setup() {
             $.ajaxSetup({
                 headers: {

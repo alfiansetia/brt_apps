@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('unit_id');
-            $table->decimal('amount', 8, 1)->default(0);
+            $table->decimal('amount', 12, 2)->default(0);
             $table->enum('type', ['levelling', 'service'])->default('levelling');
             $table->string('desc')->nullable();
             $table->timestamps();
