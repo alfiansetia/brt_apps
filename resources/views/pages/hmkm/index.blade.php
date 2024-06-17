@@ -62,6 +62,16 @@
                 // Handle the decoded result here
                 console.log(`Code matched = ${decodedText}`, decodedResult);
                 show_toast('success', `Code matched = ${decodedText}`)
+                let code = decodedText;
+                $.get("{{ route('api.units.index') }}/" + id).done(function(result) {
+                    let option = new Option(`${result.data.code} (${result.data.type})`,
+                        result
+                        .data.id,
+                        true, true);
+                    $('#unit').append(option).trigger('change');
+                }).fail(function(xhr) {
+                    show_toast('error', xhr.responseJSON.message || "Server Error!")
+                })
                 // Close the modal
                 $('#qrScannerModal').modal('hide');
                 // Stop the scanner
