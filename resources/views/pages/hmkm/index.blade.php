@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="{{ asset('lib/bootstrap-daterangepicker/daterangepicker.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css">
     {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/inputmask@5.0.9/dist/colormask.min.css"> --}}
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/select2-bootstrap4-theme@1.0.0/dist/select2-bootstrap4.min.css">
 @endpush
 @section('content')
     <div class="row">
@@ -49,7 +51,50 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.20.1/dist/jquery.validate.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/inputmask@5.0.9/dist/jquery.inputmask.min.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"
+        integrity="sha512-r6rDA7W6ZeQhvl8S7yRVQUKVHdexq+GAlNkNNqVC7YyIV+NwqCTJe2hDWCiffTyRNOeGEzRRJ9ifvRm/HCzGYg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <script>
+        $(document).ready(function() {
+            var html5QrCode;
+            var qrCodeSuccessCallback = function(decodedText, decodedResult) {
+                // Handle the decoded result here
+                console.log(`Code matched = ${decodedText}`, decodedResult);
+                // Close the modal
+                $('#qrScannerModal').modal('hide');
+                // Stop the scanner
+                html5QrCode.stop().then(() => {
+                    console.log("QR Code scanning stopped.");
+                }).catch(err => {
+                    console.error("Unable to stop scanning.", err);
+                });
+            };
+
+            $('#qrScannerModal').on('shown.bs.modal', function() {
+                html5QrCode = new Html5Qrcode("reader");
+                html5QrCode.start({
+                    facingMode: "environment"
+                }, {
+                    fps: 10,
+                    qrbox: 250
+                }, qrCodeSuccessCallback).catch(err => {
+                    show_toast('error', 'Unable to start scanning')
+                    console.error("Unable to start scanning.", err);
+                });
+            });
+
+            $('#qrScannerModal').on('hidden.bs.modal', function() {
+                // Stop the scanner when modal is closed
+                if (html5QrCode) {
+                    html5QrCode.stop().then(() => {
+                        console.log("QR Code scanning stopped.");
+                    }).catch(err => {
+                        console.error("Unable to stop scanning.", err);
+                    });
+                }
+            });
+        });
         var url_index = "{{ route('api.hmkms.index') }}"
         var id = 0
         var perpage = 20
@@ -88,7 +133,6 @@
                         code: params.term || '',
                         page: params.page || 1,
                         limit: perpage,
-                        type: $("input[name='type']:checked").val(),
                     };
                 },
                 processResults: function(data, params) {

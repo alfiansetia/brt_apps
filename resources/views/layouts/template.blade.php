@@ -21,9 +21,21 @@
 
     <link rel="stylesheet" href="{{ asset('lib/izitoast/dist/css/iziToast.min.css') }}">
 
+    <style>
+        .input-group>.select2-container--default {
+            width: auto !important;
+            flex: 1 1 auto !important;
+        }
+
+        .input-group>.select2-container--default .select2-selection--single {
+            height: 100% !important;
+            line-height: inherit !important;
+        }
+    </style>
+
 </head>
 
-<body>
+<body class="sidebar-mini">
     <div id="app">
         <div class="main-wrapper">
             <div class="navbar-bg"></div>
@@ -205,8 +217,8 @@
     @stack('js')
 
     <!-- Template JS File -->
-    {{-- <script src="{{ asset('assets/js/scripts.js') }}"></script>
-    <script src="{{ asset('assets/js/custom.js') }}"></script> --}}
+    <script src="{{ asset('assets/js/scripts.js') }}"></script>
+    <script src="{{ asset('assets/js/custom.js') }}"></script>
 
     @if (session()->has('success'))
         <script>

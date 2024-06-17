@@ -12,7 +12,7 @@
                 <form id="form" class="form-vertical" action="" method="POST">
                     @csrf
                     <div class="modal-body">
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label class="form-label" for="type">Type Unit :</label>
                             <div class="selectgroup w-100">
                                 <label class="selectgroup-item">
@@ -27,12 +27,18 @@
                                 </label>
                             </div>
                             <span class="error invalid-feedback err_type" style="display: hide;"></span>
-                        </div>
+                        </div> --}}
                         <div class="form-group">
                             <label class="control-label" for="unit">Unit :</label>
-                            <select name="unit" id="unit" class="form-control select2" style="width: 100%;"
-                                required>
-                            </select>
+                            <div class="input-group">
+                                <select name="unit" id="unit" class="custom-select select2" style="width: 100%;"
+                                    required>
+                                </select>
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="button" data-toggle="modal"
+                                        data-target="#qrScannerModal"><i class="fas fa-qrcode"></i></button>
+                                </div>
+                            </div>
                             <span class="error invalid-feedback err_unit" style="display: hide;"></span>
                         </div>
                         <div class="form-group">
@@ -66,12 +72,32 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i
-                                class="fas fa-times mr-1" data-toggle="tooltip" title="Close"></i>Close</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times mr-1"
+                                data-toggle="tooltip" title="Close"></i>Close</button>
                         <button type="submit" id="modal_form_submit" class="btn btn-primary"><i
                                 class="fas fa-paper-plane mr-1" data-toggle="tooltip" title="Save"></i>Save</button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="qrScannerModal" tabindex="-1" aria-labelledby="qrScannerModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="qrScannerModalLabel">QR Code Scanner</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="reader" style="width:100%"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
