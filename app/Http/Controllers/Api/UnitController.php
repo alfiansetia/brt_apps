@@ -29,6 +29,11 @@ class UnitController extends Controller
         return UnitResource::collection($data);
     }
 
+    public function findcode(Unit $unit)
+    {
+        return new UnitResource($unit->load('pool'));
+    }
+
     /**
      * Store a newly created resource in storage.
      */

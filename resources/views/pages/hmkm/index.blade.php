@@ -62,7 +62,7 @@
                 // Handle the decoded result here
                 console.log(`Code matched = ${decodedText}`, decodedResult);
                 // show_toast('success', `Code matched = ${decodedText}`)
-                let code = decodedResult;
+                let code = decodedText;
                 $.get("{{ route('api.units.index') }}/" + code).done(function(result) {
                     let option = new Option(`${result.data.code} (${result.data.type})`,
                         result
