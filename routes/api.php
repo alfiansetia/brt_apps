@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ComponentController;
+use App\Http\Controllers\Api\HmkmController;
 use App\Http\Controllers\Api\PoolController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ProfileController;
@@ -33,6 +34,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::get('component-paginate', [ComponentController::class, 'paginate'])->name('api.components.paginate');
     Route::resource('components', ComponentController::class)->names('api.components');
+
+    Route::get('hmkm-paginate', [HmkmController::class, 'paginate'])->name('api.hmkms.paginate');
+    Route::resource('hmkms', HmkmController::class)->names('api.hmkms');
 
     Route::group(['middleware' => ['role:admin']], function () {
         Route::apiResource('users', UserController::class)->names('api.users');
