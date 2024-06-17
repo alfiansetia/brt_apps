@@ -79,7 +79,7 @@
                     fps: 10,
                     qrbox: 250
                 }, qrCodeSuccessCallback).catch(err => {
-                    show_toast('error', 'Unable to start scanning')
+                    show_toast('error', 'Unable to start scanning : ' + err)
                     console.error("Unable to start scanning.", err);
                 });
             });
