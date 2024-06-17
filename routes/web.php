@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ComponentController;
 use App\Http\Controllers\HmkmController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OilCoolantController;
 use App\Http\Controllers\OnboardingController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -37,5 +37,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('products', [ProductController::class, 'index'])->name('products.index');
     Route::get('components', [ComponentController::class, 'index'])->name('components.index');
     Route::get('hmkms', [HmkmController::class, 'index'])->name('hmkms.index');
+    Route::get('oils', [OilCoolantController::class, 'index'])->name('oils.index');
     // });
 });

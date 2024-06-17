@@ -39,7 +39,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('oil-paginate', [OilCoolantController::class, 'paginate'])->name('api.oils.paginate');
     Route::resource('oils', OilCoolantController::class)->names('api.oils');
 
+    Route::get('user-paginate', [UserController::class, 'paginate'])->name('api.users.paginate');
+    Route::apiResource('users', UserController::class)->names('api.users');
+
     Route::group(['middleware' => ['role:admin']], function () {
-        Route::apiResource('users', UserController::class)->names('api.users');
     });
 });

@@ -24,11 +24,12 @@
                 <a class="nav-link" href="{{ route('hmkms.index') }}"><i
                         class="fas fas fa-thumbtack"></i><span>HMKM</span></a>
             </li>
-
+            <li class="{{ $title == 'Data Oil' ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('oils.index') }}">
+                    <i class="fas fa-cubes"></i><span>Oil Coolant</span>
+                </a>
+            </li>
             @if ($user->is_admin())
-                <li class="{{ $title == 'Data Aset' ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ route('home') }}"><i class="fas fa-cubes"></i><span>Aset</span></a>
-                </li>
                 <li class="menu-header">Master</li>
                 @php
                     $array = ['Data User', 'Data Unit', 'Data Category', 'Data Product', 'Data Component'];

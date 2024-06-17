@@ -16,7 +16,7 @@ class OilCoolantController extends Controller
     public function index(Request $request)
     {
         $filters = $request->only(['user_id', 'unit_id', 'product_id', 'type']);
-        $query = OilCoolant::query()->filter($filters);
+        $query = OilCoolant::query()->with(['user', 'product', 'unit'])->filter($filters);
         return DataTables::eloquent($query)->setTransformer(function ($item) {
             return OilCoolantResource::make($item)->resolve();
         })->toJson();
@@ -25,7 +25,7 @@ class OilCoolantController extends Controller
     public function paginate(Request $request)
     {
         $filters = $request->only(['user_id', 'unit_id', 'product_id', 'type']);
-        $data = OilCoolant::query()->filter($filters)->paginate(intval($request->limit) ?? 10);
+        $data = OilCoolant::query()->with(['user', 'product', 'unit'])->filter($filters)->paginate(intval($request->limit) ?? 10);
         return OilCoolantResource::collection($data);
     }
 
@@ -34,7 +34,25 @@ class OilCoolantController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'date'      => 'required|date_format:Y-m-d',
+            'user'      => 'required|exists:users,id',
+            'unit'      => 'required|exists:units,id',
+            'product'   => 'required|exists:products,id',
+            'amount'    => 'required|numeric|gte:0',
+            'type'      => 'required|in:service,levelling',
+            'desc'      => 'nullable|max:200',
+        ]);
+        $oil = OilCoolant::create([
+            'date'          => $request->date,
+            'user_id'       => $request->user,
+            'unit_id'       => $request->unit,
+            'product_id'    => $request->product,
+            'amount'        => $request->amount,
+            'type'          => $request->type,
+            'desc'          => $request->desc,
+        ]);
+        return $this->response('Sukses Tambah Data!', new OilCoolantResource($oil), 200);
     }
 
     /**
@@ -42,7 +60,7 @@ class OilCoolantController extends Controller
      */
     public function show(OilCoolant $oil)
     {
-        return new OilCoolantResource($oil);
+        return new OilCoolantResource($oil->load(['user', 'product', 'unit']));
     }
 
     /**
@@ -50,7 +68,25 @@ class OilCoolantController extends Controller
      */
     public function update(Request $request, OilCoolant $oil)
     {
-        //
+        $this->validate($request, [
+            'date'      => 'required|date_format:Y-m-d',
+            'user'      => 'required|exists:users,id',
+            'unit'      => 'required|exists:units,id',
+            'product'   => 'required|exists:products,id',
+            'amount'    => 'required|numeric|gte:0',
+            'type'      => 'required|in:service,levelling',
+            'desc'      => 'nullable|max:200',
+        ]);
+        $oil->update([
+            'date'          => $request->date,
+            'user_id'       => $request->user,
+            'unit_id'       => $request->unit,
+            'product_id'    => $request->product,
+            'amount'        => $request->amount,
+            'type'          => $request->type,
+            'desc'          => $request->desc,
+        ]);
+        return $this->response('Sukses Ubah Data!', new OilCoolantResource($oil), 200);
     }
 
     /**

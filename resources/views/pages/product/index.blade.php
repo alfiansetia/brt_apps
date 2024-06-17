@@ -15,7 +15,6 @@
                         <thead>
                             <tr>
                                 <th style="width: 30px;">#</th>
-                                <th>Category</th>
                                 <th>Name</th>
                                 <th>Code</th>
                                 <th>Type</th>
