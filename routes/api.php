@@ -23,7 +23,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('pool-paginate', [PoolController::class, 'paginate'])->name('api.pools.paginate');
     Route::resource('pools', PoolController::class)->names('api.pools');
 
-    Route::get('units/{unit:code}', [UnitController::class, 'findcode'])->name('api.units.findcode');
+    Route::get('unit-findcode/{unit:code}', [UnitController::class, 'findcode'])->name('api.units.findcode');
     Route::get('unit-paginate', [UnitController::class, 'paginate'])->name('api.units.paginate');
     Route::resource('units', UnitController::class)->names('api.units');
 

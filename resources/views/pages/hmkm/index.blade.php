@@ -63,7 +63,7 @@
                 console.log(`Code matched = ${decodedText}`, decodedResult);
                 // show_toast('success', `Code matched = ${decodedText}`)
                 let code = decodedText;
-                $.get("{{ route('api.units.index') }}/" + code).done(function(result) {
+                $.get("{{ url('unit-findcode') }}/" + code).done(function(result) {
                     let option = new Option(`${result.data.code} (${result.data.type})`,
                         result
                         .data.id,
