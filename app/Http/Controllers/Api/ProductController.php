@@ -15,8 +15,8 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $filters = $request->only(['name', 'code', 'category_id', 'type']);
-        $query = Product::query()->with('category')->filter($filters);
+        $filters = $request->only(['name', 'code', 'type']);
+        $query = Product::query()->filter($filters);
         return DataTables::eloquent($query)->setTransformer(function ($item) {
             return ProductResource::make($item)->resolve();
         })->toJson();
@@ -24,8 +24,8 @@ class ProductController extends Controller
 
     public function paginate(Request $request)
     {
-        $filters = $request->only(['name', 'code', 'category_id', 'type']);
-        $data = Product::query()->with('category')->filter($filters)->paginate(intval($request->limit) ?? 10);
+        $filters = $request->only(['name', 'code', 'type']);
+        $data = Product::query()->filter($filters)->paginate(intval($request->limit) ?? 10);
         return ProductResource::collection($data);
     }
 
@@ -35,14 +35,12 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'category'  => 'required|exists:categories,id',
             'name'      => 'required|max:200',
             'code'      => 'required|unique:products,code',
             'type'      => 'required|in:oil,coolant,other',
             'desc'      => 'nullable|max:200',
         ]);
         $product = Product::create([
-            'category_id'   => $request->category,
             'name'          => $request->name,
             'code'          => $request->code,
             'type'          => $request->type,
@@ -65,14 +63,12 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $this->validate($request, [
-            'category'  => 'required|exists:categories,id',
             'name'      => 'required|max:200',
             'code'      => 'required|unique:products,code',
             'type'      => 'required|in:oil,coolant,other',
             'desc'      => 'nullable|max:200',
         ]);
         $product->update([
-            'category_id'   => $request->category,
             'name'          => $request->name,
             'code'          => $request->code,
             'type'          => $request->type,
