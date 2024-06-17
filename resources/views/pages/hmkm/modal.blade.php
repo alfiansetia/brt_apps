@@ -12,22 +12,6 @@
                 <form id="form" class="form-vertical" action="" method="POST">
                     @csrf
                     <div class="modal-body">
-                        {{-- <div class="form-group">
-                            <label class="form-label" for="type">Type Unit :</label>
-                            <div class="selectgroup w-100">
-                                <label class="selectgroup-item">
-                                    <input type="radio" id="maxi" name="type" value="maxi"
-                                        class="selectgroup-input" checked>
-                                    <span class="selectgroup-button">Maxi</span>
-                                </label>
-                                <label class="selectgroup-item">
-                                    <input type="radio" id="artic" name="type" value="artic"
-                                        class="selectgroup-input">
-                                    <span class="selectgroup-button">Artic</span>
-                                </label>
-                            </div>
-                            <span class="error invalid-feedback err_type" style="display: hide;"></span>
-                        </div> --}}
                         <div class="form-group">
                             <label class="control-label" for="unit">Unit :</label>
                             <div class="input-group">
@@ -44,7 +28,7 @@
                         <div class="form-group">
                             <label class="control-label" for="date">Date :</label>
                             <input type="text" name="date" class="form-control datepicker" id="date"
-                                placeholder="Please Enter date" value="{{ date('Y-m-d') }}" required>
+                                placeholder="Please Enter date" value="{{ date('Y-m-d') }}" required readonly>
                             <span class="error invalid-feedback err_date" style="display: hide;"></span>
                         </div>
                         <div class="form-group">
