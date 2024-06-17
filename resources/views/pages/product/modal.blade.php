@@ -13,11 +13,14 @@
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
-                            <label class="control-label" for="category">Category :</label>
-                            <select name="category" id="category" class="form-control select2" style="width: 100%;"
+                            <label class="control-label" for="type">Type :</label>
+                            <select name="type" id="type" class="form-control select2" style="width: 100%;"
                                 required>
+                                <option value="oil">Oil</option>
+                                <option value="coolant">Coolant</option>
+                                <option value="other">Other</option>
                             </select>
-                            <span class="error invalid-feedback err_category" style="display: hide;"></span>
+                            <span class="error invalid-feedback err_type" style="display: hide;"></span>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="name">Name :</label>
@@ -30,16 +33,6 @@
                             <input type="text" name="code" class="form-control" id="code"
                                 placeholder="Please Enter Code" maxlength="200" required>
                             <span class="error invalid-feedback err_code" style="display: hide;"></span>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label" for="type">Type :</label>
-                            <select name="type" id="type" class="form-control select2" style="width: 100%;"
-                                required>
-                                <option value="oil">Oil</option>
-                                <option value="coolant">Coolant</option>
-                                <option value="other">Other</option>
-                            </select>
-                            <span class="error invalid-feedback err_type" style="display: hide;"></span>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="desc">Desc :</label>

@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Models\OilCoolant;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class OilCoolantController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('pages.category.index');
+        //
     }
 }

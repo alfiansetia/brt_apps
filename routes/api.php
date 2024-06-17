@@ -1,9 +1,9 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ComponentController;
 use App\Http\Controllers\Api\HmkmController;
+use App\Http\Controllers\Api\OilCoolantController;
 use App\Http\Controllers\Api\PoolController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ProfileController;
@@ -27,9 +27,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('unit-paginate', [UnitController::class, 'paginate'])->name('api.units.paginate');
     Route::resource('units', UnitController::class)->names('api.units');
 
-    Route::get('category-paginate', [CategoryController::class, 'paginate'])->name('api.categories.paginate');
-    Route::resource('categories', CategoryController::class)->names('api.categories');
-
     Route::get('product-paginate', [ProductController::class, 'paginate'])->name('api.products.paginate');
     Route::resource('products', ProductController::class)->names('api.products');
 
@@ -38,6 +35,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::get('hmkm-paginate', [HmkmController::class, 'paginate'])->name('api.hmkms.paginate');
     Route::resource('hmkms', HmkmController::class)->names('api.hmkms');
+
+    Route::get('oil-paginate', [OilCoolantController::class, 'paginate'])->name('api.oils.paginate');
+    Route::resource('oils', OilCoolantController::class)->names('api.oils');
 
     Route::group(['middleware' => ['role:admin']], function () {
         Route::apiResource('users', UserController::class)->names('api.users');

@@ -52,35 +52,6 @@
 
         $(".select2").select2()
 
-        $("#category").select2({
-            placeholder: 'Select Category!',
-            allowClear: true,
-            ajax: {
-                url: "{{ route('api.categories.paginate') }}",
-                data: function(params) {
-                    return {
-                        name: params.term || '',
-                        page: params.page || 1,
-                        limit: perpage,
-                    };
-                },
-                processResults: function(data, params) {
-                    params.page = params.page || 1;
-                    return {
-                        results: $.map(data.data, function(item) {
-                            return {
-                                text: item.name,
-                                id: item.id,
-                            }
-                        }),
-                        pagination: {
-                            more: (params.page * perpage) < data.total
-                        }
-                    };
-                },
-            }
-        })
-
         var table = $("#table").DataTable({
             processing: true,
             serverSide: true,
@@ -109,15 +80,6 @@
                 data: 'id',
                 render: function(data, type, row, meta) {
                     return meta.row + meta.settings._iDisplayStart + 1;
-                }
-            }, {
-                data: 'category_id',
-                render: function(data, type, row, meta) {
-                    if (type == 'display') {
-                        return data != null ? row.category.name : '';
-                    } else {
-                        return data
-                    }
                 }
             }, {
                 data: 'name',
@@ -188,13 +150,6 @@
                 $('#code').val(result.data.code)
                 $('#desc').val(result.data.desc)
                 $('#type').val(result.data.type).change()
-                if (result.data.category_id != null) {
-                    let option = new Option(result.data.category.name, result.data.category_id,
-                        true, true);
-                    $('#category').append(option).trigger('change');
-                } else {
-                    $('#category').val('').change()
-                }
 
                 $('#form').attr('action', url_index + '/' + id)
                 $('#modal_form_title').html('Edit Data')
@@ -246,7 +201,6 @@
             $('#code').val('')
             $('#desc').val('')
             $('#type').val('oil').change()
-            $('#category').val('').change()
         }
     </script>
 @endpush

@@ -11,9 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('oil_coolants', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->date('date')->useCurrent();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('product_id');
+            $table->decimal('amount', 8, 1)->default(0);
+            $table->enum('type', ['levelling', 'service'])->default('levelling');
             $table->string('desc')->nullable();
             $table->timestamps();
         });
@@ -24,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('oil_coolants');
     }
 };

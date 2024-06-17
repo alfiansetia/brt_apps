@@ -44,9 +44,6 @@
                         <li class="{{ $title == 'Data Unit' ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('units.index') }}">Unit</a>
                         </li>
-                        <li class="{{ $title == 'Data Category' ? 'active' : '' }}">
-                            <a class="nav-link" href="{{ route('categories.index') }}">Category</a>
-                        </li>
                         <li class="{{ $title == 'Data Product' ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('products.index') }}">Product</a>
                         </li>

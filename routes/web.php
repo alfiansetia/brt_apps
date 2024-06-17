@@ -34,7 +34,6 @@ Route::group(['middleware' => ['auth']], function () {
     // Route::group(['middleware' => ['role:admin']], function () {
     Route::get('users', [UserController::class, 'index'])->name('users.index');
     Route::get('units', [UnitController::class, 'index'])->name('units.index');
-    Route::get('categories', [CategoryController::class, 'index'])->name('categories.index');
     Route::get('products', [ProductController::class, 'index'])->name('products.index');
     Route::get('components', [ComponentController::class, 'index'])->name('components.index');
     Route::get('hmkms', [HmkmController::class, 'index'])->name('hmkms.index');

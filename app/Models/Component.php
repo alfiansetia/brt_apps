@@ -16,5 +16,18 @@ class Component extends Model
         if (isset($filters['name'])) {
             $query->where('name', 'like', '%' . $filters['name'] . '%');
         }
+        if (isset($filters['type'])) {
+            $query->where('type', 'like', $filters['type']);
+        }
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
