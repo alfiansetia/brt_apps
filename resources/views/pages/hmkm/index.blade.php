@@ -61,6 +61,7 @@
             var qrCodeSuccessCallback = function(decodedText, decodedResult) {
                 // Handle the decoded result here
                 console.log(`Code matched = ${decodedText}`, decodedResult);
+                show_toast('success', `Code matched = ${decodedText}`)
                 // Close the modal
                 $('#qrScannerModal').modal('hide');
                 // Stop the scanner
