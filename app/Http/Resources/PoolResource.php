@@ -16,9 +16,10 @@ class PoolResource extends JsonResource
     {
         // return parent::toArray($request);
         return [
-            'id'                => $this->id,
-            'DT_RowId'          => $this->id,
-            'name'              => $this->name,
+            'id'        => $this->id,
+            'DT_RowId'  => $this->id,
+            'name'      => $this->name,
+            'image'     => $this->image,
         ];
     }
 }

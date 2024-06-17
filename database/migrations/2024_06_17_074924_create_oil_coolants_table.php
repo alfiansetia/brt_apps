@@ -16,10 +16,14 @@ return new class extends Migration
             $table->date('date')->useCurrent();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('unit_id');
             $table->decimal('amount', 8, 1)->default(0);
             $table->enum('type', ['levelling', 'service'])->default('levelling');
             $table->string('desc')->nullable();
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign('product_id')->references('id')->on('products')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign('unit_id')->references('id')->on('units')->cascadeOnDelete()->cascadeOnUpdate();
         });
     }
 

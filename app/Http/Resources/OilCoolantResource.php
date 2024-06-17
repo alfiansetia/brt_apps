@@ -14,6 +14,20 @@ class OilCoolantResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        // return parent::toArray($request);
+        return [
+            'id'            => $this->id,
+            'DT_RowId'      => $this->id,
+            'date'          => $this->date,
+            'amount'        => $this->amount,
+            'type'          => $this->type,
+            'desc'          => $this->desc,
+            'user_id'       => $this->user_id,
+            'unit_id'       => $this->unit_id,
+            'product_id'    => $this->product_id,
+            'user'          => new UserResource($this->whenLoaded('user')),
+            'unit'          => new UnitResource($this->whenLoaded('unit')),
+            'product'       => new ProductResource($this->whenLoaded('product')),
+        ];
     }
 }
