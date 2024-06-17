@@ -35,7 +35,7 @@
 
 </head>
 
-<body class="sidebar-mini">
+<body>
     <div id="app">
         <div class="main-wrapper">
             <div class="navbar-bg"></div>
