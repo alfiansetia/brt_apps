@@ -59,9 +59,7 @@
         $(document).ready(function() {
             var html5QrCode;
             var qrCodeSuccessCallback = function(decodedText, decodedResult) {
-                // Handle the decoded result here
                 console.log(`Code matched = ${decodedText}`, decodedResult);
-                // show_toast('success', `Code matched = ${decodedText}`)
                 let code = decodedText;
                 $.get("{{ url('api/unit-findcode') }}/" + code).done(function(result) {
                     let option = new Option(`${result.data.code} (${result.data.type})`,
@@ -348,10 +346,14 @@
             $('#modal_form_submit').val('POST')
             $('#modal_form_title').html('Tambah Data')
             $('#modal_form').modal('show')
-            $('#code').val('')
+            $('#hm').val(0)
+            $('#km').val(0)
+            $('#hm_ac').val(0)
             $('#desc').val('')
-            $('#type').val('maxi').change()
-            $('#pool').val('').change()
+            $('#unit').val('').change()
+            let date = "{{ date('Y-m-d') }}"
+            $("#date").data('daterangepicker').setStartDate(date);
+            $("#date").data('daterangepicker').setEndDate(date);
         }
     </script>
 @endpush
