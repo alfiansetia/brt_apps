@@ -15,24 +15,26 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+        $pool = Pool::all();
         User::create([
             'name'          => 'admin',
             'email'         => 'admin@gmail.com',
             'password'      => Hash::make('admin12345'),
-            'role'          => 'admin'
+            'role'          => 'admin',
+            'pool_id'       => $pool->random()->id,
         ]);
 
         User::create([
             'name'          => 'user',
             'email'         => 'user@gmail.com',
             'password'      => Hash::make('user12345'),
-            'role'          => 'user'
+            'role'          => 'user',
+            'pool_id'       => $pool->random()->id,
         ]);
-        $pool = Pool::all();
 
-        foreach ($pool as $item) {
-            User::factory(50)->create([
-                'pool_id' => $item->id
+        for ($i = 0; $i < 100; $i++) {
+            User::factory(1)->create([
+                'pool_id' => $pool->random()->id
             ]);
         }
     }

@@ -354,6 +354,7 @@
       if (this.hour === '') {
         return '';
       }
+      this.hour = this.hour.toString().length === 1? '0' + this.hour: this.hour
 
       return this.hour + ':' + (this.minute.toString().length === 1 ? '0' + this.minute : this.minute) + (this.showSeconds ? ':' + (this.second.toString().length === 1 ? '0' + this.second : this.second) : '') + (this.showMeridian ? ' ' + this.meridian : '');
     },

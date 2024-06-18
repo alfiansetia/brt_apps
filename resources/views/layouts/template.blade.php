@@ -31,6 +31,10 @@
             height: 100% !important;
             line-height: inherit !important;
         }
+
+        textarea.form-control {
+            height: 64px !important;
+        }
     </style>
 
 </head>
@@ -107,6 +111,15 @@
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2
             });
+        }
+
+        function parse_hm(data) {
+            if (data && data.length === 8) {
+                var timeParts = data.split(':');
+                var formattedTime = timeParts[0] + ':' + timeParts[1];
+                return formattedTime;
+            }
+            return data;
         }
 
 

@@ -3,11 +3,12 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Pool>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Unit>
  */
-class PoolFactory extends Factory
+class UnitFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +18,8 @@ class PoolFactory extends Factory
     public function definition(): array
     {
         return [
-            'name'  => 'POOL ' . fake()->city(),
+            'code'  => 'UNT' . strtoupper(Str::random(5)),
+            'type'  => fake()->randomElement(['maxi', 'artic']),
         ];
     }
 }
