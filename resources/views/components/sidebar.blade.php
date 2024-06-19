@@ -20,6 +20,11 @@
                         class="fas fa-calendar-check"></i><span>LogBook</span></a>
             </li>
 
+            <li class="{{ $title == 'Data CBM' ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('cbms.index') }}"><i
+                        class="fas fa-calendar-check"></i><span>CBM</span></a>
+            </li>
+
             <li class="{{ $title == 'HMKM' ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('hmkms.index') }}"><i
                         class="fas fas fa-thumbtack"></i><span>HMKM</span></a>

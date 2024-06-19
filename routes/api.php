@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CbmController;
 use App\Http\Controllers\Api\ComponentController;
 use App\Http\Controllers\Api\HmkmController;
 use App\Http\Controllers\Api\LogbookController;
@@ -42,6 +43,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::get('logbook-paginate', [LogbookController::class, 'paginate'])->name('api.logbooks.paginate');
     Route::resource('logbooks', LogbookController::class)->names('api.logbooks');
+
+    Route::get('cbm-paginate', [CbmController::class, 'paginate'])->name('api.cbms.paginate');
+    Route::resource('cbms', CbmController::class)->names('api.cbms');
 
     Route::get('user-paginate', [UserController::class, 'paginate'])->name('api.users.paginate');
     Route::apiResource('users', UserController::class)->names('api.users');

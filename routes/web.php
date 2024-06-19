@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CbmController;
 use App\Http\Controllers\ComponentController;
 use App\Http\Controllers\HmkmController;
 use App\Http\Controllers\UserController;
@@ -40,5 +41,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('hmkms', [HmkmController::class, 'index'])->name('hmkms.index');
     Route::get('oils', [OilCoolantController::class, 'index'])->name('oils.index');
     Route::get('logbooks', [LogbookController::class, 'index'])->name('logbooks.index');
+    Route::get('cbms', [CbmController::class, 'index'])->name('cbms.index');
     // });
 });
