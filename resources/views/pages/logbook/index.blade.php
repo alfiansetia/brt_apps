@@ -131,7 +131,9 @@
             showMeridian: false,
             timeFormat: "H:i:s",
             minuteStep: 1,
-            secondStep: 10,
+            secondStep: 1,
+            maxHours: 24,
+            showInputs: false,
         });
 
         $('.mask_angka').inputmask({
