@@ -23,29 +23,29 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('/profile', [ProfileController::class, 'password'])->name('api.password.update');
 
     Route::get('pool-paginate', [PoolController::class, 'paginate'])->name('api.pools.paginate');
-    Route::resource('pools', PoolController::class)->names('api.pools');
+    Route::apiResource('pools', PoolController::class)->names('api.pools');
 
     Route::get('unit-findcode/{unit:code}', [UnitController::class, 'findcode'])->name('api.units.findcode');
     Route::get('unit-paginate', [UnitController::class, 'paginate'])->name('api.units.paginate');
-    Route::resource('units', UnitController::class)->names('api.units');
+    Route::apiResource('units', UnitController::class)->names('api.units');
 
     Route::get('product-paginate', [ProductController::class, 'paginate'])->name('api.products.paginate');
-    Route::resource('products', ProductController::class)->names('api.products');
+    Route::apiResource('products', ProductController::class)->names('api.products');
 
     Route::get('component-paginate', [ComponentController::class, 'paginate'])->name('api.components.paginate');
-    Route::resource('components', ComponentController::class)->names('api.components');
+    Route::apiResource('components', ComponentController::class)->names('api.components');
 
     Route::get('hmkm-paginate', [HmkmController::class, 'paginate'])->name('api.hmkms.paginate');
-    Route::resource('hmkms', HmkmController::class)->names('api.hmkms');
+    Route::apiResource('hmkms', HmkmController::class)->names('api.hmkms');
 
     Route::get('oil-paginate', [OilCoolantController::class, 'paginate'])->name('api.oils.paginate');
-    Route::resource('oils', OilCoolantController::class)->names('api.oils');
+    Route::apiResource('oils', OilCoolantController::class)->names('api.oils');
 
     Route::get('logbook-paginate', [LogbookController::class, 'paginate'])->name('api.logbooks.paginate');
-    Route::resource('logbooks', LogbookController::class)->names('api.logbooks');
+    Route::apiResource('logbooks', LogbookController::class)->names('api.logbooks');
 
     Route::get('cbm-paginate', [CbmController::class, 'paginate'])->name('api.cbms.paginate');
-    Route::resource('cbms', CbmController::class)->names('api.cbms');
+    Route::apiResource('cbms', CbmController::class)->names('api.cbms');
 
     Route::get('user-paginate', [UserController::class, 'paginate'])->name('api.users.paginate');
     Route::apiResource('users', UserController::class)->names('api.users');
