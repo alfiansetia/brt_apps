@@ -22,7 +22,7 @@
                         <div class="form-group">
                             <label class="control-label" for="code">Code :</label>
                             <input type="text" name="code" class="form-control" id="code"
-                                placeholder="Please Enter Code" maxlength="200" required>
+                                placeholder="Please Enter Code" maxlength="200" onchange="qr()" required>
                             <span class="error invalid-feedback err_code" style="display: hide;"></span>
                         </div>
                         <div class="form-group">
@@ -44,6 +44,10 @@
                             <textarea name="desc" id="desc" class="form-control" maxlength="200" placeholder="Please Enter Desc"></textarea>
                             <span class="error invalid-feedback err_desc" style="display: hide;"></span>
                         </div>
+                        <center>
+                            <div id="qr"></div>
+                            <span id="qr_label" style="font-weight: bold"></span>
+                        </center>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times mr-1"
