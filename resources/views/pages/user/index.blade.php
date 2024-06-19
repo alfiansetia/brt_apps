@@ -75,7 +75,7 @@
                             }
                         }),
                         pagination: {
-                            more: (params.page * perpage) < data.total
+                            more: (params.page * perpage) < (data.meta.total || 0)
                         }
                     };
                 },

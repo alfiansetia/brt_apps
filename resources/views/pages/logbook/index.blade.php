@@ -164,13 +164,14 @@
                     params.page = params.page || 1;
                     return {
                         results: $.map(data.data, function(item) {
+                            console.log(true);
                             return {
                                 text: `${item.code} (${item.type})`,
                                 id: item.id,
                             }
                         }),
                         pagination: {
-                            more: (params.page * perpage) < data.total
+                            more: (params.page * perpage) < (data.meta.total || 0)
                         }
                     };
                 },
@@ -199,7 +200,7 @@
                             }
                         }),
                         pagination: {
-                            more: (params.page * perpage) < data.total
+                            more: (params.page * perpage) < (data.meta.total || 0)
                         }
                     };
                 },
@@ -229,7 +230,7 @@
                             }
                         }),
                         pagination: {
-                            more: (params.page * perpage) < data.total
+                            more: (params.page * perpage) < (data.meta.total || 0)
                         }
                     };
                 },

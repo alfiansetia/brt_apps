@@ -211,7 +211,6 @@
             $('#modal_form_title').html('Tambah Data')
             $('#modal_form').modal('show')
             $('#name').val('')
-            // $('#desc').val('')
             $('#form')[0].reset()
             $('#form .image_preview').attr('src', '#');
             $('#form .image_preview').hide();
