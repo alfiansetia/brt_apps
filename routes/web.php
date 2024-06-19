@@ -8,6 +8,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LogbookController;
 use App\Http\Controllers\OilCoolantController;
 use App\Http\Controllers\OnboardingController;
+use App\Http\Controllers\PoolController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UnitController;
@@ -38,6 +39,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('units', [UnitController::class, 'index'])->name('units.index');
     Route::get('products', [ProductController::class, 'index'])->name('products.index');
     Route::get('components', [ComponentController::class, 'index'])->name('components.index');
+    Route::get('pools', [PoolController::class, 'index'])->name('pools.index');
     Route::get('hmkms', [HmkmController::class, 'index'])->name('hmkms.index');
     Route::get('oils', [OilCoolantController::class, 'index'])->name('oils.index');
     Route::get('logbooks', [LogbookController::class, 'index'])->name('logbooks.index');

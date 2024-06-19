@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\PoolResource;
 use App\Models\Pool;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Yajra\DataTables\Facades\DataTables;
 
 class PoolController extends Controller
@@ -35,12 +36,21 @@ class PoolController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name'  => 'required|max:200',
-            'image' => 'required|max:200',
+            'name'      => 'required|max:200',
+            'image'     => 'nullable|image|mimes:jpg,jpeg,png|max:3072',
         ]);
+        $img = null;
+        if ($files = $request->file('image')) {
+            $destinationPath = public_path('/assets/img/pool/');
+            if (!file_exists($destinationPath)) {
+                File::makeDirectory($destinationPath, 755, true);
+            }
+            $img = 'pool_' . date('YmdHis') . "." . $files->getClientOriginalExtension();
+            $files->move($destinationPath, $img);
+        }
         $pool = Pool::create([
             'name'  => $request->name,
-            'image' => $request->image,
+            'image' => $img,
         ]);
         return $this->response('Sukses Tambah Data!', new PoolResource($pool), 200);
     }
@@ -59,12 +69,25 @@ class PoolController extends Controller
     public function update(Request $request, Pool $pool)
     {
         $this->validate($request, [
-            'name'  => 'required|max:200',
-            'image' => 'required|max:200',
+            'name'      => 'required|max:200',
+            'image'     => 'required|max:200',
+            'image'     => 'nullable|image|mimes:jpg,jpeg,png|max:3072',
         ]);
+        $img = $pool->getRawOriginal('image');
+        if ($files = $request->file('image')) {
+            $destinationPath = public_path('/assets/img/pool/');
+            if (!empty($img) && file_exists($destinationPath . $img)) {
+                File::delete($destinationPath . $img);
+            }
+            if (!file_exists($destinationPath)) {
+                File::makeDirectory($destinationPath, 755, true);
+            }
+            $img = 'pool_' . date('YmdHis') . "." . $files->getClientOriginalExtension();
+            $files->move($destinationPath, $img);
+        }
         $pool->update([
             'name'      => $request->name,
-            'image'     => $request->image,
+            'image'     => $img,
         ]);
         return $this->response('Sukses Ubah Data!', new PoolResource($pool), 200);
     }
@@ -74,6 +97,11 @@ class PoolController extends Controller
      */
     public function destroy(Pool $pool)
     {
+        $img = $pool->getRawOriginal('image');
+        $destinationPath = public_path('/assets/img/pool/');
+        if (!empty($img) && file_exists($destinationPath . $img)) {
+            File::delete($destinationPath . $img);
+        }
         $pool->delete();
         return $this->response('Sukses Hapus Data!', new PoolResource($pool), 200);
     }

@@ -37,7 +37,7 @@
             @if ($user->is_admin())
                 <li class="menu-header">Master</li>
                 @php
-                    $array = ['Data User', 'Data Unit', 'Data Category', 'Data Product', 'Data Component'];
+                    $array = ['Data User', 'Data Unit', 'Data Category', 'Data Product', 'Data Component', 'Data Pool'];
                 @endphp
                 <li class="nav-item dropdown {{ in_array($title, $array) ? 'active show' : '' }}">
                     <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
@@ -55,6 +55,9 @@
                         </li>
                         <li class="{{ $title == 'Data Component' ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('components.index') }}">Component</a>
+                        </li>
+                        <li class="{{ $title == 'Data Pool' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('pools.index') }}">Pool</a>
                         </li>
                     </ul>
                 </li>

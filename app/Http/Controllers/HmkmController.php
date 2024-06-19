@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Hmkm;
 use Illuminate\Http\Request;
 
 class HmkmController extends Controller

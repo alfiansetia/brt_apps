@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\OilCoolant;
 use Illuminate\Http\Request;
 
 class OilCoolantController extends Controller

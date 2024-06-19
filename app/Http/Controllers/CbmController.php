@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cbm;
 use Illuminate\Http\Request;
 
 class CbmController extends Controller
