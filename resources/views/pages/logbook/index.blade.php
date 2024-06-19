@@ -130,6 +130,8 @@
             showSeconds: true,
             showMeridian: false,
             timeFormat: "H:i:s",
+            minuteStep: 1,
+            secondStep: 10,
         });
 
         $('.mask_angka').inputmask({
