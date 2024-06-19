@@ -93,6 +93,7 @@
             });
 
             $('#qrScannerModal').on('hidden.bs.modal', function() {
+                $('body').addClass('modal-open');
                 if (html5QrCode) {
                     html5QrCode.stop().then(() => {
                         console.log("QR Code scanning stopped.");
