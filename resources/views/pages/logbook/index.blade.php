@@ -31,6 +31,7 @@
                                 <th>Action</th>
                                 <th>Status</th>
                                 <th>Desc</th>
+                                <th>Man Power</th>
                                 <th style="width: 50px">Action</th>
                             </tr>
                         </thead>
@@ -326,6 +327,21 @@
             }, {
                 data: 'id',
                 sortable: false,
+                visible: false,
+                render: function(data, type, row, meta) {
+                    if (type == 'display') {
+                        let text = ''
+                        row.man_powers.forEach(element => {
+                            text += element.user.name + ', '
+                        });
+                        return text;
+                    } else {
+                        return data
+                    }
+                }
+            }, {
+                data: 'id',
+                sortable: false,
                 render: function(data, type, row, meta) {
                     if (type == 'display') {
                         return `<button class="btn btn-danger btn-sm btn-delete">Delete</button>`;
@@ -333,7 +349,7 @@
                         return data
                     }
                 }
-            }],
+            }, ],
             buttons: [, {
                 text: '<i class="fa fa-plus mr-1"></i>Add',
                 className: 'btn btn-sm btn-primary bs-tooltip',

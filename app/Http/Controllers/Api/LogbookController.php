@@ -18,7 +18,7 @@ class LogbookController extends Controller
     public function index(Request $request)
     {
         $filters = $request->only(['name']);
-        $query = Logbook::query()->with(['unit', 'component', 'man_powers'])->filter($filters);
+        $query = Logbook::query()->with(['unit', 'component', 'man_powers.user'])->filter($filters);
         return DataTables::eloquent($query)->setTransformer(function ($item) {
             return LogbookResource::make($item)->resolve();
         })->toJson();
@@ -27,7 +27,7 @@ class LogbookController extends Controller
     public function paginate(Request $request)
     {
         $filters = $request->only(['name']);
-        $data = Logbook::query()->with(['unit', 'component', 'man_powers'])->filter($filters)->paginate(intval($request->limit) ?? 10);
+        $data = Logbook::query()->with(['unit', 'component', 'man_powers.user'])->filter($filters)->paginate(intval($request->limit) ?? 10);
         return LogbookResource::collection($data);
     }
 

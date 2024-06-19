@@ -8,31 +8,28 @@
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
+            <li class="{{ $title == 'Onboarding' ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('onboarding.index') }}"><i
+                        class="fas fa-th"></i><span>Onboarding</span></a>
+            </li>
             <li class="{{ $title == 'Dashboard' ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('home') }}"><i class="fas fa-fire"></i><span>Dashboard</span></a>
             </li>
-            <li class="{{ $title == 'Onboarding' ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('onboarding.index') }}"><i
-                        class="fas fa-fire"></i><span>Onboarding</span></a>
+            <li class="menu-header">Services</li>
+            <li class="{{ $title == 'HMKM' ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('hmkms.index') }}"><i class="fas fa-bus"></i><span>HMKM</span></a>
             </li>
             <li class="{{ $title == 'Data Logbook' ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('logbooks.index') }}"><i
-                        class="fas fa-calendar-check"></i><span>LogBook</span></a>
-            </li>
-
-            <li class="{{ $title == 'Data CBM' ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('cbms.index') }}"><i
-                        class="fas fa-calendar-check"></i><span>CBM</span></a>
-            </li>
-
-            <li class="{{ $title == 'HMKM' ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('hmkms.index') }}"><i
-                        class="fas fas fa-thumbtack"></i><span>HMKM</span></a>
+                        class="fas fa-tags"></i><span>LogBook</span></a>
             </li>
             <li class="{{ $title == 'Data Oil' ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('oils.index') }}">
                     <i class="fas fa-cubes"></i><span>Oil Coolant</span>
                 </a>
+            </li>
+            <li class="{{ $title == 'Data CBM' ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('cbms.index') }}"><i class="fas fa-wrench"></i><span>CBM</span></a>
             </li>
             @if ($user->is_admin())
                 <li class="menu-header">Master</li>
@@ -44,6 +41,9 @@
                             class="fas fa-database"></i>
                         <span>Master Data</span></a>
                     <ul class="dropdown-menu {{ in_array($title, $array) ? 'active' : '' }}">
+                        <li class="{{ $title == 'Data Pool' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('pools.index') }}">Pool</a>
+                        </li>
                         <li class="{{ $title == 'Data User' ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('users.index') }}">User</a>
                         </li>
@@ -55,9 +55,6 @@
                         </li>
                         <li class="{{ $title == 'Data Component' ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('components.index') }}">Component</a>
-                        </li>
-                        <li class="{{ $title == 'Data Pool' ? 'active' : '' }}">
-                            <a class="nav-link" href="{{ route('pools.index') }}">Pool</a>
                         </li>
                     </ul>
                 </li>
