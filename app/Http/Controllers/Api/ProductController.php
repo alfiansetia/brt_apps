@@ -54,7 +54,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return new ProductResource($product->load('category'));
+        return new ProductResource($product);
     }
 
     /**
@@ -64,7 +64,7 @@ class ProductController extends Controller
     {
         $this->validate($request, [
             'name'      => 'required|max:200',
-            'code'      => 'required|unique:products,code',
+            'code'      => 'required|unique:products,code,' . $product->id,
             'type'      => 'required|in:oil,coolant,other',
             'desc'      => 'nullable|max:200',
         ]);

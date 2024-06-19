@@ -13,13 +13,21 @@
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
-                            <label class="control-label" for="type">Type :</label>
-                            <select name="type" id="type" class="form-control select2" style="width: 100%;"
-                                required>
-                                <option value="oil">Oil</option>
-                                <option value="coolant">Coolant</option>
-                                <option value="other">Other</option>
-                            </select>
+                            <label class="form-label">Type :</label>
+                            <div class="selectgroup w-100">
+                                <label class="selectgroup-item">
+                                    <input type="radio" name="type" value="oil" class="selectgroup-input" checked>
+                                    <span class="selectgroup-button">Oil</span>
+                                </label>
+                                <label class="selectgroup-item">
+                                    <input type="radio" name="type" value="coolant" class="selectgroup-input">
+                                    <span class="selectgroup-button">Coolant</span>
+                                </label>
+                                <label class="selectgroup-item">
+                                    <input type="radio" name="type" value="other" class="selectgroup-input">
+                                    <span class="selectgroup-button">Other</span>
+                                </label>
+                            </div>
                             <span class="error invalid-feedback err_type" style="display: hide;"></span>
                         </div>
                         <div class="form-group">

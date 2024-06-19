@@ -148,7 +148,8 @@
                 $('#name').val(result.data.name)
                 $('#code').val(result.data.code)
                 $('#desc').val(result.data.desc)
-                $('#type').val(result.data.type).change()
+                $("input[name='type'][value='" + result.data.type + "']").prop('checked', true)
+                    .trigger('change');
 
                 $('#form').attr('action', url_index + '/' + id)
                 $('#modal_form_title').html('Edit Data')
@@ -199,7 +200,7 @@
             $('#name').val('')
             $('#code').val('')
             $('#desc').val('')
-            $('#type').val('oil').change()
+            $("input[name='type'][value='oil']").prop('checked', true).trigger('change');
         }
     </script>
 @endpush

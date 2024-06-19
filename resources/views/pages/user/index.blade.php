@@ -189,7 +189,8 @@
                 $('#email').val(result.data.email)
                 $('#password').val('')
                 $('#password').attr('required', false)
-                $('#role').val(result.data.role).change()
+                $("input[name='role'][value='" + result.data.role + "']").prop('checked', true)
+                    .trigger('change');
                 if (result.data.pool_id != null) {
                     let option = new Option(result.data.pool.name, result.data.pool_id,
                         true, true);
@@ -249,7 +250,7 @@
             $('#name').val('')
             $('#email').val('')
             $('#password').val('')
-            $('#role').val('user').change()
+            $("input[name='role'][value='user']").prop('checked', true).trigger('change');
             $('#pool').val('').change()
         }
     </script>

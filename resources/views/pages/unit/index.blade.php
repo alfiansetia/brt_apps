@@ -183,7 +183,8 @@
             $.get(url_index + '/' + id).done(function(result) {
                 $('#code').val(result.data.code)
                 $('#desc').val(result.data.desc)
-                $('#type').val(result.data.type).change()
+                $("input[name='type'][value='" + result.data.type + "']").prop('checked', true)
+                    .trigger('change');
                 if (result.data.pool_id != null) {
                     let option = new Option(result.data.pool.name, result.data.pool_id,
                         true, true);
@@ -240,7 +241,7 @@
             $('#modal_form').modal('show')
             $('#code').val('')
             $('#desc').val('')
-            $('#type').val('maxi').change()
+            $("input[name='type'][value='maxi']").prop('checked', true).trigger('change');
             $('#pool').val('').change()
         }
     </script>

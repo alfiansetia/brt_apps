@@ -41,12 +41,17 @@
                             <span class="error invalid-feedback err_pool" style="display: hide;"></span>
                         </div>
                         <div class="form-group">
-                            <label class="control-label" for="role">Role :</label>
-                            <select name="role" id="role" class="form-control select2" style="width: 100%;"
-                                required>
-                                <option value="admin">Admin</option>
-                                <option value="user">User</option>
-                            </select>
+                            <label class="form-label">Role :</label>
+                            <div class="selectgroup w-100">
+                                <label class="selectgroup-item">
+                                    <input type="radio" name="role" value="user" class="selectgroup-input" checked>
+                                    <span class="selectgroup-button">User</span>
+                                </label>
+                                <label class="selectgroup-item">
+                                    <input type="radio" name="role" value="admin" class="selectgroup-input">
+                                    <span class="selectgroup-button">Admin</span>
+                                </label>
+                            </div>
                             <span class="error invalid-feedback err_role" style="display: hide;"></span>
                         </div>
                     </div>

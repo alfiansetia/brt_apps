@@ -26,12 +26,17 @@
                             <span class="error invalid-feedback err_code" style="display: hide;"></span>
                         </div>
                         <div class="form-group">
-                            <label class="control-label" for="type">Type :</label>
-                            <select name="type" id="type" class="form-control select2" style="width: 100%;"
-                                required>
-                                <option value="maxi">Maxi</option>
-                                <option value="artic">Artic</option>
-                            </select>
+                            <label class="form-label">Type :</label>
+                            <div class="selectgroup w-100">
+                                <label class="selectgroup-item">
+                                    <input type="radio" name="type" value="maxi" class="selectgroup-input" checked>
+                                    <span class="selectgroup-button">Maxi</span>
+                                </label>
+                                <label class="selectgroup-item">
+                                    <input type="radio" name="type" value="artic" class="selectgroup-input">
+                                    <span class="selectgroup-button">Artic</span>
+                                </label>
+                            </div>
                             <span class="error invalid-feedback err_type" style="display: hide;"></span>
                         </div>
                         <div class="form-group">

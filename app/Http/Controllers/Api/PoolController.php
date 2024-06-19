@@ -36,11 +36,11 @@ class PoolController extends Controller
     {
         $this->validate($request, [
             'name'  => 'required|max:200',
-            'icon'  => 'required|max:200',
+            'image' => 'required|max:200',
         ]);
         $pool = Pool::create([
-            'name'      => $request->name,
-            'icon'      => $request->icon,
+            'name'  => $request->name,
+            'image' => $request->image,
         ]);
         return $this->response('Sukses Tambah Data!', new PoolResource($pool), 200);
     }
@@ -60,11 +60,11 @@ class PoolController extends Controller
     {
         $this->validate($request, [
             'name'  => 'required|max:200',
-            'icon'  => 'required|max:200',
+            'image' => 'required|max:200',
         ]);
         $pool->update([
             'name'      => $request->name,
-            'icon'      => $request->icon,
+            'image'     => $request->image,
         ]);
         return $this->response('Sukses Ubah Data!', new PoolResource($pool), 200);
     }
