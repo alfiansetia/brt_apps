@@ -249,6 +249,13 @@
 
             bsCustomFileInput.init()
 
+            $('[data-toggle="tooltip"]').on('shown.bs.tooltip', function() {
+                var $this = $(this);
+                setTimeout(function() {
+                    $this.tooltip('hide');
+                }, 3000);
+            });
+
         })
     </script>
     <!-- JS Libraies -->

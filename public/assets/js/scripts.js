@@ -320,10 +320,7 @@ $(function() {
   });
 
   // tooltip
-  $("[data-toggle='tooltip']").tooltip({
-    delay: { show: 500, hide: 100 }
-
-  });
+  $("[data-toggle='tooltip']").tooltip();
 
   // popover
   $('[data-toggle="popover"]').popover({
