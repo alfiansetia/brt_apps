@@ -244,7 +244,8 @@
         $(document).ready(function() {
             $(document).ajaxStart(function() {
                 $.blockUI({
-                    message: '<img src="{{ asset('assets/img/loading.gif') }}" width="20px" height="20px" /> Just a moment...'
+                    message: '<img src="{{ asset('assets/img/loading.gif') }}" width="20px" height="20px" /> Just a moment...',
+                    baseZ: 2000,
                 });
             }).ajaxStop($.unblockUI);
 
