@@ -16,7 +16,7 @@
                 <a class="nav-link" href="{{ route('home') }}"><i class="fas fa-fire"></i><span>Dashboard</span></a>
             </li>
             <li class="menu-header">Services</li>
-            <li class="{{ $title == 'HMKM' ? 'active' : '' }}">
+            <li class="{{ $title == 'Data HMKM' ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('hmkms.index') }}"><i class="fas fa-bus"></i><span>HMKM</span></a>
             </li>
             <li class="{{ $title == 'Data Logbook' ? 'active' : '' }}">
