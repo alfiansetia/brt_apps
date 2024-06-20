@@ -25,6 +25,20 @@
             </div> --}}
         @endforeach
 
+        <div class="col-12">
+            <div class="alert alert-info alert-has-icon">
+                <div class="alert-icon"><i class="far fa-lightbulb"></i></div>
+                <div class="alert-body">
+                    <div class="alert-title">Welcome {{ $user->name }}!</div>
+                    @if (empty($user->pool))
+                        You don't have a pool, Please Contact Admin!
+                    @else
+                        You are at the {{ $user->pool->name }} pool
+                    @endif
+                </div>
+            </div>
+        </div>
+
         <div class="col-lg-3 col-md-6 col-sm-6 col-12">
             <a href="{{ route('hmkms.index') }}">
                 <div class="card card-statistic-1">

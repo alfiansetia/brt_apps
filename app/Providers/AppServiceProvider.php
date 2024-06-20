@@ -13,10 +13,10 @@ class AppServiceProvider extends ServiceProvider
     {
         view()->composer(
             [
-                'layouts.template',
+                '*',
             ],
             function ($view) {
-                $view->with('user', auth()->user());
+                $view->with('user', auth()->user()->load('pool'));
             }
         );
     }
