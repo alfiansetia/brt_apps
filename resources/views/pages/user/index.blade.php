@@ -47,7 +47,7 @@
     <script>
         var url_index = "{{ route('api.users.index') }}"
         var id = 0
-        var perpage = 20
+        var perpage = 50
 
         // $(document).ready(function() {
 
@@ -108,6 +108,9 @@
             pageLength: 10,
             lengthChange: true,
             columnDefs: [],
+            order: [
+                [0, 'desc']
+            ],
             columns: [{
                 data: 'id',
                 render: function(data, type, row, meta) {

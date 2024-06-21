@@ -15,7 +15,7 @@ class CbmController extends Controller
      */
     public function index(Request $request)
     {
-        $filters = $request->only(['date', 'unit_id', 'component_id']);
+        $filters = $request->only(['date', 'unit_id', 'component_id', 'pool_id']);
         $query = Cbm::query()->with(['unit', 'component'])->filter($filters);
         return DataTables::eloquent($query)->setTransformer(function ($item) {
             return CbmResource::make($item)->resolve();
@@ -24,7 +24,7 @@ class CbmController extends Controller
 
     public function paginate(Request $request)
     {
-        $filters = $request->only(['date', 'unit_id', 'component_id']);
+        $filters = $request->only(['date', 'unit_id', 'component_id', 'pool_id']);
         $data = Cbm::query()->with(['unit', 'component'])->filter($filters)->paginate(intval($request->limit) ?? 10);
         return CbmResource::collection($data);
     }

@@ -22,6 +22,9 @@ class Cbm extends Model
         if (isset($filters['component_id'])) {
             $query->where('type', $filters['component_id']);
         }
+        if (isset($filters['pool_id'])) {
+            $query->whereRelation('unit', 'pool_id',  $filters['pool_id']);
+        }
     }
 
     public function unit()

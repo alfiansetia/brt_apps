@@ -16,7 +16,7 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $filters = $request->only(['name', 'nrp']);
+        $filters = $request->only(['name', 'email', 'role']);
         $query = User::query()->with('pool')->filter($filters);
         return DataTables::eloquent($query)->setTransformer(function ($item) {
             return UserResource::make($item)->resolve();
@@ -25,8 +25,8 @@ class UserController extends Controller
 
     public function paginate(Request $request)
     {
-        $filters = $request->only(['name', 'email']);
-        $data = User::query()->filter($filters)->with('pool')->paginate(intval($request->limit) ?? 10);
+        $filters = $request->only(['name', 'email', 'role']);
+        $data = User::query()->filter($filters)->with('pool')->latest('id')->paginate(intval($request->limit) ?? 10);
         return UserResource::collection($data);
     }
 

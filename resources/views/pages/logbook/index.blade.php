@@ -112,7 +112,7 @@
         });
         var url_index = "{{ route('api.logbooks.index') }}"
         var id = 0
-        var perpage = 20
+        var perpage = 50
 
         $(".select2").select2()
 
@@ -219,6 +219,7 @@
                         name: params.term || '',
                         page: params.page || 1,
                         limit: perpage,
+                        role: 'user',
                     };
                 },
                 processResults: function(data, params) {

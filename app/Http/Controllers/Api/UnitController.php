@@ -25,7 +25,7 @@ class UnitController extends Controller
     public function paginate(Request $request)
     {
         $filters = $request->only(['pool_id', 'code', 'type']);
-        $data = Unit::query()->filter($filters)->with('pool')->paginate(intval($request->limit) ?? 10);
+        $data = Unit::query()->filter($filters)->latest('id')->with('pool')->paginate(intval($request->limit) ?? 10);
         return UnitResource::collection($data);
     }
 

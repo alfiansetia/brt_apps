@@ -20,4 +20,16 @@ class OnboardingController extends Controller
         $datas['cbm'] = Cbm::count();
         return view('pages.onboarding', compact('data', 'datas'));
     }
+
+    public function menu(Request $request)
+    {
+        $pool = Pool::find($request->pool);
+        if (!$pool) {
+            return redirect()->route('onboarding.index')->with('error', 'Silahkan Pilih Pool!');
+        }
+        $datas['hmkm'] = Hmkm::count();
+        $datas['oil'] = OilCoolant::count();
+        $datas['cbm'] = Cbm::count();
+        return view('pages.onboarding_menu', compact('pool', 'datas'));
+    }
 }

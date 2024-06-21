@@ -16,6 +16,9 @@ class OilCoolant extends Model
         if (isset($filters['type'])) {
             $query->where('type', 'like', '%' . $filters['type'] . '%');
         }
+        if (isset($filters['pool_id'])) {
+            $query->whereRelation('unit', 'pool_id',  $filters['pool_id']);
+        }
     }
 
     public function user()

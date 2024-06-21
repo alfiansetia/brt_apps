@@ -25,7 +25,7 @@ class ComponentController extends Controller
     public function paginate(Request $request)
     {
         $filters = $request->only(['name']);
-        $data = Component::query()->filter($filters)->paginate(intval($request->limit) ?? 10);
+        $data = Component::query()->filter($filters)->latest('id')->paginate(intval($request->limit) ?? 10);
         return ComponentResource::collection($data);
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pool;
 use Illuminate\Http\Request;
 
 class CbmController extends Controller
@@ -9,8 +10,12 @@ class CbmController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('pages.cbm.index');
+        $pool = Pool::find($request->pool);
+        if (!$pool) {
+            return redirect()->route('onboarding.index')->with('error', 'Silahkan Pilih Pool!');
+        }
+        return view('pages.cbm.index', compact('pool'));
     }
 }

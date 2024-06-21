@@ -15,7 +15,7 @@ class OilCoolantController extends Controller
      */
     public function index(Request $request)
     {
-        $filters = $request->only(['user_id', 'unit_id', 'product_id', 'type']);
+        $filters = $request->only(['user_id', 'unit_id', 'product_id', 'type', 'pool_id']);
         $query = OilCoolant::query()->with(['user', 'product', 'unit'])->filter($filters);
         return DataTables::eloquent($query)->setTransformer(function ($item) {
             return OilCoolantResource::make($item)->resolve();
@@ -24,7 +24,7 @@ class OilCoolantController extends Controller
 
     public function paginate(Request $request)
     {
-        $filters = $request->only(['user_id', 'unit_id', 'product_id', 'type']);
+        $filters = $request->only(['user_id', 'unit_id', 'product_id', 'type', 'pool_id']);
         $data = OilCoolant::query()->with(['user', 'product', 'unit'])->filter($filters)->paginate(intval($request->limit) ?? 10);
         return OilCoolantResource::collection($data);
     }

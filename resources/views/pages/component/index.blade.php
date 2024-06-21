@@ -45,7 +45,7 @@
     <script>
         var url_index = "{{ route('api.components.index') }}"
         var id = 0
-        var perpage = 20
+        var perpage = 50
 
         $(".select2").select2()
 
@@ -73,6 +73,9 @@
             pageLength: 10,
             lengthChange: true,
             columnDefs: [],
+            order: [
+                [0, 'desc']
+            ],
             columns: [{
                 data: 'id',
                 render: function(data, type, row, meta) {

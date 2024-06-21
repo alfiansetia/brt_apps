@@ -15,9 +15,8 @@ class HmkmController extends Controller
      */
     public function index(Request $request)
     {
-        $filters = $request->only(['name']);
-        // $query = Hmkm::query()->filter($filters);
-        $query = Hmkm::query()->with('unit');
+        $filters = $request->only(['pool_id']);
+        $query = Hmkm::query()->with('unit')->filter($filters);
         return DataTables::eloquent($query)->setTransformer(function ($item) {
             return HmkmResource::make($item)->resolve();
         })->toJson();

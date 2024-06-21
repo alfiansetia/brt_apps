@@ -12,24 +12,28 @@
                 <a class="nav-link" href="{{ route('onboarding.index') }}"><i
                         class="fas fa-th"></i><span>Onboarding</span></a>
             </li>
-            <li class="{{ $title == 'Dashboard' ? 'active' : '' }}">
+            {{-- <li class="{{ $title == 'Dashboard' ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('home') }}"><i class="fas fa-fire"></i><span>Dashboard</span></a>
-            </li>
+            </li> --}}
             <li class="menu-header">Services</li>
-            <li class="{{ $title == 'Data HMKM' ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('hmkms.index') }}"><i class="fas fa-bus"></i><span>HMKM</span></a>
-            </li>
+            @if (!empty(request()->query('pool')))
+                <li class="{{ $title == 'Data HMKM' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('hmkms.index') }}?pool={{ request()->query('pool') }}"><i
+                            class="fas fa-bus"></i><span>HMKM</span></a>
+                </li>
+                <li class="{{ $title == 'Data Oil' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('oils.index') }}?pool={{ request()->query('pool') }}">
+                        <i class="fas fa-cubes"></i><span>Oil Coolant</span>
+                    </a>
+                </li>
+                <li class="{{ $title == 'Data CBM' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('cbms.index') }}?pool={{ request()->query('pool') }}"><i
+                            class="fas fa-wrench"></i><span>CBM</span></a>
+                </li>
+            @endif
             <li class="{{ $title == 'Data Logbook' ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('logbooks.index') }}"><i
                         class="fas fa-tags"></i><span>LogBook</span></a>
-            </li>
-            <li class="{{ $title == 'Data Oil' ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('oils.index') }}">
-                    <i class="fas fa-cubes"></i><span>Oil Coolant</span>
-                </a>
-            </li>
-            <li class="{{ $title == 'Data CBM' ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('cbms.index') }}"><i class="fas fa-wrench"></i><span>CBM</span></a>
             </li>
             @if ($user->is_admin())
                 <li class="menu-header">Master</li>

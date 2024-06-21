@@ -28,6 +28,7 @@ Auth::routes([
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/onboarding', [OnboardingController::class, 'index'])->name('onboarding.index');
+    Route::get('/onboarding/menu', [OnboardingController::class, 'menu'])->name('onboarding.menu');
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');

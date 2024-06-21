@@ -25,7 +25,7 @@ class ProductController extends Controller
     public function paginate(Request $request)
     {
         $filters = $request->only(['name', 'code', 'type']);
-        $data = Product::query()->filter($filters)->paginate(intval($request->limit) ?? 10);
+        $data = Product::query()->filter($filters)->latest('id')->paginate(intval($request->limit) ?? 10);
         return ProductResource::collection($data);
     }
 

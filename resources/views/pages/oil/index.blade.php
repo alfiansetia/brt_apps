@@ -12,6 +12,11 @@
 @endpush
 @section('content')
     <div class="row">
+
+        @isset($pool)
+            @include('components.alert', ['pool' => $pool])
+        @endisset
+
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
@@ -105,7 +110,9 @@
         });
         var url_index = "{{ route('api.oils.index') }}"
         var id = 0
-        var perpage = 20
+        var perpage = 50
+        var pool_id = "{{ request()->query('pool') }}"
+        var url_index_with_pool = url_index + "?pool_id=" + pool_id
 
         $(".select2").select2()
 
@@ -138,6 +145,7 @@
                         code: params.term || '',
                         page: params.page || 1,
                         limit: perpage,
+                        pool_id: pool_id,
                     };
                 },
                 processResults: function(data, params) {
@@ -197,6 +205,7 @@
                         name: params.term || '',
                         page: params.page || 1,
                         limit: perpage,
+                        role: 'user',
                     };
                 },
                 processResults: function(data, params) {
@@ -220,7 +229,7 @@
             processing: true,
             serverSide: true,
             searchDelay: 500,
-            ajax: url_index,
+            ajax: url_index_with_pool,
             dom: "<'dt--top-section'<'row'<'col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center'B><'col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3'f>>>" +
                 "<'table-responsive'tr>" +
                 "<'dt--bottom-section d-sm-flex justify-content-sm-between text-center'<'dt--pages-count  mb-sm-0 mb-3'i><'dt--pagination'p>>",
@@ -240,6 +249,9 @@
             pageLength: 10,
             lengthChange: true,
             columnDefs: [],
+            order: [
+                [0, 'desc']
+            ],
             columns: [{
                 data: 'id',
                 render: function(data, type, row, meta) {
