@@ -16,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
                 '*',
             ],
             function ($view) {
-                $view->with('user', auth()->user()->load('pool'));
+                $view->with('user', auth()->user());
             }
         );
     }
