@@ -65,7 +65,7 @@
             <a href="{{ route('dmcrs.index') }}?pool={{ request()->query('pool') }}">
                 <div class="card card-statistic-1">
                     <div class="card-icon bg-success">
-                        <i class="fas fa-wrench"></i>
+                        <i class="fas fa-list"></i>
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
