@@ -34,6 +34,10 @@
                     <a class="nav-link" href="{{ route('dmcrs.index') }}?pool={{ request()->query('pool') }}"><i
                             class="fas fa-list"></i><span>DMCR</span></a>
                 </li>
+                <li class="{{ $title == 'Data Keluhan' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('keluhans.index') }}?pool={{ request()->query('pool') }}"><i
+                            class="fas fa-comments"></i><span>Keluhan</span></a>
+                </li>
             @endif
             <li class="{{ $title == 'Data Logbook' ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('logbooks.index') }}"><i

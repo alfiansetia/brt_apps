@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cbm;
 use App\Models\Dmcr;
 use App\Models\Hmkm;
+use App\Models\Keluhan;
 use App\Models\OilCoolant;
 use App\Models\Pool;
 use Illuminate\Http\Request;
@@ -24,10 +25,12 @@ class OnboardingController extends Controller
             return redirect()->route('onboarding.index')->with('error', 'Silahkan Pilih Pool!');
         }
         $pool_id = $pool->id;
-        $datas['hmkm'] = Hmkm::whereRelation('unit', 'pool_id', $pool_id)->count();
-        $datas['oil'] = OilCoolant::whereRelation('unit', 'pool_id', $pool_id)->count();
-        $datas['cbm'] = Cbm::whereRelation('unit', 'pool_id', $pool_id)->count();
-        $datas['dmcr'] = Dmcr::whereRelation('unit', 'pool_id', $pool_id)->count();
+        $filters = ['pool_id' => $pool_id];
+        $datas['hmkm'] = Hmkm::filter($filters)->count();
+        $datas['oil'] = OilCoolant::filter($filters)->count();
+        $datas['cbm'] = Cbm::filter($filters)->count();
+        $datas['dmcr'] = Dmcr::filter($filters)->count();
+        $datas['keluhan'] = Keluhan::filter($filters)->count();
         return view('pages.onboarding_menu', compact('pool', 'datas'));
     }
 }

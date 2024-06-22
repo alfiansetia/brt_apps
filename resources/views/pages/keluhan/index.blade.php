@@ -1,4 +1,4 @@
-@extends('layouts.template', ['title' => 'Data DMCR'])
+@extends('layouts.template', ['title' => 'Data Keluhan'])
 @push('css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/dataTables.bootstrap4.min.css"
         integrity="sha512-PT0RvABaDhDQugEbpNMwgYBCnGCiTZMh9yOzUsJHDgl/dMhD9yjHAwoumnUk3JydV3QTcIkNDuN40CJxik5+WQ=="
@@ -26,15 +26,13 @@
                             <tr>
                                 <th style="width: 30px;">#</th>
                                 <th>Date</th>
-                                <th>Shift</th>
+                                <th>Name</th>
                                 <th>Unit</th>
-                                <th>Type</th>
-                                <th>Start</th>
-                                <th>Finish</th>
-                                <th>Desc</th>
-                                <th>Action</th>
-                                <th>Component</th>
-                                <th>Man Power</th>
+                                <th>KM</th>
+                                <th>Keluhan</th>
+                                <th>Responsible</th>
+                                <th>Status</th>
+                                <th>Activity</th>
                                 <th style="width: 50px">Action</th>
                             </tr>
                         </thead>
@@ -45,7 +43,7 @@
             </div>
         </div>
     </div>
-    @include('pages.dmcr.modal')
+    @include('pages.keluhan.modal')
 @endsection
 
 @push('js')
@@ -113,7 +111,7 @@
                 }
             });
         });
-        var url_index = "{{ route('api.dmcrs.index') }}"
+        var url_index = "{{ route('api.keluhans.index') }}"
         var id = 0
         var perpage = 50
         var pool_id = "{{ request()->query('pool') }}"
@@ -132,11 +130,10 @@
             alias: 'numeric',
             groupSeparator: '.',
             autoGroup: true,
-            digits: 2,
+            digits: 0,
             rightAlign: false,
             removeMaskOnSubmit: true,
             autoUnmask: true,
-            digitsOptional: false,
             min: 0,
         });
 
@@ -159,66 +156,6 @@
                         results: $.map(data.data, function(item) {
                             return {
                                 text: `${item.code} (${item.type})`,
-                                id: item.id,
-                            }
-                        }),
-                        pagination: {
-                            more: (params.page * perpage) < (data.meta.total || 0)
-                        }
-                    };
-                },
-            }
-        })
-
-        $("#component").select2({
-            placeholder: 'Select component',
-            allowClear: true,
-            ajax: {
-                url: "{{ route('api.components.paginate') }}",
-                data: function(params) {
-                    return {
-                        name: params.term || '',
-                        page: params.page || 1,
-                        limit: perpage,
-                    };
-                },
-                processResults: function(data, params) {
-                    params.page = params.page || 1;
-                    return {
-                        results: $.map(data.data, function(item) {
-                            return {
-                                text: `${item.name}`,
-                                id: item.id,
-                            }
-                        }),
-                        pagination: {
-                            more: (params.page * perpage) < (data.meta.total || 0)
-                        }
-                    };
-                },
-            }
-        })
-
-        $("#users").select2({
-            placeholder: 'Select User!',
-            allowClear: true,
-            multiple: true,
-            ajax: {
-                url: "{{ route('api.users.paginate') }}",
-                data: function(params) {
-                    return {
-                        name: params.term || '',
-                        page: params.page || 1,
-                        limit: perpage,
-                        role: 'user',
-                    };
-                },
-                processResults: function(data, params) {
-                    params.page = params.page || 1;
-                    return {
-                        results: $.map(data.data, function(item) {
-                            return {
-                                text: `${item.name}`,
                                 id: item.id,
                             }
                         }),
@@ -265,7 +202,7 @@
             }, {
                 data: 'date',
             }, {
-                data: 'shift',
+                data: 'name',
             }, {
                 data: 'unit_id',
                 render: function(data, type, row, meta) {
@@ -276,39 +213,22 @@
                     }
                 }
             }, {
-                data: 'type',
-            }, {
-                data: 'start',
-            }, {
-                data: 'finish',
-            }, {
-                data: 'desc',
-            }, {
-                data: 'action',
-            }, {
-                data: 'component_id',
+                data: 'km',
                 render: function(data, type, row, meta) {
                     if (type == 'display') {
-                        return data != null ? `${row.component.name}` : '';
+                        return hrg(data)
                     } else {
                         return data
                     }
                 }
             }, {
-                data: 'id',
-                sortable: false,
-                visible: false,
-                render: function(data, type, row, meta) {
-                    if (type == 'display') {
-                        let text = ''
-                        row.man_powers.forEach(element => {
-                            text += element.user.name + ', '
-                        });
-                        return text;
-                    } else {
-                        return data
-                    }
-                }
+                data: 'keluhan',
+            }, {
+                data: 'responsible',
+            }, {
+                data: 'status',
+            }, {
+                data: 'activity',
             }, {
                 data: 'id',
                 sortable: false,
@@ -368,26 +288,15 @@
             $.get(url_index + '/' + id).done(function(result) {
                 $("#date").data('daterangepicker').setStartDate(result.data.date);
                 $("#date").data('daterangepicker').setEndDate(result.data.date);
-                $("#start").data('daterangepicker').setStartDate(result.data.start);
-                $("#start").data('daterangepicker').setEndDate(result.data.start);
-                $("#finish").data('daterangepicker').setStartDate(result.data.finish);
-                $("#finish").data('daterangepicker').setEndDate(result.data.finish);
-                $('#action').val(result.data.action)
-                $('#desc').val(result.data.desc)
-                $('#users').val(null).empty();
-                if (result.data.man_powers.length > 0) {
-                    let options = [];
-                    result.data.man_powers.forEach(function(item) {
-                        let option = new Option(item.user.name, item.user_id, true, true);
-                        options.push(option);
-                        $('#users').append(option).trigger('change');
-                    });
-                    $('#users').val(result.data.man_powers.map(item => item.user_id)).trigger('change');
-                }
 
-                $("input[name='shift'][value='" + result.data.shift + "']").prop('checked', true)
+                $('#name').val(result.data.name)
+                $('#keluhan').val(result.data.keluhan)
+                $('#km').val(result.data.km)
+                $('#activity').val(result.data.activity)
+                $("input[name='responsible'][value='" + result.data.responsible + "']").prop('checked',
+                        true)
                     .trigger('change');
-                $("input[name='type'][value='" + result.data.type + "']").prop('checked', true)
+                $("input[name='status'][value='" + result.data.status + "']").prop('checked', true)
                     .trigger('change');
 
                 if (result.data.unit_id != null) {
@@ -397,15 +306,6 @@
                     $('#unit').append(option).trigger('change');
                 } else {
                     $('#unit').val('').change()
-                }
-                if (result.data.component_id != null) {
-                    let option = new Option(`${result.data.component.name}`,
-                        result
-                        .data.component_id,
-                        true, true);
-                    $('#component').append(option).trigger('change');
-                } else {
-                    $('#component').val('').change()
                 }
 
                 $('#form').attr('action', url_index + '/' + id)
@@ -445,7 +345,7 @@
         })
 
         $('#modal_form').on('shown.bs.modal', function() {
-            $('#code').focus();
+            $('#name').focus();
         })
 
         function modal_add() {
@@ -455,24 +355,18 @@
             $('#modal_form_title').html('Tambah Data')
             $('#modal_form').modal('show')
 
-            let date_time = "{{ date('Y-m-d H:i:s') }}"
             let date = "{{ date('Y-m-d') }}"
             $("#date").data('daterangepicker').setStartDate(date);
             $("#date").data('daterangepicker').setEndDate(date);
 
-            $("#start").data('daterangepicker').setStartDate(date_time);
-            $("#start").data('daterangepicker').setEndDate(date_time);
-            $("#finish").data('daterangepicker').setStartDate(date_time);
-            $("#finish").data('daterangepicker').setEndDate(date_time);
-
             $('#unit').val('').change()
-            $('#component').val('').change()
-            $("input[name='shift'][value='day']").prop('checked', true).trigger('change');
-            $("input[name='type'][value='schedule']").prop('checked', true).trigger('change');
+            $("input[name='responsible'][value='UT']").prop('checked', true).trigger('change');
+            $("input[name='status'][value='pending']").prop('checked', true).trigger('change');
 
-            $('#desc').val('')
-            $('#action').val('')
-            $('#users').val(null).empty()
+            $('#name').val('')
+            $('#keluhan').val('')
+            $('#km').val(0)
+            $('#activity').val('')
         }
     </script>
 @endpush

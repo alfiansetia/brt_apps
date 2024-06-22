@@ -64,7 +64,7 @@
         <div class="col-lg-3 col-md-6 col-sm-6 col-12">
             <a href="{{ route('dmcrs.index') }}?pool={{ request()->query('pool') }}">
                 <div class="card card-statistic-1">
-                    <div class="card-icon bg-danger">
+                    <div class="card-icon bg-success">
                         <i class="fas fa-wrench"></i>
                     </div>
                     <div class="card-wrap">
@@ -73,6 +73,24 @@
                         </div>
                         <div class="card-body cbm">
                             {{ $datas['dmcr'] }} Data
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+            <a href="{{ route('keluhans.index') }}?pool={{ request()->query('pool') }}">
+                <div class="card card-statistic-1">
+                    <div class="card-icon bg-danger">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            <h4>Keluhan</h4>
+                        </div>
+                        <div class="card-body cbm">
+                            {{ $datas['keluhan'] }} Data
                         </div>
                     </div>
                 </div>

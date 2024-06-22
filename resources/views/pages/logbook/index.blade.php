@@ -478,7 +478,7 @@
         })
 
         $('#modal_form').on('shown.bs.modal', function() {
-            $('#code').focus();
+            $('#location').focus();
         })
 
         function modal_add() {
