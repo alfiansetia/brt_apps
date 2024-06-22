@@ -349,7 +349,7 @@
         })
 
         $('#modal_form').on('shown.bs.modal', function() {
-            $('#code').focus();
+            $('#hm').focus();
         })
 
         function modal_add() {

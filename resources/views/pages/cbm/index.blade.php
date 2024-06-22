@@ -370,7 +370,7 @@
         })
 
         $('#modal_form').on('shown.bs.modal', function() {
-            $('#code').focus();
+            $('#km').focus();
         })
 
         function modal_add() {

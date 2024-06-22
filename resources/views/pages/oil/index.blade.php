@@ -183,7 +183,7 @@
                     return {
                         results: $.map(data.data, function(item) {
                             return {
-                                text: `${item.code} (${item.name})`,
+                                text: `${item.code} [${item.type}] (${item.name})`,
                                 id: item.id,
                             }
                         }),
@@ -281,7 +281,8 @@
                 data: 'product_id',
                 render: function(data, type, row, meta) {
                     if (type == 'display') {
-                        return data != null ? `${row.product.code} (${row.product.name})` : '';
+                        return data != null ?
+                            `${row.product.code} [${row.product.type}] (${row.product.name})` : '';
                     } else {
                         return data
                     }
@@ -425,7 +426,7 @@
         })
 
         $('#modal_form').on('shown.bs.modal', function() {
-            $('#code').focus();
+            $('#amount').focus();
         })
 
         function modal_add() {

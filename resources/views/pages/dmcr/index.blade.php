@@ -445,7 +445,7 @@
         })
 
         $('#modal_form').on('shown.bs.modal', function() {
-            $('#code').focus();
+            $('#desc').focus();
         })
 
         function modal_add() {

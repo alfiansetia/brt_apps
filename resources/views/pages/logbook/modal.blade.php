@@ -33,15 +33,9 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="component">Component :</label>
-                            <div class="input-group">
-                                <select name="component" id="component" class="custom-select select2" style="width: 100%;"
-                                    required>
-                                </select>
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary" type="button" data-toggle="modal"
-                                        data-target="#qrScannerModal"><i class="fas fa-qrcode"></i></button>
-                                </div>
-                            </div>
+                            <select name="component" id="component" class="custom-select select2" style="width: 100%;"
+                                required>
+                            </select>
                             <span class="error invalid-feedback err_component" style="display: hide;"></span>
                         </div>
                         <div class="form-group">
