@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\ComponentController;
 use App\Http\Controllers\Api\HmkmController;
 use App\Http\Controllers\Api\LogbookController;
 use App\Http\Controllers\Api\OilCoolantController;
+use App\Http\Controllers\Api\OnboardingController;
 use App\Http\Controllers\Api\PoolController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ProfileController;
@@ -49,6 +50,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::get('user-paginate', [UserController::class, 'paginate'])->name('api.users.paginate');
     Route::apiResource('users', UserController::class)->names('api.users');
+
+    Route::get('onboardings', [OnboardingController::class, 'index'])->name('api.onboardings.index');
 
     Route::group(['middleware' => ['role:admin']], function () {
     });

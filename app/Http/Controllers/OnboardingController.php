@@ -27,9 +27,10 @@ class OnboardingController extends Controller
         if (!$pool) {
             return redirect()->route('onboarding.index')->with('error', 'Silahkan Pilih Pool!');
         }
-        $datas['hmkm'] = Hmkm::count();
-        $datas['oil'] = OilCoolant::count();
-        $datas['cbm'] = Cbm::count();
+        $pool_id = $pool->id;
+        $datas['hmkm'] = Hmkm::whereRelation('unit', 'pool_id', $pool_id)->count();
+        $datas['oil'] = OilCoolant::whereRelation('unit', 'pool_id', $pool_id)->count();
+        $datas['cbm'] = Cbm::whereRelation('unit', 'pool_id', $pool_id)->count();
         return view('pages.onboarding_menu', compact('pool', 'datas'));
     }
 }
