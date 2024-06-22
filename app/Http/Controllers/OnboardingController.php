@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cbm;
+use App\Models\Dmcr;
 use App\Models\Hmkm;
-use App\Models\Logbook;
 use App\Models\OilCoolant;
 use App\Models\Pool;
 use Illuminate\Http\Request;
@@ -14,11 +14,7 @@ class OnboardingController extends Controller
     public function index()
     {
         $data = Pool::all();
-        $datas['hmkm'] = Hmkm::count();
-        $datas['logbook'] = Logbook::count();
-        $datas['oil'] = OilCoolant::count();
-        $datas['cbm'] = Cbm::count();
-        return view('pages.onboarding', compact('data', 'datas'));
+        return view('pages.onboarding', compact('data'));
     }
 
     public function menu(Request $request)
@@ -31,6 +27,7 @@ class OnboardingController extends Controller
         $datas['hmkm'] = Hmkm::whereRelation('unit', 'pool_id', $pool_id)->count();
         $datas['oil'] = OilCoolant::whereRelation('unit', 'pool_id', $pool_id)->count();
         $datas['cbm'] = Cbm::whereRelation('unit', 'pool_id', $pool_id)->count();
+        $datas['dmcr'] = Dmcr::whereRelation('unit', 'pool_id', $pool_id)->count();
         return view('pages.onboarding_menu', compact('pool', 'datas'));
     }
 }

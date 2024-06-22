@@ -1,4 +1,4 @@
-@extends('layouts.template', ['title' => 'Onboarding'])
+@extends('layouts.template', ['title' => 'Menu'])
 @push('css')
     <!-- CSS Libraries -->
 @endpush
@@ -55,6 +55,24 @@
                         </div>
                         <div class="card-body cbm">
                             {{ $datas['cbm'] }} Data
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+            <a href="{{ route('dmcrs.index') }}?pool={{ request()->query('pool') }}">
+                <div class="card card-statistic-1">
+                    <div class="card-icon bg-danger">
+                        <i class="fas fa-wrench"></i>
+                    </div>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            <h4>DMCR</h4>
+                        </div>
+                        <div class="card-body cbm">
+                            {{ $datas['dmcr'] }} Data
                         </div>
                     </div>
                 </div>

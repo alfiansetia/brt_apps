@@ -1,4 +1,4 @@
-@extends('layouts.template', ['title' => 'Data Logbook'])
+@extends('layouts.template', ['title' => 'Data DMCR'])
 @push('css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/dataTables.bootstrap4.min.css"
         integrity="sha512-PT0RvABaDhDQugEbpNMwgYBCnGCiTZMh9yOzUsJHDgl/dMhD9yjHAwoumnUk3JydV3QTcIkNDuN40CJxik5+WQ=="
@@ -13,6 +13,11 @@
 @endpush
 @section('content')
     <div class="row">
+
+        @isset($pool)
+            @include('components.alert', ['pool' => $pool])
+        @endisset
+
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
@@ -21,16 +26,14 @@
                             <tr>
                                 <th style="width: 30px;">#</th>
                                 <th>Date</th>
+                                <th>Shift</th>
                                 <th>Unit</th>
-                                <th>Component</th>
-                                <th>Location</th>
-                                <th>Pre</th>
+                                <th>Type</th>
                                 <th>Start</th>
                                 <th>Finish</th>
-                                <th>Problem</th>
-                                <th>Action</th>
-                                <th>Status</th>
                                 <th>Desc</th>
+                                <th>Action</th>
+                                <th>Component</th>
                                 <th>Man Power</th>
                                 <th style="width: 50px">Action</th>
                             </tr>
@@ -42,7 +45,7 @@
             </div>
         </div>
     </div>
-    @include('pages.logbook.modal')
+    @include('pages.dmcr.modal')
 @endsection
 
 @push('js')
@@ -110,9 +113,11 @@
                 }
             });
         });
-        var url_index = "{{ route('api.logbooks.index') }}"
+        var url_index = "{{ route('api.dmcrs.index') }}"
         var id = 0
         var perpage = 50
+        var pool_id = "{{ request()->query('pool') }}"
+        var url_index_with_pool = url_index + "?pool_id=" + pool_id
 
         $(".select2").select2()
 
@@ -121,20 +126,6 @@
                 format: 'YYYY-MM-DD'
             },
             singleDatePicker: true,
-        });
-
-        $(".timepickerd").timepicker({
-            icons: {
-                up: 'fas fa-chevron-up',
-                down: 'fas fa-chevron-down'
-            },
-            showSeconds: true,
-            showMeridian: false,
-            timeFormat: "H:i:s",
-            minuteStep: 1,
-            secondStep: 1,
-            maxHours: 24,
-            showInputs: false,
         });
 
         $('.mask_angka').inputmask({
@@ -159,6 +150,7 @@
                         code: params.term || '',
                         page: params.page || 1,
                         limit: perpage,
+                        pool_id: pool_id,
                     };
                 },
                 processResults: function(data, params) {
@@ -242,7 +234,7 @@
             processing: true,
             serverSide: true,
             searchDelay: 500,
-            ajax: url_index,
+            ajax: url_index_with_pool,
             dom: "<'dt--top-section'<'row'<'col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center'B><'col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3'f>>>" +
                 "<'table-responsive'tr>" +
                 "<'dt--bottom-section d-sm-flex justify-content-sm-between text-center'<'dt--pages-count  mb-sm-0 mb-3'i><'dt--pagination'p>>",
@@ -273,6 +265,8 @@
             }, {
                 data: 'date',
             }, {
+                data: 'shift',
+            }, {
                 data: 'unit_id',
                 render: function(data, type, row, meta) {
                     if (type == 'display') {
@@ -282,6 +276,16 @@
                     }
                 }
             }, {
+                data: 'type',
+            }, {
+                data: 'start',
+            }, {
+                data: 'finish',
+            }, {
+                data: 'desc',
+            }, {
+                data: 'action',
+            }, {
                 data: 'component_id',
                 render: function(data, type, row, meta) {
                     if (type == 'display') {
@@ -290,43 +294,6 @@
                         return data
                     }
                 }
-            }, {
-                data: 'location',
-            }, {
-                data: 'pre',
-                render: function(data, type, row, meta) {
-                    if (type == 'display') {
-                        return parse_hm(data)
-                    } else {
-                        return data
-                    }
-                }
-            }, {
-                data: 'start',
-                render: function(data, type, row, meta) {
-                    if (type == 'display') {
-                        return parse_hm(data)
-                    } else {
-                        return data
-                    }
-                }
-            }, {
-                data: 'finish',
-                render: function(data, type, row, meta) {
-                    if (type == 'display') {
-                        return parse_hm(data)
-                    } else {
-                        return data
-                    }
-                }
-            }, {
-                data: 'problem',
-            }, {
-                data: 'action',
-            }, {
-                data: 'status',
-            }, {
-                data: 'desc',
             }, {
                 data: 'id',
                 sortable: false,
@@ -401,11 +368,10 @@
             $.get(url_index + '/' + id).done(function(result) {
                 $("#date").data('daterangepicker').setStartDate(result.data.date);
                 $("#date").data('daterangepicker').setEndDate(result.data.date);
-                $('#location').val(result.data.location)
-                $('#pre').timepicker('setTime', result.data.pre)
-                $('#start').timepicker('setTime', result.data.start)
-                $('#finish').timepicker('setTime', result.data.finish)
-                $('#problem').val(result.data.problem)
+                $("#start").data('daterangepicker').setStartDate(result.data.start);
+                $("#start").data('daterangepicker').setEndDate(result.data.start);
+                $("#finish").data('daterangepicker').setStartDate(result.data.finish);
+                $("#finish").data('daterangepicker').setEndDate(result.data.finish);
                 $('#action').val(result.data.action)
                 $('#desc').val(result.data.desc)
                 $('#users').val(null).empty();
@@ -419,8 +385,9 @@
                     $('#users').val(result.data.man_powers.map(item => item.user_id)).trigger('change');
                 }
 
-
-                $("input[name='status'][value='" + result.data.status + "']").prop('checked', true)
+                $("input[name='shift'][value='" + result.data.shift + "']").prop('checked', true)
+                    .trigger('change');
+                $("input[name='type'][value='" + result.data.type + "']").prop('checked', true)
                     .trigger('change');
 
                 if (result.data.unit_id != null) {
@@ -488,22 +455,23 @@
             $('#modal_form_title').html('Tambah Data')
             $('#modal_form').modal('show')
 
-            let time = "{{ date('H:i:s') }}"
+            let date_time = "{{ date('Y-m-d H:i:s') }}"
             let date = "{{ date('Y-m-d') }}"
             $("#date").data('daterangepicker').setStartDate(date);
             $("#date").data('daterangepicker').setEndDate(date);
+
+            $("#start").data('daterangepicker').setStartDate(date_time);
+            $("#start").data('daterangepicker').setEndDate(date_time);
+            $("#finish").data('daterangepicker').setStartDate(date_time);
+            $("#start").data('daterangepicker').setEndDate(date_time);
+
             $('#unit').val('').change()
             $('#component').val('').change()
-            $('#location').val('')
-            $('#pre').timepicker('setTime', time);
-            $('#start').timepicker('setTime', time);
-            $('#finish').timepicker('setTime', time);
-            // $('#start').val(time)
-            // $('#finish').val(time)
-            $('#problem').val('')
-            $('#action').val('')
-            $("input[name='status'][value='pending']").prop('checked', true).trigger('change');
+            $("input[name='shift'][value='day']").prop('checked', true).trigger('change');
+            $("input[name='type'][value='schedule']").prop('checked', true).trigger('change');
+
             $('#desc').val('')
+            $('#action').val('')
             $('#users').val(null).empty()
         }
     </script>

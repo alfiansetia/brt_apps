@@ -62,7 +62,13 @@
                             <div class="breadcrumb-item {{ $title != 'Onboarding' ? 'active' : '' }}">
                                 <a href="{{ route('onboarding.index') }}">Onboarding</a>
                             </div>
-                            @if ($title != 'Dashboard' && $title != 'Onboarding')
+                            @if ($title != 'Menu' && $title != 'Onboarding')
+                                <div class="breadcrumb-item">
+                                    <a
+                                        href="{{ route('onboarding.menu') }}?pool={{ request()->query('pool') }}">Menu</a>
+                                </div>
+                            @endif
+                            @if ($title != 'Onboarding')
                                 <div class="breadcrumb-item">{{ $title }}</div>
                             @endif
                         </div>
@@ -247,7 +253,7 @@
             $(document).ajaxStart(function() {
                 $.blockUI({
                     message: '<img src="{{ asset('assets/img/loading.gif') }}" width="20px" height="20px" /> Just a moment...',
-                    baseZ: 2000,
+                    // baseZ: 2000,
                 });
             }).ajaxStop($.unblockUI);
 

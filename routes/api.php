@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CbmController;
 use App\Http\Controllers\Api\ComponentController;
+use App\Http\Controllers\Api\DmcrController;
 use App\Http\Controllers\Api\HmkmController;
 use App\Http\Controllers\Api\LogbookController;
 use App\Http\Controllers\Api\OilCoolantController;
@@ -47,6 +48,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::get('cbm-paginate', [CbmController::class, 'paginate'])->name('api.cbms.paginate');
     Route::apiResource('cbms', CbmController::class)->names('api.cbms');
+
+    Route::get('dmcr-paginate', [DmcrController::class, 'paginate'])->name('api.dmcrs.paginate');
+    Route::apiResource('dmcrs', DmcrController::class)->names('api.dmcrs');
 
     Route::get('user-paginate', [UserController::class, 'paginate'])->name('api.users.paginate');
     Route::apiResource('users', UserController::class)->names('api.users');

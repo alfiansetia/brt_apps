@@ -8,7 +8,7 @@
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
-            <li class="{{ $title == 'Onboarding' ? 'active' : '' }}">
+            <li class="{{ $title == 'Onboarding' || $title == 'Menu' ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('onboarding.index') }}"><i
                         class="fas fa-th"></i><span>Onboarding</span></a>
             </li>
@@ -29,6 +29,10 @@
                 <li class="{{ $title == 'Data CBM' ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('cbms.index') }}?pool={{ request()->query('pool') }}"><i
                             class="fas fa-wrench"></i><span>CBM</span></a>
+                </li>
+                <li class="{{ $title == 'Data DMCR' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('dmcrs.index') }}?pool={{ request()->query('pool') }}"><i
+                            class="fas fa-list"></i><span>DMCR</span></a>
                 </li>
             @endif
             <li class="{{ $title == 'Data Logbook' ? 'active' : '' }}">

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CbmController;
 use App\Http\Controllers\ComponentController;
+use App\Http\Controllers\DmcrController;
 use App\Http\Controllers\HmkmController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
@@ -45,5 +46,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('oils', [OilCoolantController::class, 'index'])->name('oils.index');
     Route::get('logbooks', [LogbookController::class, 'index'])->name('logbooks.index');
     Route::get('cbms', [CbmController::class, 'index'])->name('cbms.index');
+    Route::get('dmcrs', [DmcrController::class, 'index'])->name('dmcrs.index');
     // });
 });
