@@ -190,7 +190,7 @@
         });
 
         $(".dataTables_filter input").unbind().bind("input", function(e) {
-            if (this.value.length >= 3 || e.keyCode == 13) {
+            if (this.value.length >= 2 || e.keyCode == 13) {
                 table.search(this.value).draw();
             }
             if (this.value == "") {

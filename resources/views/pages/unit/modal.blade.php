@@ -35,6 +35,9 @@
                                 <label class="selectgroup-item">
                                     <input type="radio" name="type" value="artic" class="selectgroup-input">
                                     <span class="selectgroup-button">Artic</span>
+                                </label><label class="selectgroup-item">
+                                    <input type="radio" name="type" value="low entry" class="selectgroup-input">
+                                    <span class="selectgroup-button">Low Entry</span>
                                 </label>
                             </div>
                             <span class="error invalid-feedback err_type" style="display: hide;"></span>

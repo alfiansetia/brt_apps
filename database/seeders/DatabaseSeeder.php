@@ -17,8 +17,8 @@ class DatabaseSeeder extends Seeder
             PoolSeeder::class,
             UserSeeder::class,
             UnitSeeder::class,
-            ProductSeeder::class,
-            ComponentSeeder::class,
+            // ProductSeeder::class,
+            // ComponentSeeder::class,
         ]);
     }
 }

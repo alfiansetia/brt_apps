@@ -13,6 +13,16 @@ class PoolSeeder extends Seeder
      */
     public function run(): void
     {
-        Pool::factory(5)->create();
+        $names = [
+            'Cijantung',
+            'Klender',
+            'Perintis',
+            'Pinang Ranti',
+        ];
+        foreach ($names as $item) {
+            Pool::create([
+                'name' => $item
+            ]);
+        }
     }
 }

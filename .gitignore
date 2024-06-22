@@ -20,3 +20,4 @@ yarn-error.log
 /.vscode
 /public/assets/img/pool
 /public/assets/img/unit
+/public/unit.json

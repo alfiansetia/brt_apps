@@ -42,7 +42,7 @@ class UnitController extends Controller
         $this->validate($request, [
             'pool'  => 'required|exists:pools,id',
             'code'  => 'required|unique:units,code',
-            'type'  => 'required|in:maxi,artic',
+            'type'  => 'required|in:maxi,artic,low entry',
             'desc'  => 'nullable|max:200',
         ]);
         $unit = Unit::create([
@@ -70,7 +70,7 @@ class UnitController extends Controller
         $this->validate($request, [
             'pool'  => 'required|exists:pools,id',
             'code'  => 'required|unique:units,code,' . $unit->id,
-            'type'  => 'required|in:maxi,artic',
+            'type'  => 'required|in:maxi,artic,low entry',
             'desc'  => 'nullable|max:200',
         ]);
         $unit->update([

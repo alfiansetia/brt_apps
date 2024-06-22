@@ -14,11 +14,17 @@ class UnitSeeder extends Seeder
      */
     public function run(): void
     {
-        $pools = Pool::all();
-        for ($i = 0; $i < 200; $i++) {
-            Unit::factory(1)->create([
-                'pool_id' => $pools->random()->id
-            ]);
+        // $pools = Pool::all();
+        // for ($i = 0; $i < 200; $i++) {
+        //     Unit::factory(1)->create([
+        //         'pool_id' => $pools->random()->id
+        //     ]);
+        // }
+        $jsonFile = public_path('unit.json');
+        $jsonData = json_decode(file_get_contents($jsonFile), true);
+
+        foreach ($jsonData as $data) {
+            Unit::create($data);
         }
     }
 }
