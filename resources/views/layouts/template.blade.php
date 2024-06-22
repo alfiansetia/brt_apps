@@ -56,8 +56,11 @@
                     <div class="section-header">
                         <h1>{{ $title }}</h1>
                         <div class="section-header-breadcrumb">
-                            <div class="breadcrumb-item {{ $title != 'Dashboard' ? 'active' : '' }}">
+                            {{-- <div class="breadcrumb-item {{ $title != 'Dashboard' ? 'active' : '' }}">
                                 <a href="{{ route('home') }}">Dashboard</a>
+                            </div> --}}
+                            <div class="breadcrumb-item {{ $title != 'Onboarding' ? 'active' : '' }}">
+                                <a href="{{ route('onboarding.index') }}">Onboarding</a>
                             </div>
                             @if ($title != 'Dashboard' && $title != 'Onboarding')
                                 <div class="breadcrumb-item">{{ $title }}</div>
