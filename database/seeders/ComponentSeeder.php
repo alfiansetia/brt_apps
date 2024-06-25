@@ -13,6 +13,26 @@ class ComponentSeeder extends Seeder
      */
     public function run(): void
     {
-        Component::factory(100)->create();
+        // Component::factory(100)->create();
+        $data = [
+            'Brake',
+            'Cooling system',
+            'Engine',
+            'Suspension',
+            'Gearbox',
+            'Electrical system',
+            'Steering',
+            'General Maintenance',
+            'Fuel and exhaust system',
+            'Hubs and wheels',
+            'Air System',
+            'Front/Rear axel',
+            'Propeler shaft',
+        ];
+        foreach ($data as $item) {
+            Component::create([
+                'name' => $item
+            ]);
+        }
     }
 }
