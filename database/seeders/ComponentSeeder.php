@@ -28,6 +28,15 @@ class ComponentSeeder extends Seeder
             'Air System',
             'Front/Rear axel',
             'Propeler shaft',
+            'Pintu',
+            'Tyre',
+            'Electrical',
+            'Karoseri',
+            'AC',
+            'Suspensi',
+            'Telematik',
+            'Nonteknis',
+            'Fuel system',
         ];
         foreach ($data as $item) {
             Component::create([
