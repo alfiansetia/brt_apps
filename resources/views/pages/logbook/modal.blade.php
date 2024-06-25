@@ -19,6 +19,24 @@
                             <span class="error invalid-feedback err_date" style="display: hide;"></span>
                         </div>
                         <div class="form-group">
+                            <label class="form-label">Type Unit :</label>
+                            <div class="selectgroup w-100">
+                                <label class="selectgroup-item">
+                                    <input type="radio" name="type" value="maxi" class="selectgroup-input" checked>
+                                    <span class="selectgroup-button">Maxi</span>
+                                </label>
+                                <label class="selectgroup-item">
+                                    <input type="radio" name="type" value="artic" class="selectgroup-input">
+                                    <span class="selectgroup-button">Artic</span>
+                                </label>
+                                <label class="selectgroup-item">
+                                    <input type="radio" name="type" value="low entry" class="selectgroup-input">
+                                    <span class="selectgroup-button">Low Entry</span>
+                                </label>
+                            </div>
+                            <span class="error invalid-feedback err_type" style="display: hide;"></span>
+                        </div>
+                        <div class="form-group">
                             <label class="control-label" for="unit">Unit :</label>
                             <div class="input-group">
                                 <select name="unit" id="unit" class="custom-select select2" style="width: 100%;"

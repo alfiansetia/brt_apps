@@ -70,6 +70,9 @@
                 console.log(`Code matched = ${decodedText}`, decodedResult);
                 let code = decodedText;
                 $.get("{{ url('api/unit-findcode') }}/" + code).done(function(result) {
+                    $("input[name='type'][value='" + result.data.type + "']").prop('checked', true)
+                        .trigger('change');
+
                     let option = new Option(`${result.data.code} (${result.data.type})`,
                         result
                         .data.id,
@@ -149,6 +152,10 @@
             min: 0,
         });
 
+        $("input[name='type']").change(function() {
+            $('#unit').val('').change()
+        });
+
         $("#unit").select2({
             placeholder: 'Select Unit',
             allowClear: true,
@@ -159,6 +166,7 @@
                         code: params.term || '',
                         page: params.page || 1,
                         limit: perpage,
+                        type: $("input[name='type']:checked").val()
                     };
                 },
                 processResults: function(data, params) {
@@ -423,7 +431,11 @@
                 $("input[name='status'][value='" + result.data.status + "']").prop('checked', true)
                     .trigger('change');
 
+
                 if (result.data.unit_id != null) {
+                    $("input[name='type'][value='" + result.data.unit.type + "']").prop('checked', true)
+                        .trigger('change');
+
                     let option = new Option(`${result.data.unit.code} (${result.data.unit.type})`, result
                         .data.unit_id,
                         true, true);
@@ -503,6 +515,7 @@
             $('#problem').val('')
             $('#action').val('')
             $("input[name='status'][value='pending']").prop('checked', true).trigger('change');
+            $("input[name='type'][value='maxi']").prop('checked', true).trigger('change');
             $('#desc').val('')
             $('#users').val(null).empty()
         }
