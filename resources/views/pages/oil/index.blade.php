@@ -64,18 +64,32 @@
     <script>
         $(document).ready(function() {
             var html5QrCode;
+            var currentType;
+
             var qrCodeSuccessCallback = function(decodedText, decodedResult) {
                 console.log(`Code matched = ${decodedText}`, decodedResult);
                 let code = decodedText;
-                $.get("{{ url('api/unit-findcode') }}/" + code).done(function(result) {
-                    let option = new Option(`${result.data.code} (${result.data.type})`,
-                        result
-                        .data.id,
-                        true, true);
-                    $('#unit').append(option).trigger('change');
-                }).fail(function(xhr) {
-                    show_toast('error', xhr.responseJSON.message || "Server Error!")
-                })
+                if (currentType == 'unit') {
+                    $.get("{{ url('api/unit-findcode') }}/" + code).done(function(result) {
+                        let option = new Option(`${result.data.code} (${result.data.type})`,
+                            result
+                            .data.id,
+                            true, true);
+                        $('#unit').append(option).trigger('change');
+                    }).fail(function(xhr) {
+                        show_toast('error', xhr.responseJSON.message || "Server Error!")
+                    })
+                } else {
+                    $.get("{{ url('api/product-findcode') }}/" + code).done(function(result) {
+                        let option = new Option(`${result.data.name}`,
+                            result
+                            .data.id,
+                            true, true);
+                        $('#product').append(option).trigger('change');
+                    }).fail(function(xhr) {
+                        show_toast('error', xhr.responseJSON.message || "Server Error!")
+                    })
+                }
                 $('#qrScannerModal').modal('hide');
                 html5QrCode.stop().then(() => {
                     console.log("QR Code scanning stopped.");
@@ -84,7 +98,12 @@
                 });
             };
 
-            $('#qrScannerModal').on('shown.bs.modal', function() {
+            $('#qrScannerModal').on('shown.bs.modal', function(event) {
+                var button = $(event.relatedTarget);
+                currentType = button.val();
+
+                console.log(currentType);
+
                 html5QrCode = new Html5Qrcode("reader");
                 html5QrCode.start({
                     facingMode: "environment"
@@ -107,6 +126,50 @@
                     });
                 }
             });
+            // var html5QrCode;
+            // var qrCodeSuccessCallback = function(decodedText, decodedResult) {
+            //     console.log(`Code matched = ${decodedText}`, decodedResult);
+            //     let code = decodedText;
+            //     $.get("{{ url('api/unit-findcode') }}/" + code).done(function(result) {
+            //         let option = new Option(`${result.data.code} (${result.data.type})`,
+            //             result
+            //             .data.id,
+            //             true, true);
+            //         $('#unit').append(option).trigger('change');
+            //     }).fail(function(xhr) {
+            //         show_toast('error', xhr.responseJSON.message || "Server Error!")
+            //     })
+            //     $('#qrScannerModal').modal('hide');
+            //     html5QrCode.stop().then(() => {
+            //         console.log("QR Code scanning stopped.");
+            //     }).catch(err => {
+            //         console.error("Unable to stop scanning.", err);
+            //     });
+            // };
+
+            // $('#qrScannerModal').on('shown.bs.modal', function() {
+            //     html5QrCode = new Html5Qrcode("reader");
+            //     html5QrCode.start({
+            //         facingMode: "environment"
+            //     }, {
+            //         fps: 10,
+            //         qrbox: 250
+            //     }, qrCodeSuccessCallback).catch(err => {
+            //         show_toast('error', 'Unable to start scanning : ' + err)
+            //         console.error("Unable to start scanning.", err);
+            //     });
+            // });
+
+            // $('#qrScannerModal').on('hidden.bs.modal', function() {
+            //     $('body').addClass('modal-open');
+            //     if (html5QrCode) {
+            //         html5QrCode.stop().then(() => {
+            //             console.log("QR Code scanning stopped.");
+            //         }).catch(err => {
+            //             console.error("Unable to stop scanning.", err);
+            //         });
+            //     }
+            // });
         });
         var url_index = "{{ route('api.oils.index') }}"
         var id = 0
@@ -183,7 +246,7 @@
                     return {
                         results: $.map(data.data, function(item) {
                             return {
-                                text: `${item.code} [${item.type}] (${item.name})`,
+                                text: `${item.name}`,
                                 id: item.id,
                             }
                         }),
@@ -282,7 +345,7 @@
                 render: function(data, type, row, meta) {
                     if (type == 'display') {
                         return data != null ?
-                            `${row.product.code} [${row.product.type}] (${row.product.name})` : '';
+                            `${row.product.name}` : '';
                     } else {
                         return data
                     }

@@ -26,7 +26,7 @@
                                     required>
                                 </select>
                                 <div class="input-group-append">
-                                    <button class="btn btn-primary" type="button" data-toggle="modal"
+                                    <button class="btn btn-primary" type="button" data-toggle="modal" value="unit"
                                         data-target="#qrScannerModal"><i class="fas fa-qrcode"></i></button>
                                 </div>
                             </div>
@@ -39,7 +39,7 @@
                                     required>
                                 </select>
                                 <div class="input-group-append">
-                                    <button class="btn btn-primary" type="button" data-toggle="modal"
+                                    <button class="btn btn-primary" type="button" data-toggle="modal" value="product"
                                         data-target="#qrScannerModal"><i class="fas fa-qrcode"></i></button>
                                 </div>
                             </div>
@@ -93,7 +93,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="qrScannerModalLabel">SCAN QR UNIT</h5>
+                    <h5 class="modal-title" id="qrScannerModalLabel">SCAN QR</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

@@ -49,6 +49,11 @@ class ProductController extends Controller
         return $this->response('Sukses Tambah Data!', new ProductResource($product), 200);
     }
 
+    public function findcode(Product $product)
+    {
+        return new ProductResource($product);
+    }
+
     /**
      * Display the specified resource.
      */

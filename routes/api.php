@@ -32,6 +32,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('unit-paginate', [UnitController::class, 'paginate'])->name('api.units.paginate');
     Route::apiResource('units', UnitController::class)->names('api.units');
 
+    Route::get('product-findcode/{product:code}', [ProductController::class, 'findcode'])->name('api.products.findcode');
     Route::get('product-paginate', [ProductController::class, 'paginate'])->name('api.products.paginate');
     Route::apiResource('products', ProductController::class)->names('api.products');
 
