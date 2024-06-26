@@ -352,11 +352,7 @@
                 sortable: false,
                 render: function(data, type, row, meta) {
                     if (type == 'display') {
-                        let text = ''
-                        row.man_powers.forEach(element => {
-                            text += element.user.name + ', '
-                        });
-                        return text;
+                        return row.man_powers.map(element => element.user.name).join(', ');
                     } else {
                         return data
                     }
