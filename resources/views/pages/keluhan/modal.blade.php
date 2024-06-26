@@ -61,6 +61,10 @@
                                     <input type="radio" name="responsible" value="MB" class="selectgroup-input">
                                     <span class="selectgroup-button">MB</span>
                                 </label>
+                                <label class="selectgroup-item">
+                                    <input type="radio" name="responsible" value="TJ" class="selectgroup-input">
+                                    <span class="selectgroup-button">TJ</span>
+                                </label>
                             </div>
                             <span class="error invalid-feedback err_responsible" style="display: hide;"></span>
                         </div>

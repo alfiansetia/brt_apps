@@ -15,12 +15,12 @@ return new class extends Migration
             $table->id();
             $table->date('date')->useCurrent();
             $table->unsignedBigInteger('unit_id');
-            $table->unsignedBigInteger('component_id');
+            $table->unsignedBigInteger('component_id')->nullable();
             $table->bigInteger('km')->default(0);
             $table->string('desc')->nullable();
             $table->timestamps();
             $table->foreign('unit_id')->references('id')->on('units')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreign('component_id')->references('id')->on('components')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign('component_id')->references('id')->on('components')->nullOnDelete()->cascadeOnUpdate();
         });
     }
 

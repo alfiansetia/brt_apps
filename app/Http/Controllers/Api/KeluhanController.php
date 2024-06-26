@@ -40,7 +40,7 @@ class KeluhanController extends Controller
             'unit'          => 'required|exists:units,id',
             'km'            => 'required|integer|gte:0',
             'keluhan'       => 'required|max:200',
-            'responsible'   => 'required|in:UT,MB',
+            'responsible'   => 'required|in:UT,MB,TJ',
             'status'        => 'required|in:pending,done',
             'activity'      => 'nullable|max:200',
         ]);
@@ -76,7 +76,7 @@ class KeluhanController extends Controller
             'unit'          => 'required|exists:units,id',
             'km'            => 'required|integer|gte:0',
             'keluhan'       => 'required|max:200',
-            'responsible'   => 'required|in:UT,MB',
+            'responsible'   => 'required|in:UT,MB,TJ',
             'status'        => 'required|in:pending,done',
             'activity'      => 'nullable|max:200',
         ]);

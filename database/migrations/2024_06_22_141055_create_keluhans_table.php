@@ -24,7 +24,7 @@ return new class extends Migration
             $table->decimal('r5_6', 12, 2)->default(0);
             $table->decimal('r7_8', 12, 2)->default(0);
             $table->decimal('r9_10', 12, 2)->default(0);
-            $table->enum('responsible', ['UT', 'MB'])->default('UT');
+            $table->enum('responsible', ['UT', 'MB', 'TJ'])->default('UT');
             $table->enum('status', ['pending', 'done'])->default('pending');
             $table->string('activity')->nullable();
             $table->timestamps();

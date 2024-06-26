@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('dmcrs', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('unit_id');
-            $table->unsignedBigInteger('component_id');
+            $table->unsignedBigInteger('component_id')->nullable();
             $table->enum('shift', ['day', 'night'])->default('day');
             $table->enum('type', ['schedule', 'unschedule'])->default('schedule');
             $table->date('date')->useCurrent();
@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('action')->nullable();
             $table->timestamps();
             $table->foreign('unit_id')->references('id')->on('units')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreign('component_id')->references('id')->on('components')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign('component_id')->references('id')->on('components')->nullOnDelete()->cascadeOnUpdate();
         });
     }
 
