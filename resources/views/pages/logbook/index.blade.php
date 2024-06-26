@@ -350,7 +350,6 @@
             }, {
                 data: 'id',
                 sortable: false,
-                visible: false,
                 render: function(data, type, row, meta) {
                     if (type == 'display') {
                         let text = ''
