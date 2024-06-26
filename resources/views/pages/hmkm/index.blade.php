@@ -26,9 +26,9 @@
                                 <th style="width: 30px;">#</th>
                                 <th>Date</th>
                                 <th>Unit</th>
+                                <th>HM AC</th>
                                 <th>HM</th>
                                 <th>KM</th>
-                                <th>HM AC</th>
                                 <th>Desc</th>
                                 <th style="width: 50px">Action</th>
                             </tr>
@@ -211,6 +211,15 @@
                     }
                 }
             }, {
+                data: 'hm_ac',
+                render: function(data, type, row, meta) {
+                    if (type == 'display') {
+                        return hrg(data);
+                    } else {
+                        return data
+                    }
+                }
+            }, {
                 data: 'hm',
                 render: function(data, type, row, meta) {
                     if (type == 'display') {
@@ -221,15 +230,6 @@
                 }
             }, {
                 data: 'km',
-                render: function(data, type, row, meta) {
-                    if (type == 'display') {
-                        return hrg(data);
-                    } else {
-                        return data
-                    }
-                }
-            }, {
-                data: 'hm_ac',
                 render: function(data, type, row, meta) {
                     if (type == 'display') {
                         return hrg(data);
