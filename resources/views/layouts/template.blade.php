@@ -108,6 +108,7 @@
     <script src="https://cdn.jsdelivr.net/npm/block-ui@2.70.1/jquery.blockUI.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
     <script src="{{ asset('lib/moment/min/moment.min.js') }}"></script>
+    <script src="{{ asset('lib/sweetalert/dist/sweetalert.min.js') }}"></script>
 
     <script>
         function hrg(x) {
@@ -158,7 +159,18 @@
         }
 
         function logout_() {
-            $('#form_logout').submit();
+            swal({
+                    title: 'Are you sure?',
+                    text: 'Logout?',
+                    icon: 'warning',
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        $('#form_logout').submit();
+                    }
+                });
         }
 
         function show_toast(type = 'success', message = '') {
@@ -206,18 +218,29 @@
         }
 
         function send_delete(url) {
-            ajax_setup()
-            $.ajax({
-                url: url,
-                type: 'DELETE',
-                success: function(result) {
-                    show_toast('success', result.message || 'Success!')
-                    table.ajax.reload()
-                },
-                error: function(xhr, status, error) {
-                    show_toast('error', xhr.responseJSON.message || 'Server Error!')
-                }
-            })
+            swal({
+                    title: 'Are you sure?',
+                    text: 'Delete Data?',
+                    icon: 'warning',
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        ajax_setup()
+                        $.ajax({
+                            url: url,
+                            type: 'DELETE',
+                            success: function(result) {
+                                show_toast('success', result.message || 'Success!')
+                                table.ajax.reload()
+                            },
+                            error: function(xhr, status, error) {
+                                show_toast('error', xhr.responseJSON.message || 'Server Error!')
+                            }
+                        })
+                    }
+                });
         }
 
         function handleResponseForm(jqXHR, formID) {
