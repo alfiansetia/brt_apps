@@ -35,7 +35,7 @@ class ComponentController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name'      => 'required|max:200',
+            'name'      => 'required|max:200|unique:components,name',
             'desc'      => 'nullable|max:200',
         ]);
         $component = Component::create([
@@ -59,7 +59,7 @@ class ComponentController extends Controller
     public function update(Request $request, Component $component)
     {
         $this->validate($request, [
-            'name'      => 'required|max:200',
+            'name'      => 'required|max:200|unique:components,name,' . $component->id,
             'desc'      => 'nullable|max:200',
         ]);
         $component->update([
