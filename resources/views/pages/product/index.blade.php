@@ -43,8 +43,29 @@
     <script src="{{ asset('lib/select2/dist/js/select2.full.min.js') }}"></script>
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script> --}}
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.20.1/dist/jquery.validate.min.js"></script>
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
 
     <script>
+        function qr() {
+            var qrText = $('#code').val();
+            if (qrText == '') {
+                $('#qr').hide()
+                $('#qr_label').hide()
+            }
+            $('#qr_label').text(qrText)
+            $('#qr').empty();
+            var qrcode = new QRCode(document.getElementById("qr"), {
+                text: qrText,
+                width: 128,
+                height: 128,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
+            $('#qr').show()
+            $('#qr_label').show()
+        }
+
         var url_index = "{{ route('api.products.index') }}"
         var id = 0
         var perpage = 50
@@ -153,6 +174,7 @@
                 $('#desc').val(result.data.desc)
                 $("input[name='type'][value='" + result.data.type + "']").prop('checked', true)
                     .trigger('change');
+                qr();
 
                 $('#form').attr('action', url_index + '/' + id)
                 $('#modal_form_title').html('Edit Data')
