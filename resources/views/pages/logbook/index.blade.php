@@ -27,12 +27,14 @@
                                 <th>Pre</th>
                                 <th>Start</th>
                                 <th>Finish</th>
+                                <th>KM RFU</th>
                                 <th>Problem</th>
                                 <th>Action</th>
+                                <th>Respon</th>
                                 <th>Status</th>
-                                <th>Desc</th>
+                                <th>Remark</th>
                                 <th>Man Power</th>
-                                <th style="width: 50px">Action</th>
+                                <th style="width: 50px">#</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -144,11 +146,10 @@
             alias: 'numeric',
             groupSeparator: '.',
             autoGroup: true,
-            digits: 2,
+            digits: 0,
             rightAlign: false,
             removeMaskOnSubmit: true,
             autoUnmask: true,
-            digitsOptional: false,
             min: 0,
         });
 
@@ -328,7 +329,18 @@
                     }
                 }
             }, {
+                data: 'km_rfu',
+                render: function(data, type, row, meta) {
+                    if (type == 'display') {
+                        return hrg(data)
+                    } else {
+                        return data
+                    }
+                }
+            }, {
                 data: 'problem',
+            }, {
+                data: 'respon',
             }, {
                 data: 'action',
             }, {
@@ -413,6 +425,7 @@
                 $('#pre').timepicker('setTime', result.data.pre)
                 $('#start').timepicker('setTime', result.data.start)
                 $('#finish').timepicker('setTime', result.data.finish)
+                $('#km_rfu').val(result.data.km_rfu)
                 $('#problem').val(result.data.problem)
                 $('#action').val(result.data.action)
                 $('#desc').val(result.data.desc)
@@ -429,6 +442,9 @@
 
 
                 $("input[name='status'][value='" + result.data.status + "']").prop('checked', true)
+                    .trigger('change');
+
+                $("input[name='respon'][value='" + result.data.respon + "']").prop('checked', true)
                     .trigger('change');
 
 
@@ -512,8 +528,10 @@
             $('#finish').timepicker('setTime', time);
             // $('#start').val(time)
             // $('#finish').val(time)
+            $('#km_rfu').val(0)
             $('#problem').val('')
             $('#action').val('')
+            $("input[name='respon'][value='UT']").prop('checked', true).trigger('change');
             $("input[name='status'][value='pending']").prop('checked', true).trigger('change');
             $("input[name='type'][value='maxi']").prop('checked', true).trigger('change');
             $('#desc').val('')

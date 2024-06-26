@@ -33,6 +33,8 @@ class LogbookResource extends JsonResource
             'action'        => $this->action,
             'status'        => $this->status,
             'desc'          => $this->desc,
+            'km_rfu'        => $this->km_rfu,
+            'respon'        => $this->respon,
             'unit_id'       => $this->unit_id,
             'component_id'  => $this->component_id,
             'unit'          => new UnitResource($this->whenLoaded('unit')),

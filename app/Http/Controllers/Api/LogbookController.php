@@ -49,6 +49,8 @@ class LogbookController extends Controller
             'desc'      => 'nullable|max:200',
             'users'     => 'nullable|array',
             'users.*'   => 'exists:users,id',
+            'km_rfu'    => 'required|integer|gte:0',
+            'respon'    => 'required|in:UT,TJ,MB',
         ]);
         $logbook = Logbook::create([
             'date'          => $request->date,
@@ -62,6 +64,8 @@ class LogbookController extends Controller
             'action'        => $request->action,
             'status'        => $request->status,
             'desc'          => $request->desc,
+            'km_rfu'        => $request->km_rfu,
+            'respon'        => $request->respon,
         ]);
 
         $manpowersData = [];
@@ -102,6 +106,8 @@ class LogbookController extends Controller
             'desc'      => 'nullable|max:200',
             'users'     => 'nullable|array',
             'users.*'   => 'distinct|exists:users,id',
+            'km_rfu'    => 'required|integer|gte:0',
+            'respon'    => 'required|in:UT,TJ,MB',
         ]);
 
         $logbook->update([
@@ -116,6 +122,8 @@ class LogbookController extends Controller
             'action'        => $request->action,
             'status'        => $request->status,
             'desc'          => $request->desc,
+            'km_rfu'        => $request->km_rfu,
+            'respon'        => $request->respon,
         ]);
 
         foreach ($logbook->man_powers ?? [] as $item) {

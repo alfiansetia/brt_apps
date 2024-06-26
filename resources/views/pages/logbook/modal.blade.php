@@ -80,6 +80,12 @@
                             <span class="error invalid-feedback err_finish" style="display: hide;"></span>
                         </div>
                         <div class="form-group">
+                            <label class="control-label" for="km_rfu">KM RFU :</label>
+                            <input type="text" name="km_rfu" class="form-control mask_angka" id="km_rfu"
+                                placeholder="Please Enter KM RFU" min="0" required>
+                            <span class="error invalid-feedback err_km_rfu" style="display: hide;"></span>
+                        </div>
+                        <div class="form-group">
                             <label class="control-label" for="problem">Problem :</label>
                             <textarea name="problem" id="problem" class="form-control" maxlength="200" placeholder="Please Enter Problem"></textarea>
                             <span class="error invalid-feedback err_problem" style="display: hide;"></span>
@@ -88,6 +94,24 @@
                             <label class="control-label" for="action">Action :</label>
                             <textarea name="action" id="action" class="form-control" maxlength="200" placeholder="Please Enter Action"></textarea>
                             <span class="error invalid-feedback err_action" style="display: hide;"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Respon :</label>
+                            <div class="selectgroup w-100">
+                                <label class="selectgroup-item">
+                                    <input type="radio" name="respon" value="UT" class="selectgroup-input"
+                                        checked>
+                                    <span class="selectgroup-button">UT</span>
+                                </label><label class="selectgroup-item">
+                                    <input type="radio" name="respon" value="MB" class="selectgroup-input">
+                                    <span class="selectgroup-button">MB</span>
+                                </label>
+                                <label class="selectgroup-item">
+                                    <input type="radio" name="respon" value="TJ" class="selectgroup-input">
+                                    <span class="selectgroup-button">TJ</span>
+                                </label>
+                            </div>
+                            <span class="error invalid-feedback err_respon" style="display: hide;"></span>
                         </div>
                         <div class="form-group">
                             <label class="form-label">Status :</label>
@@ -111,8 +135,8 @@
                             <span class="error invalid-feedback err_users" style="display: hide;"></span>
                         </div>
                         <div class="form-group">
-                            <label class="control-label" for="desc">Desc :</label>
-                            <textarea name="desc" id="desc" class="form-control" maxlength="200" placeholder="Please Enter Desc"></textarea>
+                            <label class="control-label" for="desc">Remark :</label>
+                            <textarea name="desc" id="desc" class="form-control" maxlength="200" placeholder="Please Enter Remark"></textarea>
                             <span class="error invalid-feedback err_desc" style="display: hide;"></span>
                         </div>
                     </div>

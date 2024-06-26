@@ -24,6 +24,8 @@ return new class extends Migration
             $table->string('action')->nullable();
             $table->enum('status', ['pending', 'done'])->default('pending');
             $table->string('desc')->nullable();
+            $table->bigInteger('km_rfu')->default(0);
+            $table->enum('respon', ['UT', 'TJ', 'MB'])->default('UT');
             $table->timestamps();
             $table->foreign('unit_id')->references('id')->on('units')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreign('component_id')->references('id')->on('components')->cascadeOnDelete()->cascadeOnUpdate();

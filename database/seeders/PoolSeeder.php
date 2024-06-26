@@ -16,8 +16,8 @@ class PoolSeeder extends Seeder
         $names = [
             'Cijantung',
             'Klender',
-            'Perintis',
-            'Pinang Ranti',
+            'TJ Perintis',
+            'TJ Pinang Ranti',
         ];
         foreach ($names as $item) {
             Pool::create([
