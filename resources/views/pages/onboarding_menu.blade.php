@@ -97,6 +97,24 @@
             </a>
         </div>
 
+        <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+            <a href="{{ route('speeds.index') }}?pool={{ request()->query('pool') }}">
+                <div class="card card-statistic-1">
+                    <div class="card-icon bg-primary">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            <h4>Speed Limit</h4>
+                        </div>
+                        <div class="card-body cbm">
+                            {{ $datas['keluhan'] }} Data
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
     </div>
 @endsection
 

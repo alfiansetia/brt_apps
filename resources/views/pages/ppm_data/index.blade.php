@@ -1,4 +1,4 @@
-@extends('layouts.template', ['title' => 'Data Oil'])
+@extends('layouts.template', ['title' => 'Data PPM'])
 @push('css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/dataTables.bootstrap4.min.css"
         integrity="sha512-PT0RvABaDhDQugEbpNMwgYBCnGCiTZMh9yOzUsJHDgl/dMhD9yjHAwoumnUk3JydV3QTcIkNDuN40CJxik5+WQ=="
@@ -25,12 +25,8 @@
                             <tr>
                                 <th style="width: 30px;">#</th>
                                 <th>Date</th>
-                                <th>User</th>
                                 <th>Unit</th>
-                                <th>Product</th>
-                                <th>Amount</th>
-                                <th>Type</th>
-                                <th>Desc</th>
+                                <th>PPM</th>
                                 <th style="width: 50px">Action</th>
                             </tr>
                         </thead>
@@ -41,7 +37,7 @@
             </div>
         </div>
     </div>
-    @include('pages.oil.modal')
+    @include('pages.ppm_data.modal')
 @endsection
 
 @push('js')
@@ -171,11 +167,10 @@
             //     }
             // });
         });
-        var url_index = "{{ route('api.oils.index') }}"
+        var url_index = "{{ route('api.ppmdatas.index') }}"
         var id = 0
         var perpage = 50
         var pool_id = "{{ request()->query('pool') }}"
-        var url_index_with_pool = url_index + "?pool_id=" + pool_id
 
         $(".select2").select2()
 
@@ -208,7 +203,6 @@
                         code: params.term || '',
                         page: params.page || 1,
                         limit: perpage,
-                        pool_id: pool_id,
                     };
                 },
                 processResults: function(data, params) {
@@ -228,47 +222,16 @@
             }
         })
 
-        $("#product").select2({
-            placeholder: 'Select Product',
+        $("#ppm").select2({
+            placeholder: 'Select PPM!',
             allowClear: true,
             ajax: {
-                url: "{{ route('api.products.paginate') }}",
-                data: function(params) {
-                    return {
-                        code: params.term || '',
-                        name: params.term || '',
-                        page: params.page || 1,
-                        limit: perpage,
-                    };
-                },
-                processResults: function(data, params) {
-                    params.page = params.page || 1;
-                    return {
-                        results: $.map(data.data, function(item) {
-                            return {
-                                text: `${item.name}`,
-                                id: item.id,
-                            }
-                        }),
-                        pagination: {
-                            more: (params.page * perpage) < (data.meta.total || 0)
-                        }
-                    };
-                },
-            }
-        })
-
-        $("#user").select2({
-            placeholder: 'Select User!',
-            allowClear: true,
-            ajax: {
-                url: "{{ route('api.users.paginate') }}",
+                url: "{{ route('api.ppms.paginate') }}",
                 data: function(params) {
                     return {
                         name: params.term || '',
                         page: params.page || 1,
                         limit: perpage,
-                        role: 'user',
                     };
                 },
                 processResults: function(data, params) {
@@ -292,7 +255,7 @@
             processing: true,
             serverSide: true,
             searchDelay: 500,
-            ajax: url_index_with_pool,
+            ajax: url_index,
             dom: "<'dt--top-section'<'row'<'col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center'B><'col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3'f>>>" +
                 "<'table-responsive'tr>" +
                 "<'dt--bottom-section d-sm-flex justify-content-sm-between text-center'<'dt--pages-count  mb-sm-0 mb-3'i><'dt--pagination'p>>",
@@ -323,15 +286,6 @@
             }, {
                 data: 'date',
             }, {
-                data: 'user_id',
-                render: function(data, type, row, meta) {
-                    if (type == 'display') {
-                        return data != null ? `${row.user.name}` : '';
-                    } else {
-                        return data
-                    }
-                }
-            }, {
                 data: 'unit_id',
                 render: function(data, type, row, meta) {
                     if (type == 'display') {
@@ -341,34 +295,24 @@
                     }
                 }
             }, {
-                data: 'product_id',
+                data: 'ppm_id',
                 render: function(data, type, row, meta) {
                     if (type == 'display') {
                         return data != null ?
-                            `${row.product.name}` : '';
+                            `${row.ppm.name}` : '';
                     } else {
                         return data
                     }
                 }
-            }, {
-                data: 'amount',
-                render: function(data, type, row, meta) {
-                    if (type == 'display') {
-                        return hrgd(data) + ' Liter';
-                    } else {
-                        return data
-                    }
-                }
-            }, {
-                data: 'type',
-            }, {
-                data: 'desc',
             }, {
                 data: 'id',
                 sortable: false,
                 render: function(data, type, row, meta) {
                     if (type == 'display') {
-                        return `<button class="btn btn-danger btn-sm btn-delete">Delete</button>`;
+                        return `<div class="btn-group" role="group" aria-label="Basic example">
+                                    <button class="btn btn-info btn-sm btn-download">Download</button>
+                                    <button class="btn btn-danger btn-sm btn-delete">Delete</button>
+                                </div>`;
                     } else {
                         return data
                     }
@@ -420,21 +364,10 @@
             row = $(this).parents('tr')[0];
             id = table.row(row).data().id
             $.get(url_index + '/' + id).done(function(result) {
+                $('#file').attr('required', false)
+                $('#form')[0].reset()
                 $("#date").data('daterangepicker').setStartDate(result.data.date);
                 $("#date").data('daterangepicker').setEndDate(result.data.date);
-                $('#amount').val(result.data.amount)
-                $('#desc').val(result.data.desc)
-                $("input[name='type'][value='" + result.data.type + "']").prop('checked', true)
-                    .trigger('change');
-                if (result.data.user_id != null) {
-                    let option = new Option(`${result.data.user.name}`,
-                        result
-                        .data.user_id,
-                        true, true);
-                    $('#user').append(option).trigger('change');
-                } else {
-                    $('#user').val('').change()
-                }
                 if (result.data.unit_id != null) {
                     let option = new Option(`${result.data.unit.code} (${result.data.unit.type})`, result
                         .data.unit_id,
@@ -443,14 +376,13 @@
                 } else {
                     $('#unit').val('').change()
                 }
-                if (result.data.product_id != null) {
-                    let option = new Option(`${result.data.product.name}`,
-                        result
-                        .data.product_id,
+                if (result.data.ppm_id != null) {
+                    let option = new Option(`${result.data.ppm.name}`,
+                        result.data.ppm_id,
                         true, true);
-                    $('#product').append(option).trigger('change');
+                    $('#ppm').append(option).trigger('change');
                 } else {
-                    $('#product').val('').change()
+                    $('#ppm').val('').change()
                 }
                 $('#form').attr('action', url_index + '/' + id)
                 $('#modal_form_title').html('Edit Data')
@@ -466,6 +398,16 @@
             row = $(this).parents('tr')[0];
             id = table.row(row).data().id
             send_delete(url_index + "/" + id)
+        });
+
+        $('#table tbody').on('click', 'tr .btn-download', function() {
+            row = $(this).parents('tr')[0];
+            id = table.row(row).data().id
+            let file = table.row(row).data().file
+            if (file == null) {
+                return
+            }
+            window.open(file, '_blank')
         });
 
         $('#form').submit(function(e) {
@@ -489,22 +431,19 @@
         })
 
         $('#modal_form').on('shown.bs.modal', function() {
-            $('#amount').focus();
+            $('#date').focus();
         })
 
         function modal_add() {
+            $('#form')[0].reset()
+            $('#file').attr('required', true)
             clear_validate('form')
             $('#form').attr('action', url_index)
             $('#modal_form_submit').val('POST')
             $('#modal_form_title').html('Tambah Data')
             $('#modal_form').modal('show')
-
-            $("input[name='type'][value='service']").prop('checked', true).trigger('change');
-            $('#amount').val(0)
-            $('#desc').val('')
             $('#unit').val('').change()
-            $('#product').val('').change()
-            $('#user').val('').change()
+            $('#ppm').val('').change()
             let date = "{{ date('Y-m-d') }}"
             $("#date").data('daterangepicker').setStartDate(date);
             $("#date").data('daterangepicker').setEndDate(date);

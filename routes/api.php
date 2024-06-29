@@ -10,8 +10,11 @@ use App\Http\Controllers\Api\LogbookController;
 use App\Http\Controllers\Api\OilCoolantController;
 use App\Http\Controllers\Api\OnboardingController;
 use App\Http\Controllers\Api\PoolController;
+use App\Http\Controllers\Api\PpmController;
+use App\Http\Controllers\Api\PpmDataController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ProfileController;
+use App\Http\Controllers\Api\SpeedController;
 use App\Http\Controllers\Api\UnitController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
@@ -56,6 +59,15 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::get('keluhan-paginate', [KeluhanController::class, 'paginate'])->name('api.keluhans.paginate');
     Route::apiResource('keluhans', KeluhanController::class)->names('api.keluhans');
+
+    Route::get('ppm-paginate', [PpmController::class, 'paginate'])->name('api.ppms.paginate');
+    Route::apiResource('ppms', PpmController::class)->names('api.ppms');
+
+    Route::get('ppmdata-paginate', [PpmDataController::class, 'paginate'])->name('api.ppmdatas.paginate');
+    Route::apiResource('ppmdatas', PpmDataController::class)->names('api.ppmdatas');
+
+    Route::get('speed-paginate', [SpeedController::class, 'paginate'])->name('api.speeds.paginate');
+    Route::apiResource('speeds', SpeedController::class)->names('api.speeds');
 
     Route::get('user-paginate', [UserController::class, 'paginate'])->name('api.users.paginate');
     Route::apiResource('users', UserController::class)->names('api.users');

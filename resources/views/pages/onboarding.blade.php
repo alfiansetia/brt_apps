@@ -80,41 +80,25 @@
             </a>
         </div>
 
-        {{-- <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-            <a href="{{ route('oils.index') }}">
+        <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+            <a href="{{ route('ppms_data.index') }}">
                 <div class="card card-statistic-1">
-                    <div class="card-icon bg-danger">
-                        <i class="fas fa-cubes"></i>
+                    <div class="card-icon bg-info">
+                        <i class="fas fa-file-pdf"></i>
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
-                            <h4>Oil & Coolant</h4>
+                            {{-- <h4 style="font-weight: bold">Logbook</h4> --}}
                         </div>
                         <div class="card-body">
-                            {{ $datas['oil'] }} Data
+                            <h4>PPM</h4>
+                            {{-- {{ $datas['logbook'] }} Data --}}
                         </div>
                     </div>
                 </div>
             </a>
-        </div> --}}
+        </div>
 
-        {{-- <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-            <a href="{{ route('cbms.index') }}">
-                <div class="card card-statistic-1">
-                    <div class="card-icon bg-warning">
-                        <i class="fas fa-wrench"></i>
-                    </div>
-                    <div class="card-wrap">
-                        <div class="card-header">
-                            <h4>CBM</h4>
-                        </div>
-                        <div class="card-body">
-                            {{ $datas['cbm'] }} Data
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div> --}}
 
     </div>
 @endsection

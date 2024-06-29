@@ -38,15 +38,31 @@
                     <a class="nav-link" href="{{ route('keluhans.index') }}?pool={{ request()->query('pool') }}"><i
                             class="fas fa-comments"></i><span>Keluhan</span></a>
                 </li>
+                <li class="{{ $title == 'Data Speed Limit' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('speeds.index') }}?pool={{ request()->query('pool') }}"><i
+                            class="fas fa-tachometer-alt"></i><span>Speed Limit</span></a>
+                </li>
             @endif
             <li class="{{ $title == 'Data Logbook' ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('logbooks.index') }}"><i
                         class="fas fa-tags"></i><span>LogBook</span></a>
             </li>
+            <li class="{{ $title == 'Data PPM' ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('ppms_data.index') }}"><i
+                        class="fas fa-file-pdf"></i><span>PPM</span></a>
+            </li>
             @if ($user->is_admin())
                 <li class="menu-header">Master</li>
                 @php
-                    $array = ['Data User', 'Data Unit', 'Data Category', 'Data Product', 'Data Component', 'Data Pool'];
+                    $array = [
+                        'Data User',
+                        'Data Unit',
+                        'Data Category',
+                        'Data Product',
+                        'Data Component',
+                        'Data Pool',
+                        'Data List PPM',
+                    ];
                 @endphp
                 <li class="nav-item dropdown {{ in_array($title, $array) ? 'active show' : '' }}">
                     <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
@@ -67,6 +83,9 @@
                         </li>
                         <li class="{{ $title == 'Data Component' ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('components.index') }}">Component</a>
+                        </li>
+                        <li class="{{ $title == 'Data List PPM' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('ppms.index') }}">PPM</a>
                         </li>
                     </ul>
                 </li>
