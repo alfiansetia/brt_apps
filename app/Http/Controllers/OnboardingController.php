@@ -9,6 +9,8 @@ use App\Models\Keluhan;
 use App\Models\OilCoolant;
 use App\Models\Pool;
 use App\Models\Speed;
+use App\Models\SpeedItem;
+use App\Models\Unit;
 use Illuminate\Http\Request;
 
 class OnboardingController extends Controller
@@ -34,5 +36,13 @@ class OnboardingController extends Controller
         $datas['keluhan'] = Keluhan::filter($filters)->count();
         $datas['speed'] = Speed::filter($filters)->count();
         return view('pages.onboarding_menu', compact('pool', 'datas'));
+    }
+
+    public function tes(Request $request)
+    {
+        $filters =  $request->only(['pool_id']);
+        $speeds = Speed::filter($filters)->with('items.unit')->orderBy('date', 'ASC')->get();
+        $units = Unit::filter($filters)->get();
+        return view('tes', compact('speeds', 'units'));
     }
 }

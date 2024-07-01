@@ -57,4 +57,5 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('ppms_data', [PpmDataController::class, 'index'])->name('ppms_data.index');
     Route::get('speeds', [SpeedController::class, 'index'])->name('speeds.index');
     // });
+    Route::get('/tes', [OnboardingController::class, 'tes'])->name('onboarding.tes');
 });
