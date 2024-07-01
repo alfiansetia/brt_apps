@@ -7,17 +7,15 @@
         <table class="table table-hovered">
             <thead>
                 <tr>
-                    <th>UNIT</th>
-                    @foreach ($speeds as $item)
-                        <th>{{ $item->date }}</th>
+                    @foreach ($results['column'] as $item)
+                        <th>{{ $item }}</th>
                     @endforeach
                 </tr>
             </thead>
-            @foreach ($units as $item)
+            @foreach ($results['row'] as $item)
                 <tr>
-                    <td>{{ $item->code }}</td>
-                    @foreach ($speeds as $speed)
-                        <td>{{ $speed->items()->where('unit_id', $item->id)->first()->value ?? 0 }}</td>
+                    @foreach ($item as $row)
+                        <td>{{ $row }}</td>
                     @endforeach
                 </tr>
             @endforeach
