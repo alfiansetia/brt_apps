@@ -8,6 +8,7 @@ use App\Models\Hmkm;
 use App\Models\Keluhan;
 use App\Models\OilCoolant;
 use App\Models\Pool;
+use App\Models\Speed;
 use Illuminate\Http\Request;
 
 class OnboardingController extends Controller
@@ -31,6 +32,7 @@ class OnboardingController extends Controller
         $datas['cbm'] = Cbm::filter($filters)->count();
         $datas['dmcr'] = Dmcr::filter($filters)->count();
         $datas['keluhan'] = Keluhan::filter($filters)->count();
+        $datas['speed'] = Speed::filter($filters)->count();
         return view('pages.onboarding_menu', compact('pool', 'datas'));
     }
 }

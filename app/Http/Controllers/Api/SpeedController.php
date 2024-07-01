@@ -16,7 +16,7 @@ class SpeedController extends Controller
      */
     public function index(Request $request)
     {
-        $filters = $request->only(['date']);
+        $filters = $request->only(['date', 'pool_id']);
         $query = Speed::query()->with('items.unit')->filter($filters);
         return DataTables::eloquent($query)->setTransformer(function ($item) {
             return SpeedResource::make($item)->resolve();
@@ -25,7 +25,7 @@ class SpeedController extends Controller
 
     public function paginate(Request $request)
     {
-        $filters = $request->only(['date']);
+        $filters = $request->only(['date', 'pool_id']);
         $data = Speed::query()->with('items.unit')->filter($filters)->paginate(intval($request->limit) ?? 10);
         return SpeedResource::collection($data);
     }
@@ -64,7 +64,7 @@ class SpeedController extends Controller
      */
     public function show(Speed $speed)
     {
-        return new SpeedResource($speed->load('items.unit'));
+        return new SpeedResource($speed->load('items.unit.pool'));
     }
 
     /**

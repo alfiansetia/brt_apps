@@ -194,6 +194,13 @@
                 data: 'unit.code',
             }, {
                 data: 'value',
+                render: function(data, type, row, meta) {
+                    if (type == 'display') {
+                        return data + 'kpj'
+                    } else {
+                        return data
+                    }
+                }
             }],
             buttons: [],
             initComplete: function() {

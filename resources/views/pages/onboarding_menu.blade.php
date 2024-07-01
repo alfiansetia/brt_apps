@@ -108,7 +108,7 @@
                             <h4>Speed Limit</h4>
                         </div>
                         <div class="card-body cbm">
-                            {{ $datas['keluhan'] }} Data
+                            {{ $datas['speed'] }} Data
                         </div>
                     </div>
                 </div>

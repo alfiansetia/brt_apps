@@ -13,8 +13,8 @@ class Speed extends Model
 
     public function scopeFilter($query, array $filters)
     {
-        if (isset($filters['name'])) {
-            $query->where('name', 'like', '%' . $filters['name'] . '%');
+        if (isset($filters['pool_id'])) {
+            $query->whereRelation('items.unit', 'pool_id',  $filters['pool_id']);
         }
     }
 
