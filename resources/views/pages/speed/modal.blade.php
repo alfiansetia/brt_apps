@@ -66,4 +66,6 @@
             </div>
         </div>
     </div>
+
+    @include('components.modal.export')
 @endpush

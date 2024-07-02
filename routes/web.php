@@ -72,6 +72,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('ppms_data-export', [PpmDataController::class, 'export'])->name('ppms_data.export');
 
     Route::get('speeds', [SpeedController::class, 'index'])->name('speeds.index');
+    Route::get('speeds-export', [SpeedController::class, 'export'])->name('speeds.export');
+
     // });
     Route::get('/tes', [OnboardingController::class, 'tes'])->name('onboarding.tes');
 });

@@ -251,7 +251,6 @@
             }
         })
 
-
         $('.daterange-cus').daterangepicker({
             locale: {
                 format: 'YYYY-MM-DD'
