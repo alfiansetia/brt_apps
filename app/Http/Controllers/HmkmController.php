@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\HmkmExport;
 use App\Models\Pool;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Excel as ExcelExcel;
+use Maatwebsite\Excel\Facades\Excel;
 
 class HmkmController extends Controller
 {
@@ -17,5 +21,22 @@ class HmkmController extends Controller
             return redirect()->route('onboarding.index')->with('error', 'Silahkan Pilih Pool!');
         }
         return view('pages.hmkm.index', compact('pool'));
+    }
+
+    public function export(Request $request)
+    {
+        $this->validate($request, [
+            'from'  => 'required|date_format:Y-m-d',
+            'to'    => 'required|date_format:Y-m-d',
+        ]);
+
+        $from = Carbon::parse($request->from)->startOfDay();
+        $to = Carbon::parse($request->to)->endOfDay();
+        $filters = [
+            'from' => $from,
+            'to' => $to
+        ];
+        $name = 'export_hmkm_' . $request->from . '_' . $request->to;
+        return Excel::download(new HmkmExport($filters), $name . '.xls', ExcelExcel::XLS);
     }
 }

@@ -122,6 +122,30 @@
             singleDatePicker: true,
         });
 
+        $('.daterange-cus').daterangepicker({
+            locale: {
+                format: 'YYYY-MM-DD'
+            },
+            ranges: {
+                'Today': [moment(), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days': [moment().subtract(6, 'days').startOf('day'), moment().endOf('day')],
+                'Last 31 Days': [moment().subtract(30, 'days'), moment()],
+                'This Month': [moment().startOf('month'), moment()],
+                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf(
+                    'month')],
+            },
+            showDropdowns: true,
+            startDate: moment().startOf('month'),
+            endDate: moment(),
+        });
+
+        $('#btn_export').click(function() {
+            let from = $('#range').data('daterangepicker').startDate.format('YYYY-MM-DD');
+            let to = $('#range').data('daterangepicker').endDate.format('YYYY-MM-DD');
+            window.open("{{ route('hmkms.export') }}?from=" + from + '&to=' + to, '_blank')
+        })
+
         $('.mask_angka').inputmask({
             alias: 'numeric',
             groupSeparator: '.',
@@ -250,7 +274,7 @@
                     }
                 }
             }],
-            buttons: [, {
+            buttons: [{
                 text: '<i class="fa fa-plus mr-1"></i>Add',
                 className: 'btn btn-sm btn-primary bs-tooltip',
                 attr: {
@@ -274,7 +298,17 @@
                     'title': 'Page Length'
                 },
                 className: 'btn btn-sm btn-info'
-            }],
+            }, {
+                text: '<i class="fa fa-file-excel mr-1"></i>Export',
+                className: 'btn btn-sm btn-info bs-tooltip',
+                attr: {
+                    'data-toggle': 'tooltip',
+                    'title': 'Export'
+                },
+                action: function(e, dt, node, config) {
+                    $('#modal_export').modal('show')
+                }
+            }, ],
             initComplete: function() {
                 $('#table').DataTable().buttons().container().appendTo(
                     '#tableData_wrapper .col-md-6:eq(0)');

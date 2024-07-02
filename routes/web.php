@@ -46,7 +46,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('products', [ProductController::class, 'index'])->name('products.index');
     Route::get('components', [ComponentController::class, 'index'])->name('components.index');
     Route::get('pools', [PoolController::class, 'index'])->name('pools.index');
+
     Route::get('hmkms', [HmkmController::class, 'index'])->name('hmkms.index');
+    Route::get('hmkm-export', [HmkmController::class, 'export'])->name('hmkms.export');
+
     Route::get('oils', [OilCoolantController::class, 'index'])->name('oils.index');
     Route::get('logbooks', [LogbookController::class, 'index'])->name('logbooks.index');
     Route::get('cbms', [CbmController::class, 'index'])->name('cbms.index');

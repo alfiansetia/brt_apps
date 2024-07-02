@@ -16,6 +16,10 @@ class Hmkm extends Model
         if (isset($filters['pool_id'])) {
             $query->whereRelation('unit', 'pool_id',  $filters['pool_id']);
         }
+
+        if (isset($filters['from']) && isset($filters['to'])) {
+            $query->whereBetween('date', [$filters['from'], $filters['to']]);
+        }
     }
 
     public function unit()
