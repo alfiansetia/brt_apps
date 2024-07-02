@@ -2,8 +2,7 @@
 
 namespace App\Exports;
 
-use App\Models\Hmkm;
-use Maatwebsite\Excel\Concerns\FromCollection;
+use App\Models\Cbm;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -11,7 +10,7 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithStrictNullComparison;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
-class HmkmExport implements FromQuery, WithHeadings, WithMapping, WithColumnFormatting, WithStrictNullComparison
+class CbmExport implements FromQuery, WithHeadings, WithMapping, WithColumnFormatting, WithStrictNullComparison
 {
     protected  $filters = [];
 
@@ -21,7 +20,7 @@ class HmkmExport implements FromQuery, WithHeadings, WithMapping, WithColumnForm
     }
     public function query()
     {
-        return Hmkm::query()->filter($this->filters)->with('unit');
+        return Cbm::query()->filter($this->filters)->with(['unit', 'component']);
     }
 
     public function headings(): array
@@ -31,8 +30,7 @@ class HmkmExport implements FromQuery, WithHeadings, WithMapping, WithColumnForm
             'Date',
             'Unit',
             'Unit Type',
-            'Hm Ac',
-            'Hm',
+            'Component',
             'Km',
             'Description'
         ];
@@ -46,8 +44,7 @@ class HmkmExport implements FromQuery, WithHeadings, WithMapping, WithColumnForm
             $row->date,
             $row->unit->code,
             $row->unit->type,
-            $row->hm_ac,
-            $row->hm,
+            $row->component->name ?? '',
             $row->km,
             $row->desc,
         ];
@@ -58,9 +55,7 @@ class HmkmExport implements FromQuery, WithHeadings, WithMapping, WithColumnForm
         return [
             'A' => NumberFormat::FORMAT_NUMBER,
             'B' => NumberFormat::FORMAT_DATE_YYYYMMDD,
-            'E' => NumberFormat::FORMAT_NUMBER,
             'F' => NumberFormat::FORMAT_NUMBER,
-            'G' => NumberFormat::FORMAT_NUMBER,
         ];
     }
 }

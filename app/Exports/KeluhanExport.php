@@ -2,8 +2,7 @@
 
 namespace App\Exports;
 
-use App\Models\Hmkm;
-use Maatwebsite\Excel\Concerns\FromCollection;
+use App\Models\Keluhan;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -11,7 +10,7 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithStrictNullComparison;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
-class HmkmExport implements FromQuery, WithHeadings, WithMapping, WithColumnFormatting, WithStrictNullComparison
+class KeluhanExport implements FromQuery, WithHeadings, WithMapping, WithColumnFormatting, WithStrictNullComparison
 {
     protected  $filters = [];
 
@@ -21,7 +20,7 @@ class HmkmExport implements FromQuery, WithHeadings, WithMapping, WithColumnForm
     }
     public function query()
     {
-        return Hmkm::query()->filter($this->filters)->with('unit');
+        return Keluhan::query()->filter($this->filters)->with(['unit']);
     }
 
     public function headings(): array
@@ -29,12 +28,14 @@ class HmkmExport implements FromQuery, WithHeadings, WithMapping, WithColumnForm
         return [
             'NO',
             'Date',
+            'Name',
             'Unit',
             'Unit Type',
-            'Hm Ac',
-            'Hm',
-            'Km',
-            'Description'
+            'KM',
+            'Keluhan',
+            'Responsible',
+            'Status',
+            'Activity',
         ];
     }
 
@@ -44,12 +45,14 @@ class HmkmExport implements FromQuery, WithHeadings, WithMapping, WithColumnForm
         return [
             $number++,
             $row->date,
+            $row->name,
             $row->unit->code,
             $row->unit->type,
-            $row->hm_ac,
-            $row->hm,
             $row->km,
-            $row->desc,
+            $row->keluhan,
+            $row->responsible,
+            $row->status,
+            $row->activity,
         ];
     }
 
@@ -58,9 +61,7 @@ class HmkmExport implements FromQuery, WithHeadings, WithMapping, WithColumnForm
         return [
             'A' => NumberFormat::FORMAT_NUMBER,
             'B' => NumberFormat::FORMAT_DATE_YYYYMMDD,
-            'E' => NumberFormat::FORMAT_NUMBER,
             'F' => NumberFormat::FORMAT_NUMBER,
-            'G' => NumberFormat::FORMAT_NUMBER,
         ];
     }
 }

@@ -191,6 +191,31 @@
             }
         })
 
+        $('.daterange-cus').daterangepicker({
+            locale: {
+                format: 'YYYY-MM-DD'
+            },
+            ranges: {
+                'Today': [moment(), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days': [moment().subtract(6, 'days').startOf('day'), moment().endOf('day')],
+                'Last 31 Days': [moment().subtract(30, 'days'), moment()],
+                'This Month': [moment().startOf('month'), moment()],
+                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf(
+                    'month')],
+            },
+            showDropdowns: true,
+            startDate: moment().startOf('month'),
+            endDate: moment(),
+            parentEl: "#modal_export",
+        });
+
+        $('#btn_export').click(function() {
+            let from = $('#range').data('daterangepicker').startDate.format('YYYY-MM-DD');
+            let to = $('#range').data('daterangepicker').endDate.format('YYYY-MM-DD');
+            window.open("{{ route('cbms.export') }}?from=" + from + '&to=' + to + '&pool_id=' + pool_id, '_blank')
+        })
+
         var table = $("#table").DataTable({
             processing: true,
             serverSide: true,
@@ -289,6 +314,16 @@
                     'title': 'Page Length'
                 },
                 className: 'btn btn-sm btn-info'
+            }, {
+                text: '<i class="fa fa-file-excel mr-1"></i>Export',
+                className: 'btn btn-sm btn-info bs-tooltip',
+                attr: {
+                    'data-toggle': 'tooltip',
+                    'title': 'Export'
+                },
+                action: function(e, dt, node, config) {
+                    $('#modal_export').modal('show')
+                }
             }],
             initComplete: function() {
                 $('#table').DataTable().buttons().container().appendTo(

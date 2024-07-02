@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\KeluhanExport;
 use App\Models\Keluhan;
 use App\Models\Pool;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Excel as ExcelExcel;
+use Maatwebsite\Excel\Facades\Excel;
 
 class KeluhanController extends Controller
 {
@@ -18,5 +21,17 @@ class KeluhanController extends Controller
             return redirect()->route('onboarding.index')->with('error', 'Silahkan Pilih Pool!');
         }
         return view('pages.keluhan.index', compact('pool'));
+    }
+
+    public function export(Request $request)
+    {
+        $this->validate($request, [
+            'from'      => 'required|date_format:Y-m-d',
+            'to'        => 'required|date_format:Y-m-d',
+            'pool_id'   => 'required|exists:pools,id',
+        ]);
+        $filters = $request->only(['from', 'to', 'pool_id']);
+        $name = 'export_keluhan_' . $request->from . '_' . $request->to;
+        return Excel::download(new KeluhanExport($filters), $name . '.xls', ExcelExcel::XLS);
     }
 }

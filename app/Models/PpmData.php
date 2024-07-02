@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class PpmData extends Model
 {
@@ -21,6 +22,11 @@ class PpmData extends Model
         }
         if (isset($filters['ppm_id'])) {
             $query->where('ppm_id', $filters['ppm_id']);
+        }
+        if (isset($filters['from']) && isset($filters['to'])) {
+            $from = Carbon::parse($filters['from'])->startOfDay();
+            $to = Carbon::parse($filters['to'])->endOfDay();
+            $query->whereBetween('date', [$from, $to]);
         }
     }
 

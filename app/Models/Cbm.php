@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class Cbm extends Model
 {
@@ -24,6 +25,11 @@ class Cbm extends Model
         }
         if (isset($filters['pool_id'])) {
             $query->whereRelation('unit', 'pool_id',  $filters['pool_id']);
+        }
+        if (isset($filters['from']) && isset($filters['to'])) {
+            $from = Carbon::parse($filters['from'])->startOfDay();
+            $to = Carbon::parse($filters['to'])->endOfDay();
+            $query->whereBetween('date', [$from, $to]);
         }
     }
 

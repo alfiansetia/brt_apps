@@ -2,8 +2,7 @@
 
 namespace App\Exports;
 
-use App\Models\Hmkm;
-use Maatwebsite\Excel\Concerns\FromCollection;
+use App\Models\OilCoolant;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -11,17 +10,17 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithStrictNullComparison;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
-class HmkmExport implements FromQuery, WithHeadings, WithMapping, WithColumnFormatting, WithStrictNullComparison
+class OilCoolantExport implements FromQuery, WithHeadings, WithMapping, WithColumnFormatting, WithStrictNullComparison
 {
     protected  $filters = [];
 
-    public function __construct($filters = [])
+    public function __construct($filters)
     {
         $this->filters = $filters;
     }
     public function query()
     {
-        return Hmkm::query()->filter($this->filters)->with('unit');
+        return OilCoolant::query()->filter($this->filters)->with(['user', 'product', 'unit']);
     }
 
     public function headings(): array
@@ -29,11 +28,13 @@ class HmkmExport implements FromQuery, WithHeadings, WithMapping, WithColumnForm
         return [
             'NO',
             'Date',
+            'User',
             'Unit',
             'Unit Type',
-            'Hm Ac',
-            'Hm',
-            'Km',
+            'Product',
+            'Product Code',
+            'Amount',
+            'Type',
             'Description'
         ];
     }
@@ -44,11 +45,13 @@ class HmkmExport implements FromQuery, WithHeadings, WithMapping, WithColumnForm
         return [
             $number++,
             $row->date,
+            $row->user->name ?? '',
             $row->unit->code,
             $row->unit->type,
-            $row->hm_ac,
-            $row->hm,
-            $row->km,
+            $row->product->name,
+            $row->product->code,
+            $row->amount,
+            $row->type,
             $row->desc,
         ];
     }
@@ -58,9 +61,7 @@ class HmkmExport implements FromQuery, WithHeadings, WithMapping, WithColumnForm
         return [
             'A' => NumberFormat::FORMAT_NUMBER,
             'B' => NumberFormat::FORMAT_DATE_YYYYMMDD,
-            'E' => NumberFormat::FORMAT_NUMBER,
-            'F' => NumberFormat::FORMAT_NUMBER,
-            'G' => NumberFormat::FORMAT_NUMBER,
+            'H' => NumberFormat::FORMAT_NUMBER_00,
         ];
     }
 }
