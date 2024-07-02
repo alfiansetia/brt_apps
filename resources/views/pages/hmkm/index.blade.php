@@ -144,7 +144,12 @@
         $('#btn_export').click(function() {
             let from = $('#range').data('daterangepicker').startDate.format('YYYY-MM-DD');
             let to = $('#range').data('daterangepicker').endDate.format('YYYY-MM-DD');
-            window.open("{{ route('hmkms.export') }}?from=" + from + '&to=' + to + '&pool_id=' + pool_id, '_blank')
+            let unit = $('#filter_unit').val()
+            if (unit == null) {
+                unit = ''
+            }
+            window.open("{{ route('hmkms.export') }}?from=" + from + '&to=' + to + '&pool_id=' + pool_id +
+                '&unit_id=' + unit, '_blank')
         })
 
         $('.mask_angka').inputmask({
@@ -165,6 +170,37 @@
         $("#unit").select2({
             placeholder: 'Select Unit',
             allowClear: true,
+            ajax: {
+                url: "{{ route('api.units.paginate') }}",
+                data: function(params) {
+                    return {
+                        code: params.term || '',
+                        page: params.page || 1,
+                        limit: perpage,
+                        pool_id: pool_id,
+                    };
+                },
+                processResults: function(data, params) {
+                    params.page = params.page || 1;
+                    return {
+                        results: $.map(data.data, function(item) {
+                            return {
+                                text: `${item.code} (${item.type})`,
+                                id: item.id,
+                            }
+                        }),
+                        pagination: {
+                            more: (params.page * perpage) < (data.meta.total || 0)
+                        }
+                    };
+                },
+            }
+        })
+
+        $("#filter_unit").select2({
+            placeholder: 'ALL',
+            allowClear: true,
+            dropdownParent: $('#modal_export'),
             ajax: {
                 url: "{{ route('api.units.paginate') }}",
                 data: function(params) {

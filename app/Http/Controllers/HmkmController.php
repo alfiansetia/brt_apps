@@ -26,11 +26,12 @@ class HmkmController extends Controller
     public function export(Request $request)
     {
         $this->validate($request, [
-            'from'  => 'required|date_format:Y-m-d',
-            'to'    => 'required|date_format:Y-m-d',
-            'pool_id' => 'required|exists:pools,id',
+            'from'      => 'required|date_format:Y-m-d',
+            'to'        => 'required|date_format:Y-m-d',
+            'pool_id'   => 'required|exists:pools,id',
+            'unit_id'   => 'nullable|exists:units,id',
         ]);
-        $filters = $request->only(['from', 'to', 'pool_id']);
+        $filters = $request->only(['from', 'to', 'pool_id', 'unit_id']);
         $name = 'export_hmkm_' . $request->from . '_' . $request->to;
         return Excel::download(new HmkmExport($filters), $name . '.xls', ExcelExcel::XLS);
     }

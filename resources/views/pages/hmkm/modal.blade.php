@@ -101,6 +101,12 @@
                         <input type="text" name="range" class="form-control daterange-cus" id="range"
                             placeholder="Please Enter Range Date" value="{{ date('Y-m-d') }}" required readonly>
                     </div>
+                    <div class="form-group">
+                        <label class="control-label" for="unit">Unit :</label>
+                        <select name="unit" id="filter_unit" class="custom-select select2" style="width: 100%;"
+                            required>
+                        </select>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
