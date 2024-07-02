@@ -144,7 +144,7 @@
         $('#btn_export').click(function() {
             let from = $('#range').data('daterangepicker').startDate.format('YYYY-MM-DD');
             let to = $('#range').data('daterangepicker').endDate.format('YYYY-MM-DD');
-            window.open("{{ route('hmkms.export') }}?from=" + from + '&to=' + to, '_blank')
+            window.open("{{ route('hmkms.export') }}?from=" + from + '&to=' + to + '&pool_id=' + pool_id, '_blank')
         })
 
         $('.mask_angka').inputmask({

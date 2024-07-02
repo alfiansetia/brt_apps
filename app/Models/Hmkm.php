@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -18,7 +19,10 @@ class Hmkm extends Model
         }
 
         if (isset($filters['from']) && isset($filters['to'])) {
-            $query->whereBetween('date', [$filters['from'], $filters['to']]);
+
+            $from = Carbon::parse($filters['from'])->startOfDay();
+            $to = Carbon::parse($filters['to'])->endOfDay();
+            $query->whereBetween('date', [$from, $to]);
         }
     }
 

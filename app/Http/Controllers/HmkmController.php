@@ -28,14 +28,9 @@ class HmkmController extends Controller
         $this->validate($request, [
             'from'  => 'required|date_format:Y-m-d',
             'to'    => 'required|date_format:Y-m-d',
+            'pool_id' => 'required|exists:pools,id',
         ]);
-
-        $from = Carbon::parse($request->from)->startOfDay();
-        $to = Carbon::parse($request->to)->endOfDay();
-        $filters = [
-            'from' => $from,
-            'to' => $to
-        ];
+        $filters = $request->only(['from', 'to', 'pool_id']);
         $name = 'export_hmkm_' . $request->from . '_' . $request->to;
         return Excel::download(new HmkmExport($filters), $name . '.xls', ExcelExcel::XLS);
     }
