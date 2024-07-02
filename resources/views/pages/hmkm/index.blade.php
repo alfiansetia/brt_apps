@@ -138,6 +138,7 @@
             showDropdowns: true,
             startDate: moment().startOf('month'),
             endDate: moment(),
+            parentEl: "#modal_export",
         });
 
         $('#btn_export').click(function() {
