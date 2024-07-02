@@ -33,7 +33,7 @@ class OilCoolantExport implements FromQuery, WithHeadings, WithMapping, WithColu
             'Unit Type',
             'Product',
             'Product Code',
-            'Amount',
+            'Amount Liter',
             'Type',
             'Description'
         ];
