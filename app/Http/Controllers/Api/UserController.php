@@ -11,6 +11,12 @@ use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware(['role:admin'])->only(['destroy', 'store', 'update']);
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -38,11 +44,13 @@ class UserController extends Controller
         $this->validate(
             $request,
             [
-                'name'      => 'required',
-                'email'     => 'required|unique:users,email',
+                'name'      => 'required|max:100',
+                'email'     => 'required|unique:users,email|max:100',
+                'nrp'       => 'nullable|max:100',
                 'role'      => 'required|in:user,admin',
                 'password'  => 'required|min:5',
                 'pool'      => 'required|exists:pools,id',
+                'is_active' => 'nullable:in:on',
             ]
         );
         $user = User::create([
@@ -51,6 +59,8 @@ class UserController extends Controller
             'password'  => Hash::make($request->password),
             'role'      => $request->role,
             'pool_id'   => $request->pool,
+            'nrp'       => $request->nrp,
+            'is_active' => $request->is_active == 'on' ? true : false,
         ]);
         return $this->response('Sukses Tambah Data!', new UserResource($user), 200);
     }
@@ -72,11 +82,13 @@ class UserController extends Controller
         $this->validate(
             $request,
             [
-                'name'      => 'required',
-                'email'     => 'required|unique:users,email,' . $user->id,
+                'name'      => 'required|max:100',
+                'email'     => 'required|max:100|unique:users,email,' . $user->id,
+                'nrp'       => 'nullable|max:100',
                 'role'      => 'required|in:user,admin',
                 'password'  => 'nullable|min:5',
                 'pool'      => 'required|exists:pools,id',
+                'is_active' => 'nullable:in:on',
             ]
         );
         $param = [
@@ -84,6 +96,8 @@ class UserController extends Controller
             'email'     => $request->email,
             'role'      => $request->role,
             'pool_id'   => $request->pool,
+            'nrp'       => $request->nrp,
+            'is_active' => $request->is_active == 'on' ? true : false,
         ];
         if ($request->filled('password')) {
             $param['password'] = Hash::make($request->password);

@@ -11,7 +11,6 @@ class UserController extends Controller
         $this->middleware(['role:admin']);
     }
 
-
     /**
      * Display a listing of the resource.
      */

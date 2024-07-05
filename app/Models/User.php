@@ -25,7 +25,9 @@ class User extends Authenticatable
         'avatar',
         'role',
         'last_login',
-        'pool_id'
+        'pool_id',
+        'nrp',
+        'is_active',
     ];
 
     /**
@@ -47,7 +49,8 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'password'          => 'hashed',
+            'is_active'         => 'boolean',
         ];
     }
 

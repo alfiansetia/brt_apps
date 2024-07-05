@@ -19,6 +19,7 @@
                                 <th>Email</th>
                                 <th>Pool</th>
                                 <th>Role</th>
+                                <th>Active</th>
                                 <th style="width: 50px">Action</th>
                             </tr>
                         </thead>
@@ -88,7 +89,12 @@
             processing: true,
             serverSide: true,
             searchDelay: 500,
-            ajax: url_index,
+            ajax: {
+                url: url_index,
+                error: function(xhr, textStatus, errorThrown) {
+                    show_toast('error', xhr.responseJSON.message || 'server Error!')
+                },
+            },
             dom: "<'dt--top-section'<'row'<'col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center'B><'col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3'f>>>" +
                 "<'table-responsive'tr>" +
                 "<'dt--bottom-section d-sm-flex justify-content-sm-between text-center'<'dt--pages-count  mb-sm-0 mb-3'i><'dt--pagination'p>>",
@@ -131,6 +137,22 @@
                 }
             }, {
                 data: 'role',
+                render: function(data, type, row, meta) {
+                    if (type == 'display') {
+                        return `<span class="badge badge-${data == 'admin' ? 'success' : 'danger'}">${data}</span>`;
+                    } else {
+                        return data
+                    }
+                }
+            }, {
+                data: 'is_active',
+                render: function(data, type, row, meta) {
+                    if (type == 'display') {
+                        return `<span class="badge badge-${data ? 'success' : 'danger'}">${data ? 'Active' : 'Nonactive'}</span>`;
+                    } else {
+                        return data
+                    }
+                }
             }, {
                 data: 'id',
                 sortable: false,
@@ -190,6 +212,8 @@
             $.get(url_index + '/' + id).done(function(result) {
                 $('#name').val(result.data.name)
                 $('#email').val(result.data.email)
+                $('#nrp').val(result.data.nrp)
+                $('#is_active').prop('checked', result.data.is_active)
                 $('#password').val('')
                 $('#password').attr('required', false)
                 $("input[name='role'][value='" + result.data.role + "']").prop('checked', true)
@@ -253,6 +277,8 @@
             $('#name').val('')
             $('#email').val('')
             $('#password').val('')
+            $('#nrp').val('')
+            $('#is_active').prop('checked', false)
             $("input[name='role'][value='user']").prop('checked', true).trigger('change');
             $('#pool').val('').change()
         }

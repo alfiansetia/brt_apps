@@ -10,6 +10,12 @@ use Yajra\DataTables\Facades\DataTables;
 
 class PpmController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware(['role:admin'])->only(['destroy', 'store', 'update']);
+    }
+
     /**
      * Display a listing of the resource.
      */

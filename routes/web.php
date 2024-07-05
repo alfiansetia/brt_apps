@@ -31,7 +31,7 @@ Auth::routes([
 ]);
 
 
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['auth', 'active']], function () {
     Route::get('/onboarding', [OnboardingController::class, 'index'])->name('onboarding.index');
     Route::get('/onboarding/menu', [OnboardingController::class, 'menu'])->name('onboarding.menu');
     Route::get('/home', [HomeController::class, 'index'])->name('home');

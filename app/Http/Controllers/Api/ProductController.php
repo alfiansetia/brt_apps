@@ -10,6 +10,11 @@ use Yajra\DataTables\Facades\DataTables;
 
 class ProductController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware(['role:admin'])->only(['destroy', 'store', 'update']);
+    }
     /**
      * Display a listing of the resource.
      */

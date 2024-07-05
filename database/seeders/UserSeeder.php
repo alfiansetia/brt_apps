@@ -22,6 +22,8 @@ class UserSeeder extends Seeder
             'password'      => Hash::make('admin12345'),
             'role'          => 'admin',
             'pool_id'       => 2,
+            'nrp'           => '240101',
+            'is_active'     => true,
         ]);
 
         User::create([
@@ -30,6 +32,8 @@ class UserSeeder extends Seeder
             'password'      => Hash::make('user12345'),
             'role'          => 'user',
             'pool_id'       => 2,
+            'nrp'           => '240102',
+            'is_active'     => true,
         ]);
 
         // for ($i = 0; $i < 100; $i++) {

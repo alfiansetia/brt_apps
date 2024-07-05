@@ -21,8 +21,14 @@
                         <div class="form-group">
                             <label class="control-label" for="email">Email :</label>
                             <input type="email" name="email" class="form-control" id="email"
-                                placeholder="Please Enter Email" maxlength="200" required>
+                                placeholder="Please Enter Email" maxlength="100" required>
                             <span class="error invalid-feedback err_email" style="display: hide;"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="nrp">NRP :</label>
+                            <input type="text" name="nrp" class="form-control" id="nrp"
+                                placeholder="Please Enter NRP" maxlength="100">
+                            <span class="error invalid-feedback err_nrp" style="display: hide;"></span>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="password">Password :</label>
@@ -54,10 +60,17 @@
                             </div>
                             <span class="error invalid-feedback err_role" style="display: hide;"></span>
                         </div>
+                        <div class="form-group">
+                            <label class="custom-switch mt-2 pl-0">
+                                <input type="checkbox" name="is_active" id="is_active" class="custom-switch-input">
+                                <span class="custom-switch-indicator"></span>
+                                <span class="custom-switch-description">Active (Can Login)</span>
+                            </label>
+                        </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times mr-1"
-                                data-toggle="tooltip" title="Close"></i>Close</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i
+                                class="fas fa-times mr-1" data-toggle="tooltip" title="Close"></i>Close</button>
                         <button type="submit" id="modal_form_submit" class="btn btn-primary"><i
                                 class="fas fa-paper-plane mr-1" data-toggle="tooltip" title="Save"></i>Save</button>
                     </div>

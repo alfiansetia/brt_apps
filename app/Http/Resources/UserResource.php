@@ -24,6 +24,8 @@ class UserResource extends JsonResource
             'email_verified_at' => $this->email_verified_at,
             'is_admin'          => $this->is_admin(),
             'pool_id'           => $this->pool_id,
+            'is_active'         => $this->is_active,
+            'nrp'               => $this->nrp,
             'pool'              => new PoolResource($this->whenLoaded('pool')),
         ];
     }
