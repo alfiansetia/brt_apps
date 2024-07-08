@@ -54,7 +54,7 @@ class CbmExport implements FromQuery, WithHeadings, WithMapping, WithColumnForma
     {
         return [
             'A' => NumberFormat::FORMAT_NUMBER,
-            'B' => NumberFormat::FORMAT_DATE_YYYYMMDD,
+            'B' => NumberFormat::FORMAT_DATE_DDMMYYYY,
             'F' => NumberFormat::FORMAT_NUMBER,
         ];
     }

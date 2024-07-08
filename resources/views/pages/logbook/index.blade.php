@@ -4,7 +4,6 @@
         integrity="sha512-PT0RvABaDhDQugEbpNMwgYBCnGCiTZMh9yOzUsJHDgl/dMhD9yjHAwoumnUk3JydV3QTcIkNDuN40CJxik5+WQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{{ asset('lib/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('lib/bootstrap-daterangepicker/daterangepicker.css') }}">
     <link rel="stylesheet" href="{{ asset('lib/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css">
     {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/inputmask@5.0.9/dist/colormask.min.css"> --}}
@@ -56,7 +55,6 @@
     <script src="{{ asset('lib/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 
     <script src="{{ asset('lib/select2/dist/js/select2.full.min.js') }}"></script>
-    <script src="{{ asset('lib/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
     <script src="{{ asset('lib/bootstrap-timepicker/js/bootstrap-timepicker.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.20.1/dist/jquery.validate.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/inputmask@5.0.9/dist/jquery.inputmask.min.js"></script>
@@ -120,13 +118,6 @@
         var perpage = 50
 
         $(".select2").select2()
-
-        $('.datepicker').daterangepicker({
-            locale: {
-                format: 'YYYY-MM-DD'
-            },
-            singleDatePicker: true,
-        });
 
         $(".timepickerd").timepicker({
             icons: {
@@ -247,28 +238,9 @@
             }
         })
 
-        $('.daterange-cus').daterangepicker({
-            locale: {
-                format: 'YYYY-MM-DD'
-            },
-            ranges: {
-                'Today': [moment(), moment()],
-                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                'Last 7 Days': [moment().subtract(6, 'days').startOf('day'), moment().endOf('day')],
-                'Last 31 Days': [moment().subtract(30, 'days'), moment()],
-                'This Month': [moment().startOf('month'), moment()],
-                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf(
-                    'month')],
-            },
-            showDropdowns: true,
-            startDate: moment().startOf('month'),
-            endDate: moment(),
-            parentEl: "#modal_export",
-        });
-
         $('#btn_export').click(function() {
-            let from = $('#range').data('daterangepicker').startDate.format('YYYY-MM-DD');
-            let to = $('#range').data('daterangepicker').endDate.format('YYYY-MM-DD');
+            let from = $('#range').data('daterangepicker').startDate.format('DD/MM/YYYY');
+            let to = $('#range').data('daterangepicker').endDate.format('DD/MM/YYYY');
             window.open("{{ route('logbooks.export') }}?from=" + from + '&to=' + to, '_blank')
         })
 
@@ -551,18 +523,14 @@
             $('#modal_form_title').html('Tambah Data')
             $('#modal_form').modal('show')
 
+            set_date('date')
             let time = "{{ date('H:i:s') }}"
-            let date = "{{ date('Y-m-d') }}"
-            $("#date").data('daterangepicker').setStartDate(date);
-            $("#date").data('daterangepicker').setEndDate(date);
             $('#unit').val('').change()
             $('#component').val('').change()
             $('#location').val('')
             $('#pre').timepicker('setTime', time);
             $('#start').timepicker('setTime', time);
             $('#finish').timepicker('setTime', time);
-            // $('#start').val(time)
-            // $('#finish').val(time)
             $('#km_rfu').val(0)
             $('#problem').val('')
             $('#action').val('')

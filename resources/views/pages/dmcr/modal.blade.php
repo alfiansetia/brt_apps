@@ -56,7 +56,7 @@
                         <div class="form-group">
                             <label class="control-label" for="date">Date :</label>
                             <input type="text" name="date" class="form-control datepicker" id="date"
-                                placeholder="Please Enter date" value="{{ date('Y-m-d') }}" required readonly>
+                                placeholder="Please Enter date" required readonly>
                             <span class="error invalid-feedback err_date" style="display: hide;"></span>
                         </div>
                         <div class="form-group">

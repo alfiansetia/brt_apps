@@ -60,7 +60,7 @@ class OilCoolantExport implements FromQuery, WithHeadings, WithMapping, WithColu
     {
         return [
             'A' => NumberFormat::FORMAT_NUMBER,
-            'B' => NumberFormat::FORMAT_DATE_YYYYMMDD,
+            'B' => NumberFormat::FORMAT_DATE_DDMMYYYY,
             'H' => NumberFormat::FORMAT_NUMBER_00,
         ];
     }

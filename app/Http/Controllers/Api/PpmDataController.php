@@ -42,7 +42,7 @@ class PpmDataController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'date'      => 'required|date_format:Y-m-d',
+            'date'      => 'required|date_format:d/m/Y',
             'unit'      => 'required|exists:units,id',
             'ppm'       => 'required|exists:ppms,id',
             'file'      => 'required|file|mimes:jpg,jpeg,png,pdf|max:10240',
@@ -80,7 +80,7 @@ class PpmDataController extends Controller
     public function update(Request $request, PpmData $ppmdata)
     {
         $this->validate($request, [
-            'date'      => 'required|date_format:Y-m-d',
+            'date'      => 'required|date_format:d/m/Y',
             'unit'      => 'required|exists:units,id',
             'ppm'       => 'required|exists:ppms,id',
             'file'      => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:10240',

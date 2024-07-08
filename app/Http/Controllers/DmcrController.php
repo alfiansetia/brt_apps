@@ -8,6 +8,7 @@ use App\Models\Pool;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Excel as ExcelExcel;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Str;
 
 class DmcrController extends Controller
 {
@@ -26,12 +27,12 @@ class DmcrController extends Controller
     public function export(Request $request)
     {
         $this->validate($request, [
-            'from'      => 'required|date_format:Y-m-d',
-            'to'        => 'required|date_format:Y-m-d',
+            'from'      => 'required|date_format:d/m/Y',
+            'to'        => 'required|date_format:d/m/Y',
             'pool_id'   => 'required|exists:pools,id',
         ]);
         $filters = $request->only(['from', 'to', 'pool_id']);
-        $name = 'export_dmcr_' . $request->from . '_' . $request->to;
+        $name = Str::slug('export_dmcr_' . $request->from . '_' .  $request->to);
         return Excel::download(new DmcrExport($filters), $name . '.xls', ExcelExcel::XLS);
     }
 }

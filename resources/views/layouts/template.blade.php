@@ -13,6 +13,7 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
         integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('lib/bootstrap-daterangepicker/daterangepicker.css') }}">
 
     @stack('css')
 
@@ -110,6 +111,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
     <script src="{{ asset('lib/moment/min/moment.min.js') }}"></script>
     <script src="{{ asset('lib/sweetalert/dist/sweetalert.min.js') }}"></script>
+    <script src="{{ asset('lib/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
 
     <script>
         function hrg(x) {
@@ -124,6 +126,16 @@
             });
         }
 
+        function parse_date(dateString) {
+            return moment(dateString).format('DD/MM/YYYY');
+        }
+
+        function set_date(id = 'date') {
+            let date = "{{ date('d/m/Y') }}"
+            $("#" + id).data('daterangepicker').setStartDate(date);
+            $("#" + id).data('daterangepicker').setEndDate(date);
+        }
+
         function parse_hm(data) {
             if (data && data.length === 8) {
                 var timeParts = data.split(':');
@@ -132,7 +144,6 @@
             }
             return data;
         }
-
 
         function ajax_setup() {
             $.ajaxSetup({

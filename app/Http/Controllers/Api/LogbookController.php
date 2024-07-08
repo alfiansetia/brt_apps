@@ -42,7 +42,7 @@ class LogbookController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'date'      => 'required|date_format:Y-m-d',
+            'date'      => 'required|date_format:d/m/Y',
             'unit'      => 'required|exists:units,id',
             'component' => 'required|exists:components,id',
             'location'  => 'nullable|max:200',
@@ -99,7 +99,7 @@ class LogbookController extends Controller
     public function update(Request $request, Logbook $logbook)
     {
         $this->validate($request, [
-            'date'      => 'required|date_format:Y-m-d',
+            'date'      => 'required|date_format:d/m/Y',
             'unit'      => 'required|exists:units,id',
             'component' => 'required|exists:components,id',
             'location'  => 'nullable|max:200',

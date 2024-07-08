@@ -60,7 +60,7 @@ class KeluhanExport implements FromQuery, WithHeadings, WithMapping, WithColumnF
     {
         return [
             'A' => NumberFormat::FORMAT_NUMBER,
-            'B' => NumberFormat::FORMAT_DATE_YYYYMMDD,
+            'B' => NumberFormat::FORMAT_DATE_DDMMYYYY,
             'F' => NumberFormat::FORMAT_NUMBER,
         ];
     }

@@ -44,8 +44,8 @@ class SpeedController extends Controller
         $this->validate(
             $request,
             [
-                // 'date'      => 'required|date_format:Y-m-d|unique:speeds,date',
-                'date'      => 'required|date_format:Y-m-d',
+                // 'date'      => 'required|date_format:d/m/Y|unique:speeds,date',
+                'date'      => 'required|date_format:d/m/Y',
                 'units'     => 'array',
                 'values'    => 'array',
                 'units.*'   => 'exists:units,id|distinct',
@@ -81,8 +81,8 @@ class SpeedController extends Controller
         $this->validate(
             $request,
             [
-                // 'date'      => 'required|date_format:Y-m-d|unique:speeds,date,' . $speed->id,
-                'date'      => 'required|date_format:Y-m-d',
+                // 'date'      => 'required|date_format:d/m/Y|unique:speeds,date,' . $speed->id,
+                'date'      => 'required|date_format:d/m/Y',
                 'units'     => 'array',
                 'values'    => 'array',
                 'units.*'   => 'exists:units,id',

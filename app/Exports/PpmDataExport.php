@@ -52,7 +52,7 @@ class PpmDataExport implements FromQuery, WithHeadings, WithMapping, WithColumnF
     {
         return [
             'A' => NumberFormat::FORMAT_NUMBER,
-            'B' => NumberFormat::FORMAT_DATE_YYYYMMDD,
+            'B' => NumberFormat::FORMAT_DATE_DDMMYYYY,
         ];
     }
 }

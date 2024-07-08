@@ -34,7 +34,7 @@ class HmkmController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'date'      => 'required|date_format:Y-m-d',
+            'date'      => 'required|date_format:d/m/Y',
             'unit'      => 'required|exists:units,id',
             'hm'        => 'required|integer|gte:0',
             'km'        => 'required|integer|gte:0',
@@ -66,7 +66,7 @@ class HmkmController extends Controller
     public function update(Request $request, Hmkm $hmkm)
     {
         $this->validate($request, [
-            'date'      => 'required|date_format:Y-m-d',
+            'date'      => 'required|date_format:d/m/Y',
             'unit'      => 'required|exists:units,id',
             'hm'        => 'required|integer|gte:0',
             'km'        => 'required|integer|gte:0',

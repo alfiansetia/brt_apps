@@ -41,7 +41,7 @@ class KeluhanController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'date'          => 'required|date_format:Y-m-d',
+            'date'          => 'required|date_format:d/m/Y',
             'name'          => 'required|max:200',
             'unit'          => 'required|exists:units,id',
             'km'            => 'required|integer|gte:0',
@@ -77,7 +77,7 @@ class KeluhanController extends Controller
     public function update(Request $request, Keluhan $keluhan)
     {
         $this->validate($request, [
-            'date'          => 'required|date_format:Y-m-d',
+            'date'          => 'required|date_format:d/m/Y',
             'name'          => 'required|max:200',
             'unit'          => 'required|exists:units,id',
             'km'            => 'required|integer|gte:0',

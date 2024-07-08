@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Excel as ExcelExcel;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Str;
 
 class HmkmController extends Controller
 {
@@ -26,13 +27,13 @@ class HmkmController extends Controller
     public function export(Request $request)
     {
         $this->validate($request, [
-            'from'      => 'required|date_format:Y-m-d',
-            'to'        => 'required|date_format:Y-m-d',
+            'from'      => 'required|date_format:d/m/Y',
+            'to'        => 'required|date_format:d/m/Y',
             'pool_id'   => 'required|exists:pools,id',
             'unit_id'   => 'nullable|exists:units,id',
         ]);
         $filters = $request->only(['from', 'to', 'pool_id', 'unit_id']);
-        $name = 'export_hmkm_' . $request->from . '_' . $request->to;
+        $name = Str::slug('export_hmkm_' . $request->from . '_' . $request->to);
         return Excel::download(new HmkmExport($filters), $name . '.xls', ExcelExcel::XLS);
     }
 }

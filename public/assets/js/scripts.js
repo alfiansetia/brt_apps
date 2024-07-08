@@ -584,34 +584,44 @@ $(function() {
   if(jQuery().daterangepicker) {
     if($(".datepicker").length) {
       $('.datepicker').daterangepicker({
-        locale: {format: 'YYYY-MM-DD'},
+        locale: {
+            format: 'DD/MM/YYYY'
+        },
         singleDatePicker: true,
+    });
+
+    }
+    if($(".daterange-cus").length) {
+      $('.daterange-cus').daterangepicker({
+        locale: {
+            format: 'DD/MM/YYYY'
+        },
+        ranges: {
+            'Today': [moment(), moment()],
+            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+            'Last 7 Days': [moment().subtract(6, 'days').startOf('day'), moment().endOf('day')],
+            'Last 31 Days': [moment().subtract(30, 'days'), moment()],
+            'This Month': [moment().startOf('month'), moment()],
+            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf(
+                'month')],
+        },
+        showDropdowns: true,
+        startDate: moment().startOf('month'),
+        endDate: moment(),
+        parentEl: "#modal_export",
       });
     }
+
     if($(".datetimepicker").length) {
       $('.datetimepicker').daterangepicker({
-        locale: {format: 'YYYY-MM-DD HH:mm'},
+        locale: {format: 'DD/MM/YYYY HH:mm'},
         singleDatePicker: true,
         timePicker: true,
         timePicker24Hour: true,
       });
     }
-    if($(".daterange").length) {
-      $('.daterange').daterangepicker({
-        locale: {format: 'YYYY-MM-DD'},
-        drops: 'down',
-        opens: 'right'
-      });
-    }
+   
   }
 
-  // Timepicker
-  if(jQuery().timepicker && $(".timepicker").length) {
-    $(".timepicker").timepicker({
-      icons: {
-        up: 'fas fa-chevron-up',
-        down: 'fas fa-chevron-down'
-      }
-    });
-  }
+ 
 });

@@ -74,7 +74,7 @@ class LogbookExport implements FromQuery, WithHeadings, WithMapping, WithColumnF
     {
         return [
             'A' => NumberFormat::FORMAT_NUMBER,
-            'B' => NumberFormat::FORMAT_DATE_YYYYMMDD,
+            'B' => NumberFormat::FORMAT_DATE_DDMMYYYY,
             'G' => NumberFormat::FORMAT_DATE_TIME3,
             'H' => NumberFormat::FORMAT_DATE_TIME3,
             'I' => NumberFormat::FORMAT_DATE_TIME3,

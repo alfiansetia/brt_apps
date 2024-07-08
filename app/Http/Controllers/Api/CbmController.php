@@ -41,7 +41,7 @@ class CbmController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'date'      => 'required|date_format:Y-m-d',
+            'date'      => 'required|date_format:d/m/Y',
             'unit'      => 'required|exists:units,id',
             'component' => 'required|exists:components,id',
             'km'        => 'required|integer|gte:0',
@@ -71,7 +71,7 @@ class CbmController extends Controller
     public function update(Request $request, Cbm $cbm)
     {
         $this->validate($request, [
-            'date'      => 'required|date_format:Y-m-d',
+            'date'      => 'required|date_format:d/m/Y',
             'unit'      => 'required|exists:units,id',
             'component' => 'required|exists:components,id',
             'km'        => 'required|integer|gte:0',

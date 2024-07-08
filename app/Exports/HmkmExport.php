@@ -57,7 +57,7 @@ class HmkmExport implements FromQuery, WithHeadings, WithMapping, WithColumnForm
     {
         return [
             'A' => NumberFormat::FORMAT_NUMBER,
-            'B' => NumberFormat::FORMAT_DATE_YYYYMMDD,
+            'B' => NumberFormat::FORMAT_DATE_DDMMYYYY,
             'E' => NumberFormat::FORMAT_NUMBER,
             'F' => NumberFormat::FORMAT_NUMBER,
             'G' => NumberFormat::FORMAT_NUMBER,

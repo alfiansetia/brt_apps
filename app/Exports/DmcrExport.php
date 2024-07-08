@@ -66,7 +66,7 @@ class DmcrExport implements FromQuery, WithHeadings, WithMapping, WithColumnForm
     {
         return [
             'A' => NumberFormat::FORMAT_NUMBER,
-            'B' => NumberFormat::FORMAT_DATE_YYYYMMDD,
+            'B' => NumberFormat::FORMAT_DATE_DDMMYYYY,
             'G' => NumberFormat::FORMAT_DATE_DATETIME,
             'H' => NumberFormat::FORMAT_DATE_DATETIME,
         ];

@@ -41,7 +41,7 @@ class OilCoolantController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'date'      => 'required|date_format:Y-m-d',
+            'date'      => 'required|date_format:d/m/Y',
             'user'      => 'required|exists:users,id',
             'unit'      => 'required|exists:units,id',
             'product'   => 'required|exists:products,id',
@@ -75,7 +75,7 @@ class OilCoolantController extends Controller
     public function update(Request $request, OilCoolant $oil)
     {
         $this->validate($request, [
-            'date'      => 'required|date_format:Y-m-d',
+            'date'      => 'required|date_format:d/m/Y',
             'user'      => 'required|exists:users,id',
             'unit'      => 'required|exists:units,id',
             'product'   => 'required|exists:products,id',
