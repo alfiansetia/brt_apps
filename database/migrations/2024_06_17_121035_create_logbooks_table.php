@@ -22,7 +22,7 @@ return new class extends Migration
             $table->time('finish')->useCurrent();
             $table->string('problem')->nullable();
             $table->string('action')->nullable();
-            $table->enum('status', ['pending', 'done'])->default('pending');
+            $table->enum('status', ['pending', 'TKA', 'BA02'])->default('pending');
             $table->string('desc')->nullable();
             $table->bigInteger('km_rfu')->default(0);
             $table->enum('respon', ['UT', 'TJ', 'MB'])->default('UT');

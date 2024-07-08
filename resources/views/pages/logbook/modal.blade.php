@@ -122,8 +122,12 @@
                                     <span class="selectgroup-button">Pending</span>
                                 </label>
                                 <label class="selectgroup-item">
-                                    <input type="radio" name="status" value="done" class="selectgroup-input">
-                                    <span class="selectgroup-button">Done</span>
+                                    <input type="radio" name="status" value="TKA" class="selectgroup-input">
+                                    <span class="selectgroup-button">TKA</span>
+                                </label>
+                                <label class="selectgroup-item">
+                                    <input type="radio" name="status" value="BA02" class="selectgroup-input">
+                                    <span class="selectgroup-button">BA02</span>
                                 </label>
                             </div>
                             <span class="error invalid-feedback err_status" style="display: hide;"></span>
