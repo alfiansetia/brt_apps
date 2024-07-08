@@ -307,8 +307,8 @@
     @stack('js')
 
     <!-- Template JS File -->
-    <script src="{{ asset('assets/js/scripts.js') }}"></script>
-    <script src="{{ asset('assets/js/custom.js') }}"></script>
+    <script src="{{ asset('assets/js/scripts.js?v=1') }}"></script>
+    <script src="{{ asset('assets/js/custom.js?v=1') }}"></script>
 
     @if (session()->has('success'))
         <script>
