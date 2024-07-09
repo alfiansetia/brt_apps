@@ -28,7 +28,7 @@ class OilCoolantExport implements FromQuery, WithHeadings, WithMapping, WithColu
         return [
             'NO',
             'Date',
-            'User',
+            'Mekanik',
             'Unit',
             'Unit Type',
             'Product',
