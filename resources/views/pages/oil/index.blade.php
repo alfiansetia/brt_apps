@@ -24,7 +24,7 @@
                             <tr>
                                 <th style="width: 30px;">#</th>
                                 <th>Date</th>
-                                <th>User</th>
+                                <th>Mekanik</th>
                                 <th>Unit</th>
                                 <th>Product</th>
                                 <th>Amount</th>
