@@ -30,6 +30,9 @@ class DmcrResource extends JsonResource
             'unit'          => new UnitResource($this->whenLoaded('unit')),
             'component'     => new ComponentResource($this->whenLoaded('component')),
             'man_powers'    => DmcrManpowerResource::collection($this->whenLoaded('man_powers')),
+            'man_power_ids' => $this->whenLoaded('man_powers', function () {
+                return $this->man_powers->pluck('user_id');
+            }),
         ];
     }
 }

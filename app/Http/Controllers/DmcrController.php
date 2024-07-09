@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exports\DmcrExport;
 use App\Models\Dmcr;
 use App\Models\Pool;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Excel as ExcelExcel;
 use Maatwebsite\Excel\Facades\Excel;
@@ -21,7 +22,8 @@ class DmcrController extends Controller
         if (!$pool) {
             return redirect()->route('onboarding.index')->with('error', 'Silahkan Pilih Pool!');
         }
-        return view('pages.dmcr.index', compact('pool'));
+        $users = User::where('role', 'user')->get();
+        return view('pages.dmcr.index', compact('pool', 'users'));
     }
 
     public function export(Request $request)

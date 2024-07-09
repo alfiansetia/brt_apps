@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\LogbookExport;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Excel as ExcelExcel;
 use Maatwebsite\Excel\Facades\Excel;
@@ -15,7 +16,8 @@ class LogbookController extends Controller
      */
     public function index()
     {
-        return view('pages.logbook.index');
+        $users = User::where('role', 'user')->get();
+        return view('pages.logbook.index', compact('users'));
     }
 
     public function export(Request $request)

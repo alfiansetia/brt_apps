@@ -43,6 +43,9 @@ class LogbookResource extends JsonResource
             'pre_parse'     => $pre,
             'start_parse'   => $start,
             'finish_parse'  => $finish,
+            'man_power_ids' => $this->whenLoaded('man_powers', function () {
+                return $this->man_powers->pluck('user_id');
+            }),
         ];
     }
 }

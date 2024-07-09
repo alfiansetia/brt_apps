@@ -191,32 +191,38 @@
             placeholder: 'Select User!',
             allowClear: true,
             multiple: true,
-            ajax: {
-                url: "{{ route('api.users.paginate') }}",
-                data: function(params) {
-                    return {
-                        name: params.term || '',
-                        page: params.page || 1,
-                        limit: perpage,
-                        role: 'user',
-                    };
-                },
-                processResults: function(data, params) {
-                    params.page = params.page || 1;
-                    return {
-                        results: $.map(data.data, function(item) {
-                            return {
-                                text: `${item.name}`,
-                                id: item.id,
-                            }
-                        }),
-                        pagination: {
-                            more: (params.page * perpage) < (data.meta.total || 0)
-                        }
-                    };
-                },
-            }
         })
+
+        // $("#users").select2({
+        //     placeholder: 'Select User!',
+        //     allowClear: true,
+        //     multiple: true,
+        //     ajax: {
+        //         url: "{{ route('api.users.paginate') }}",
+        //         data: function(params) {
+        //             return {
+        //                 name: params.term || '',
+        //                 page: params.page || 1,
+        //                 limit: perpage,
+        //                 role: 'user',
+        //             };
+        //         },
+        //         processResults: function(data, params) {
+        //             params.page = params.page || 1;
+        //             return {
+        //                 results: $.map(data.data, function(item) {
+        //                     return {
+        //                         text: `${item.name}`,
+        //                         id: item.id,
+        //                     }
+        //                 }),
+        //                 pagination: {
+        //                     more: (params.page * perpage) < (data.meta.total || 0)
+        //                 }
+        //             };
+        //         },
+        //     }
+        // })
 
         $('#btn_export').click(function() {
             let from = $('#range').data('daterangepicker').startDate.format('DD/MM/YYYY');
@@ -379,16 +385,17 @@
                 $("#finish").data('daterangepicker').setEndDate(result.data.finish);
                 $('#action').val(result.data.action)
                 $('#desc').val(result.data.desc)
-                $('#users').val(null).empty();
-                if (result.data.man_powers.length > 0) {
-                    let options = [];
-                    result.data.man_powers.forEach(function(item) {
-                        let option = new Option(item.user.name, item.user_id, true, true);
-                        options.push(option);
-                        $('#users').append(option).trigger('change');
-                    });
-                    $('#users').val(result.data.man_powers.map(item => item.user_id)).trigger('change');
-                }
+                // $('#users').val(null).empty();
+                $('#users').val(result.data.man_power_ids).change();
+                // if (result.data.man_powers.length > 0) {
+                //     let options = [];
+                //     result.data.man_powers.forEach(function(item) {
+                //         let option = new Option(item.user.name, item.user_id, true, true);
+                //         options.push(option);
+                //         $('#users').append(option).trigger('change');
+                //     });
+                //     $('#users').val(result.data.man_powers.map(item => item.user_id)).trigger('change');
+                // }
 
                 $("input[name='shift'][value='" + result.data.shift + "']").prop('checked', true)
                     .trigger('change');
@@ -474,7 +481,8 @@
 
             $('#desc').val('')
             $('#action').val('')
-            $('#users').val(null).empty()
+            // $('#users').val(null).empty()
+            $('#users').val([]).change()
         }
     </script>
 @endpush
