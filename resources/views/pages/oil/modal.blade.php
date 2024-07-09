@@ -13,7 +13,7 @@
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
-                            <label class="control-label" for="user">User :</label>
+                            <label class="control-label" for="user">Mekanik :</label>
                             <select name="user" id="user" class="form-control select2" style="width: 100%;"
                                 required>
                             </select>
