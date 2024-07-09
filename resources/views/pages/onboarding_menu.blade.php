@@ -18,7 +18,7 @@
                             <h4>HM KM</h4>
                         </div>
                         <div class="card-body hmkm">
-                            {{ $datas['hmkm'] }} Data
+                            {{ hrg($datas['hmkm']) }} Data
                         </div>
                     </div>
                 </div>
@@ -36,7 +36,7 @@
                             <h4>Oil & Coolant</h4>
                         </div>
                         <div class="card-body oil">
-                            {{ $datas['oil'] }} Data
+                            {{ hrg($datas['oil']) }} Data
                         </div>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                             <h4>CBM</h4>
                         </div>
                         <div class="card-body cbm">
-                            {{ $datas['cbm'] }} Data
+                            {{ hrg($datas['cbm']) }} Data
                         </div>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
                             <h4>DMCR</h4>
                         </div>
                         <div class="card-body cbm">
-                            {{ $datas['dmcr'] }} Data
+                            {{ hrg($datas['dmcr']) }} Data
                         </div>
                     </div>
                 </div>
@@ -90,7 +90,7 @@
                             <h4>Keluhan</h4>
                         </div>
                         <div class="card-body cbm">
-                            {{ $datas['keluhan'] }} Data
+                            {{ hrg($datas['keluhan']) }} Data
                         </div>
                     </div>
                 </div>
@@ -108,7 +108,7 @@
                             <h4>Speed Limit</h4>
                         </div>
                         <div class="card-body cbm">
-                            {{ $datas['speed'] }} Data
+                            {{ hrg($datas['speed']) }} Data
                         </div>
                     </div>
                 </div>
