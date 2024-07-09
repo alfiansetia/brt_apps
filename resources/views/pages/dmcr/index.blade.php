@@ -254,8 +254,8 @@
             lengthChange: true,
             columnDefs: [],
             order: [
+                [1, 'desc'],
                 [0, 'desc'],
-                [1, 'desc']
             ],
             columns: [{
                 data: 'id',
