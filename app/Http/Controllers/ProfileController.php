@@ -16,11 +16,13 @@ class ProfileController extends Controller
     public function update(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|max:100'
+            'name'  => 'required|max:100',
+            'nrp'   => 'required|max:100',
         ]);
         $user = auth()->user();
         $user->update([
-            'name' => $request->name,
+            'name'  => $request->name,
+            'nrp'   => $request->nrp,
         ]);
         return redirect()->route('profile.index')->with('success', 'Success Update Profile');;
     }

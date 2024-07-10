@@ -40,6 +40,20 @@
                                     </span>
                                 @enderror
                             </div>
+                            <div class="form-group col-md-6 col-12">
+                                <label for="nrp">NRP</label>
+                                <input name="nrp" type="text" id="nrp"
+                                    class="form-control @error('nrp') is-invalid @enderror" value="{{ $user->nrp }}"
+                                    required>
+                                <div class="invalid-feedback">
+                                    Please fill in the NRP
+                                </div>
+                                @error('nrp')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
                         </div>
                     </div>
                     <div class="card-footer text-right">
