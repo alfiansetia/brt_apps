@@ -116,13 +116,16 @@
             ],
             columns: [{
                 data: 'id',
+                searchable: false,
                 render: function(data, type, row, meta) {
                     return meta.row + meta.settings._iDisplayStart + 1;
                 }
             }, {
                 data: 'date',
+                searchable: false,
             }, {
                 data: 'id',
+                searchable: false,
                 sortable: false,
                 render: function(data, type, row, meta) {
                     if (type == 'display') {

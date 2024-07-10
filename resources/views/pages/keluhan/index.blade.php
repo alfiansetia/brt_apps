@@ -200,18 +200,22 @@
             ],
             columns: [{
                 data: 'id',
+                searchable: false,
                 render: function(data, type, row, meta) {
                     return meta.row + meta.settings._iDisplayStart + 1;
                 }
             }, {
                 data: 'date',
+                searchable: false,
             }, {
                 data: 'name',
             }, {
-                data: 'unit_id',
+                data: 'unit.code',
+                defaultContent: '',
                 render: function(data, type, row, meta) {
+                    console.log(type);
                     if (type == 'display') {
-                        return data != null ? `${row.unit.code} (${row.unit.type})` : '';
+                        return row.unit_id != null ? `${row.unit.code} (${row.unit.type})` : '';
                     } else {
                         return data
                     }

@@ -224,31 +224,30 @@
             ],
             columns: [{
                 data: 'id',
+                searchable: false,
                 render: function(data, type, row, meta) {
                     return meta.row + meta.settings._iDisplayStart + 1;
                 }
             }, {
                 data: 'date',
+                searchable: false,
             }, {
-                data: 'unit_id',
+                data: 'unit.code',
+                defaultContent: '',
                 render: function(data, type, row, meta) {
+                    console.log(type);
                     if (type == 'display') {
-                        return data != null ? `${row.unit.code} (${row.unit.type})` : '';
+                        return row.unit_id != null ? `${row.unit.code} (${row.unit.type})` : '';
                     } else {
                         return data
                     }
                 }
             }, {
-                data: 'component_id',
-                render: function(data, type, row, meta) {
-                    if (type == 'display') {
-                        return data != null ? `${row.component.name}` : '';
-                    } else {
-                        return data
-                    }
-                }
+                data: 'component.name',
+                defaultContent: '',
             }, {
                 data: 'km',
+                searchable: false,
                 render: function(data, type, row, meta) {
                     if (type == 'display') {
                         return hrg(data);
@@ -260,6 +259,7 @@
                 data: 'desc',
             }, {
                 data: 'id',
+                searchable: false,
                 sortable: false,
                 render: function(data, type, row, meta) {
                     if (type == 'display') {

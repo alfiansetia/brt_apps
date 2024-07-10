@@ -320,41 +320,33 @@
             ],
             columns: [{
                 data: 'id',
+                searchable: false,
                 render: function(data, type, row, meta) {
                     return meta.row + meta.settings._iDisplayStart + 1;
                 }
             }, {
                 data: 'date',
+                searchable: false,
             }, {
-                data: 'user_id',
+                data: 'user.name',
+                defaultContent: '',
+            }, {
+                data: 'unit.code',
+                defaultContent: '',
                 render: function(data, type, row, meta) {
+                    console.log(type);
                     if (type == 'display') {
-                        return data != null ? `${row.user.name}` : '';
+                        return row.unit_id != null ? `${row.unit.code} (${row.unit.type})` : '';
                     } else {
                         return data
                     }
                 }
             }, {
-                data: 'unit_id',
-                render: function(data, type, row, meta) {
-                    if (type == 'display') {
-                        return data != null ? `${row.unit.code} (${row.unit.type})` : '';
-                    } else {
-                        return data
-                    }
-                }
-            }, {
-                data: 'product_id',
-                render: function(data, type, row, meta) {
-                    if (type == 'display') {
-                        return data != null ?
-                            `${row.product.name}` : '';
-                    } else {
-                        return data
-                    }
-                }
+                data: 'product.name',
+                defaultContent: '',
             }, {
                 data: 'amount',
+                searchable: false,
                 render: function(data, type, row, meta) {
                     if (type == 'display') {
                         return hrgd(data) + ' Liter';
@@ -368,6 +360,7 @@
                 data: 'desc',
             }, {
                 data: 'id',
+                searchable: false,
                 sortable: false,
                 render: function(data, type, row, meta) {
                     if (type == 'display') {
