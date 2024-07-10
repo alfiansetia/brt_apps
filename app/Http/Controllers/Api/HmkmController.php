@@ -40,6 +40,12 @@ class HmkmController extends Controller
             'km'        => 'required|integer|gte:0',
             'hm_ac'     => 'required|integer|gte:0',
             'desc'      => 'nullable|max:200',
+            'breakpad1' => 'required|integer|gte:0',
+            'breakpad2' => 'required|integer|gte:0',
+            'breakpad3' => 'required|integer|gte:0',
+            'breakpad4' => 'required|integer|gte:0',
+            'breakpad5' => 'required|integer|gte:0',
+            'breakpad6' => 'required|integer|gte:0',
         ]);
         $hmkm = Hmkm::create([
             'date'      => $request->date,
@@ -48,6 +54,12 @@ class HmkmController extends Controller
             'km'        => $request->km,
             'hm_ac'     => $request->hm_ac,
             'desc'      => $request->desc,
+            'breakpad1' => $request->breakpad1,
+            'breakpad2' => $request->breakpad2,
+            'breakpad3' => $request->breakpad3,
+            'breakpad4' => $request->breakpad4,
+            'breakpad5' => $request->breakpad5,
+            'breakpad6' => $request->breakpad6,
         ]);
         return $this->response('Sukses Tambah Data!', new HmkmResource($hmkm), 200);
     }
@@ -72,6 +84,12 @@ class HmkmController extends Controller
             'km'        => 'required|integer|gte:0',
             'hm_ac'     => 'required|integer|gte:0',
             'desc'      => 'nullable|max:200',
+            'breakpad1' => 'required|integer|gte:0',
+            'breakpad2' => 'required|integer|gte:0',
+            'breakpad3' => 'required|integer|gte:0',
+            'breakpad4' => 'required|integer|gte:0',
+            'breakpad5' => 'required|integer|gte:0',
+            'breakpad6' => 'required|integer|gte:0',
         ]);
         $hmkm->update([
             'date'      => $request->date,
@@ -80,6 +98,12 @@ class HmkmController extends Controller
             'km'        => $request->km,
             'hm_ac'     => $request->hm_ac,
             'desc'      => $request->desc,
+            'breakpad1' => $request->breakpad1,
+            'breakpad2' => $request->breakpad2,
+            'breakpad3' => $request->breakpad3,
+            'breakpad4' => $request->breakpad4,
+            'breakpad5' => $request->breakpad5,
+            'breakpad6' => $request->breakpad6,
         ]);
         return $this->response('Sukses Ubah Data!', new HmkmResource($hmkm), 200);
     }

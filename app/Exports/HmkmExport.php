@@ -34,7 +34,13 @@ class HmkmExport implements FromQuery, WithHeadings, WithMapping, WithColumnForm
             'Hm Ac',
             'Hm',
             'Km',
-            'Description'
+            'Breakpad 1',
+            'Breakpad 2',
+            'Breakpad 3',
+            'Breakpad 4',
+            'Breakpad 5',
+            'Breakpad 6',
+            'Description',
         ];
     }
 
@@ -49,6 +55,12 @@ class HmkmExport implements FromQuery, WithHeadings, WithMapping, WithColumnForm
             $row->hm_ac,
             $row->hm,
             $row->km,
+            $row->breakpad1,
+            $row->breakpad2,
+            $row->breakpad3,
+            $row->breakpad4,
+            $row->breakpad5,
+            $row->breakpad6,
             $row->desc,
         ];
     }
@@ -61,6 +73,12 @@ class HmkmExport implements FromQuery, WithHeadings, WithMapping, WithColumnForm
             'E' => NumberFormat::FORMAT_NUMBER,
             'F' => NumberFormat::FORMAT_NUMBER,
             'G' => NumberFormat::FORMAT_NUMBER,
+            'H' => NumberFormat::FORMAT_NUMBER,
+            'I' => NumberFormat::FORMAT_NUMBER,
+            'J' => NumberFormat::FORMAT_NUMBER,
+            'K' => NumberFormat::FORMAT_NUMBER,
+            'L' => NumberFormat::FORMAT_NUMBER,
+            'M' => NumberFormat::FORMAT_NUMBER,
         ];
     }
 }

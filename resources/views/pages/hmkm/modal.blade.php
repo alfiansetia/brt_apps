@@ -49,6 +49,48 @@
                                 placeholder="Please Enter HM AC Unit" min="0" required>
                             <span class="error invalid-feedback err_hm_ac" style="display: hide;"></span>
                         </div>
+                        <div class="row">
+                            <div class="form-group col-6">
+                                <label class="control-label" for="breakpad1">Breakpad 1 :</label>
+                                <input type="text" name="breakpad1" class="form-control mask_angka" id="breakpad1"
+                                    placeholder="Please Enter Breakpad 1" min="0" required>
+                                <span class="error invalid-feedback err_breakpad1" style="display: hide;"></span>
+                            </div>
+                            <div class="form-group col-6">
+                                <label class="control-label" for="breakpad2">Breakpad 2 :</label>
+                                <input type="text" name="breakpad2" class="form-control mask_angka" id="breakpad2"
+                                    placeholder="Please Enter Breakpad 2" min="0" required>
+                                <span class="error invalid-feedback err_breakpad2" style="display: hide;"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-6">
+                                <label class="control-label" for="breakpad3">Breakpad 3 :</label>
+                                <input type="text" name="breakpad3" class="form-control mask_angka" id="breakpad3"
+                                    placeholder="Please Enter Breakpad 3" min="0" required>
+                                <span class="error invalid-feedback err_breakpad3" style="display: hide;"></span>
+                            </div>
+                            <div class="form-group col-6">
+                                <label class="control-label" for="breakpad4">Breakpad 4 :</label>
+                                <input type="text" name="breakpad4" class="form-control mask_angka" id="breakpad4"
+                                    placeholder="Please Enter Breakpad 4" min="0" required>
+                                <span class="error invalid-feedback err_breakpad4" style="display: hide;"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-6">
+                                <label class="control-label" for="breakpad5">Breakpad 5 :</label>
+                                <input type="text" name="breakpad5" class="form-control mask_angka" id="breakpad5"
+                                    placeholder="Please Enter Breakpad 5" min="0" required>
+                                <span class="error invalid-feedback err_breakpad5" style="display: hide;"></span>
+                            </div>
+                            <div class="form-group col-6">
+                                <label class="control-label" for="breakpad6">Breakpad 6 :</label>
+                                <input type="text" name="breakpad6" class="form-control mask_angka" id="breakpad6"
+                                    placeholder="Please Enter Breakpad 6" min="0" required>
+                                <span class="error invalid-feedback err_breakpad6" style="display: hide;"></span>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label class="control-label" for="desc">Desc :</label>
                             <textarea name="desc" id="desc" class="form-control" maxlength="200" placeholder="Please Enter Desc"></textarea>
@@ -56,8 +98,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times mr-1"
-                                data-toggle="tooltip" title="Close"></i>Close</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i
+                                class="fas fa-times mr-1" data-toggle="tooltip" title="Close"></i>Close</button>
                         <button type="submit" id="modal_form_submit" class="btn btn-primary"><i
                                 class="fas fa-paper-plane mr-1" data-toggle="tooltip" title="Save"></i>Save</button>
                     </div>

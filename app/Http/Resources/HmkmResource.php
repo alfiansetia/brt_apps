@@ -23,6 +23,12 @@ class HmkmResource extends JsonResource
             'km'        => $this->km,
             'hm_ac'     => $this->hm_ac,
             'desc'      => $this->desc,
+            'breakpad1' => $this->breakpad1,
+            'breakpad2' => $this->breakpad2,
+            'breakpad3' => $this->breakpad3,
+            'breakpad4' => $this->breakpad4,
+            'breakpad5' => $this->breakpad5,
+            'breakpad6' => $this->breakpad6,
             'unit_id'   => $this->unit_id,
             'unit'      => new UnitResource($this->whenLoaded('unit')),
         ];

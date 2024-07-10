@@ -28,6 +28,12 @@
                                 <th>HM AC</th>
                                 <th>HM</th>
                                 <th>KM</th>
+                                <th>B1</th>
+                                <th>B2</th>
+                                <th>B3</th>
+                                <th>B4</th>
+                                <th>B5</th>
+                                <th>B6</th>
                                 <th>Desc</th>
                                 <th style="width: 50px">Action</th>
                             </tr>
@@ -284,6 +290,66 @@
                     }
                 }
             }, {
+                data: 'breakpad1',
+                searchable: false,
+                render: function(data, type, row, meta) {
+                    if (type == 'display') {
+                        return hrg(data);
+                    } else {
+                        return data
+                    }
+                }
+            }, {
+                data: 'breakpad2',
+                searchable: false,
+                render: function(data, type, row, meta) {
+                    if (type == 'display') {
+                        return hrg(data);
+                    } else {
+                        return data
+                    }
+                }
+            }, {
+                data: 'breakpad3',
+                searchable: false,
+                render: function(data, type, row, meta) {
+                    if (type == 'display') {
+                        return hrg(data);
+                    } else {
+                        return data
+                    }
+                }
+            }, {
+                data: 'breakpad4',
+                searchable: false,
+                render: function(data, type, row, meta) {
+                    if (type == 'display') {
+                        return hrg(data);
+                    } else {
+                        return data
+                    }
+                }
+            }, {
+                data: 'breakpad5',
+                searchable: false,
+                render: function(data, type, row, meta) {
+                    if (type == 'display') {
+                        return hrg(data);
+                    } else {
+                        return data
+                    }
+                }
+            }, {
+                data: 'breakpad6',
+                searchable: false,
+                render: function(data, type, row, meta) {
+                    if (type == 'display') {
+                        return hrg(data);
+                    } else {
+                        return data
+                    }
+                }
+            }, {
                 data: 'desc',
             }, {
                 data: 'id',
@@ -359,6 +425,13 @@
                 $('#km').val(result.data.km)
                 $('#hm_ac').val(result.data.hm_ac)
                 $('#desc').val(result.data.desc)
+                $('#breakpad1').val(result.data.breakpad1)
+                $('#breakpad2').val(result.data.breakpad2)
+                $('#breakpad3').val(result.data.breakpad3)
+                $('#breakpad4').val(result.data.breakpad4)
+                $('#breakpad5').val(result.data.breakpad5)
+                $('#breakpad6').val(result.data.breakpad6)
+
                 $("input[name='type'][value='" + result.data.unit.type + "']").prop('checked', true)
                     .trigger('change');
                 if (result.data.unit_id != null) {
@@ -421,6 +494,12 @@
             $('#desc').val('')
             $('#unit').val('').change()
             set_date('date')
+            $('#breakpad1').val(0)
+            $('#breakpad2').val(0)
+            $('#breakpad3').val(0)
+            $('#breakpad4').val(0)
+            $('#breakpad5').val(0)
+            $('#breakpad6').val(0)
         }
     </script>
 @endpush
