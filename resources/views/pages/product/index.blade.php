@@ -39,9 +39,8 @@
     <script src="{{ asset('lib/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 
     <script src="{{ asset('lib/select2/dist/js/select2.full.min.js') }}"></script>
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script> --}}
     <script src="{{ asset('lib/jquery-validation-1.20.1/dist/jquery.validate.min.js') }}"></script>
-    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <script src="{{ asset('lib/qrcodejs-master/qrcode.min.js') }}"></script>
 
     <script>
         function qr() {
