@@ -112,7 +112,7 @@
 @endsection
 
 @push('js')
-    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.20.1/dist/jquery.validate.min.js"></script>
+    <script src="{{ asset('lib/jquery-validation-1.20.1/dist/jquery.validate.min.js') }}"></script>
     <script>
         $('#pw').validate({
             errorElement: 'span',

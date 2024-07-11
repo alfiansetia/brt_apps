@@ -46,7 +46,7 @@
 
     <script src="{{ asset('lib/select2/dist/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('lib/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.20.1/dist/jquery.validate.min.js"></script>
+    <script src="{{ asset('lib/jquery-validation-1.20.1/dist/jquery.validate.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/inputmask@5.0.9/dist/jquery.inputmask.min.js"></script>
 
     <script src="{{ asset('lib/html5-qrcode/html5-qrcode.min.js') }}"></script>
