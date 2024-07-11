@@ -102,14 +102,13 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="{{ asset('lib/moment/min/moment.min.js') }}"></script>
     <script src="{{ asset('assets/js/stisla.js') }}"></script>
 
     <script src="{{ asset('lib/izitoast/dist/js/iziToast.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/block-ui@2.70.1/jquery.blockUI.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/block-ui@2.70.1/jquery.blockUI.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
-    <script src="{{ asset('lib/moment/min/moment.min.js') }}"></script>
     <script src="{{ asset('lib/sweetalert/dist/sweetalert.min.js') }}"></script>
     <script src="{{ asset('lib/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
 
