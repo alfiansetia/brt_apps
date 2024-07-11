@@ -283,7 +283,6 @@
                 }
             }, {
                 data: 'date',
-                searchable: false,
             }, {
                 data: 'unit.code',
                 defaultContent: '',

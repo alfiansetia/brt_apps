@@ -319,7 +319,6 @@
                 }
             }, {
                 data: 'date',
-                searchable: false,
             }, {
                 data: 'user.name',
                 defaultContent: '',

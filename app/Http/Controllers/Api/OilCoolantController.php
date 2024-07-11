@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\OilCoolantResource;
 use App\Models\OilCoolant;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -21,9 +22,16 @@ class OilCoolantController extends Controller
      */
     public function index(Request $request)
     {
-        $filters = $request->only(['user_id', 'unit_id', 'product_id', 'type', 'pool_id']);
+        $filters = $request->only(['user_id', 'unit_id', 'product_id', 'type', 'pool_id', 'date']);
         $query = OilCoolant::query()->with(['user', 'product', 'unit'])->filter($filters);
-        return DataTables::eloquent($query)->setTransformer(function ($item) {
+        return DataTables::eloquent($query)->filterColumn('date', function ($query, $keyword) {
+            try {
+                $date = Carbon::createFromFormat('d/m/Y', $keyword)->format('Y-m-d');
+                $query->whereDate('date', $date);
+            } catch (\Exception $e) {
+                // 
+            }
+        })->setTransformer(function ($item) {
             return OilCoolantResource::make($item)->resolve();
         })->toJson();
     }

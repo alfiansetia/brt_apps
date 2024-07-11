@@ -267,7 +267,6 @@
                 }
             }, {
                 data: 'date',
-                searchable: false,
             }, {
                 data: 'shift',
             }, {

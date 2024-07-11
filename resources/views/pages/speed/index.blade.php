@@ -115,7 +115,6 @@
                 }
             }, {
                 data: 'date',
-                searchable: false,
             }, {
                 data: 'id',
                 searchable: false,

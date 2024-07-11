@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CbmResource;
 use App\Models\Cbm;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -23,7 +24,14 @@ class CbmController extends Controller
     {
         $filters = $request->only(['date', 'unit_id', 'component_id', 'pool_id']);
         $query = Cbm::query()->with(['unit', 'component'])->filter($filters);
-        return DataTables::eloquent($query)->setTransformer(function ($item) {
+        return DataTables::eloquent($query)->filterColumn('date', function ($query, $keyword) {
+            try {
+                $date = Carbon::createFromFormat('d/m/Y', $keyword)->format('Y-m-d');
+                $query->whereDate('date', $date);
+            } catch (\Exception $e) {
+                // 
+            }
+        })->setTransformer(function ($item) {
             return CbmResource::make($item)->resolve();
         })->toJson();
     }

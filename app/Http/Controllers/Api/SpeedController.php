@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\SpeedResource;
 use App\Models\Speed;
 use App\Models\SpeedItem;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -22,9 +23,16 @@ class SpeedController extends Controller
      */
     public function index(Request $request)
     {
-        $filters = $request->only(['date', 'pool_id']);
+        $filters = $request->only(['date']);
         $query = Speed::query()->with('items.unit')->filter($filters);
-        return DataTables::eloquent($query)->setTransformer(function ($item) {
+        return DataTables::eloquent($query)->filterColumn('date', function ($query, $keyword) {
+            try {
+                $date = Carbon::createFromFormat('d/m/Y', $keyword)->format('Y-m-d');
+                $query->whereDate('date', $date);
+            } catch (\Exception $e) {
+                // 
+            }
+        })->setTransformer(function ($item) {
             return SpeedResource::make($item)->resolve();
         })->toJson();
     }

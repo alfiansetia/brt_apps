@@ -26,6 +26,9 @@ class Speed extends Model
             $to = Carbon::createFromFormat('d/m/Y', $filters['to'])->endOfDay();
             $query->whereBetween('date', [$from, $to]);
         }
+        if (isset($filters['date'])) {
+            $query->whereDate('date', $filters['date']);
+        }
     }
 
     protected function date(): Attribute

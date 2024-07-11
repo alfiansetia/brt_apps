@@ -199,7 +199,6 @@
                 }
             }, {
                 data: 'date',
-                searchable: false,
             }, {
                 data: 'name',
             }, {

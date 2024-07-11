@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PpmDataResource;
 use App\Models\PpmData;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Yajra\DataTables\Facades\DataTables;
@@ -22,9 +23,16 @@ class PpmDataController extends Controller
      */
     public function index(Request $request)
     {
-        $filters = $request->only(['name']);
+        $filters = $request->only(['unit_id', 'pool_id', 'ppm_id', 'date']);
         $query = PpmData::query()->with(['unit', 'ppm'])->filter($filters);
-        return DataTables::eloquent($query)->setTransformer(function ($item) {
+        return DataTables::eloquent($query)->filterColumn('date', function ($query, $keyword) {
+            try {
+                $date = Carbon::createFromFormat('d/m/Y', $keyword)->format('Y-m-d');
+                $query->whereDate('date', $date);
+            } catch (\Exception $e) {
+                // 
+            }
+        })->setTransformer(function ($item) {
             return PpmDataResource::make($item)->resolve();
         })->toJson();
     }

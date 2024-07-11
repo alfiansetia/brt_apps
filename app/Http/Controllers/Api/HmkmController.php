@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\HmkmResource;
 use App\Models\Hmkm;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -21,9 +22,16 @@ class HmkmController extends Controller
      */
     public function index(Request $request)
     {
-        $filters = $request->only(['pool_id']);
+        $filters = $request->only(['pool_id', 'date']);
         $query = Hmkm::query()->with('unit')->filter($filters);
-        return DataTables::eloquent($query)->setTransformer(function ($item) {
+        return DataTables::eloquent($query)->filterColumn('date', function ($query, $keyword) {
+            try {
+                $date = Carbon::createFromFormat('d/m/Y', $keyword)->format('Y-m-d');
+                $query->whereDate('date', $date);
+            } catch (\Exception $e) {
+                // 
+            }
+        })->setTransformer(function ($item) {
             return HmkmResource::make($item)->resolve();
         })->toJson();
     }
