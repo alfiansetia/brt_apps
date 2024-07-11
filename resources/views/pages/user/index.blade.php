@@ -119,6 +119,7 @@
             ],
             columns: [{
                 data: 'id',
+                searchable: false,
                 render: function(data, type, row, meta) {
                     return meta.row + meta.settings._iDisplayStart + 1;
                 }
@@ -127,14 +128,8 @@
             }, {
                 data: 'email',
             }, {
-                data: 'pool_id',
-                render: function(data, type, row, meta) {
-                    if (type == 'display') {
-                        return data != null ? row.pool.name : '';
-                    } else {
-                        return data
-                    }
-                }
+                data: 'pool.name',
+                defaultContent: '',
             }, {
                 data: 'role',
                 render: function(data, type, row, meta) {
@@ -155,6 +150,7 @@
                 }
             }, {
                 data: 'id',
+                searchable: false,
                 sortable: false,
                 render: function(data, type, row, meta) {
                     if (type == 'display') {
