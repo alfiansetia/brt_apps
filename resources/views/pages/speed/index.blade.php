@@ -170,6 +170,11 @@
                 $('#table').DataTable().buttons().container().appendTo(
                     '#tableData_wrapper .col-md-6:eq(0)');
             },
+            drawCallback: function(settings) {
+                var api = this.api();
+                text = `(${hrg(api.page.info().recordsDisplay)} data)`
+                $('#total_data').text(text);
+            }
         });
 
         var table_detail = $("#table_detail").DataTable({
@@ -216,6 +221,11 @@
                 $('#table').DataTable().buttons().container().appendTo(
                     '#tableData_wrapper .col-md-6:eq(0)');
             },
+            drawCallback: function(settings) {
+                var api = this.api();
+                text = `(${hrg(api.page.info().recordsDisplay)} data)`
+                $('#total_data').text(text);
+            }
         });
 
         $('#table tbody').on('click', 'tr td:not(:first-child):not(:last-child)', function() {

@@ -349,6 +349,11 @@
                 $('#table').DataTable().buttons().container().appendTo(
                     '#tableData_wrapper .col-md-6:eq(0)');
             },
+            drawCallback: function(settings) {
+                var api = this.api();
+                text = `(${hrg(api.page.info().recordsDisplay)} data)`
+                $('#total_data').text(text);
+            }
         });
 
         $(".dataTables_filter input").unbind().bind("input", function(e) {

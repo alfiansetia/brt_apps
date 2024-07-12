@@ -54,7 +54,7 @@
 
                 <section class="section">
                     <div class="section-header">
-                        <h1>{{ $title }}</h1>
+                        <h1>{{ $title }} <span id="total_data"></span></h1>
                         <div class="section-header-breadcrumb">
                             {{-- <div class="breadcrumb-item {{ $title != 'Dashboard' ? 'active' : '' }}">
                                 <a href="{{ route('home') }}">Dashboard</a>
