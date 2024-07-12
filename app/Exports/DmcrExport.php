@@ -3,11 +3,13 @@
 namespace App\Exports;
 
 use App\Models\Dmcr;
+use Carbon\Carbon;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithStrictNullComparison;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 class DmcrExport implements FromQuery, WithHeadings, WithMapping, WithColumnFormatting, WithStrictNullComparison
@@ -34,6 +36,7 @@ class DmcrExport implements FromQuery, WithHeadings, WithMapping, WithColumnForm
             'Type',
             'Start',
             'Finish',
+            'Time',
             'Description',
             'Action',
             'Component',
@@ -46,6 +49,14 @@ class DmcrExport implements FromQuery, WithHeadings, WithMapping, WithColumnForm
         static $number = 1;
         $manPowersNames = $row->man_powers->isEmpty()
             ? '' : implode(', ', $row->man_powers->pluck('user.name')->toArray());
+
+        $start = Carbon::createFromFormat('d/m/Y H:i:s', $row->start);
+        $finish = Carbon::createFromFormat('d/m/Y H:i:s', $row->finish);
+        $diff = $start->diff($finish);
+        $totalHours = ($diff->d * 24) + $diff->h;
+        $minutes = $diff->i;
+        $formattedDiff = sprintf('%02d:%02d', $totalHours, $minutes);
+
         return [
             $number++,
             $row->date,
@@ -53,8 +64,9 @@ class DmcrExport implements FromQuery, WithHeadings, WithMapping, WithColumnForm
             $row->unit->code,
             $row->unit->type,
             $row->type,
-            $row->start,
-            $row->finish,
+            Date::dateTimeToExcel($start),
+            Date::dateTimeToExcel($finish),
+            $formattedDiff,
             $row->desc,
             $row->action,
             $row->component->name ?? '',
@@ -67,8 +79,8 @@ class DmcrExport implements FromQuery, WithHeadings, WithMapping, WithColumnForm
         return [
             'A' => NumberFormat::FORMAT_NUMBER,
             'B' => NumberFormat::FORMAT_DATE_DDMMYYYY,
-            'G' => NumberFormat::FORMAT_DATE_DATETIME,
-            'H' => NumberFormat::FORMAT_DATE_DATETIME,
+            'G' => NumberFormat::FORMAT_DATE_TIME4,
+            'H' => NumberFormat::FORMAT_DATE_TIME4,
         ];
     }
 }
