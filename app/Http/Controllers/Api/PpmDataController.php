@@ -127,4 +127,26 @@ class PpmDataController extends Controller
         $ppmdata->delete();
         return $this->response('Sukses Hapus Data!', new PpmDataResource($ppmdata), 200);
     }
+
+    public function destroyBatch(Request $request)
+    {
+        $this->validate($request, [
+            'id'        => 'required|array|min:1',
+            'id.*'      => 'integer|exists:ppm_data,id',
+        ]);
+        $ids = $request->id;
+        $deleted = PpmData::whereIn('id', $ids)->delete();
+        $message = 'Success Delete : ' . $deleted . ' & Fail : ' . (count($request->id) - $deleted);
+        return $this->response($message, $deleted);
+    }
+
+    public function truncate()
+    {
+        $deleted =  PpmData::truncate();
+        if (file_exists(public_path('/assets/file/ppm/'))) {
+            File::cleanDirectory(public_path('/assets/file/ppm/'));
+        }
+        $message = 'Success Delete All Data !';
+        return $this->response($message, $deleted);
+    }
 }

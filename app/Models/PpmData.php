@@ -13,6 +13,8 @@ class PpmData extends Model
 
     protected $guarded = ['id'];
 
+    protected $table = 'ppm_data';
+
     public function scopeFilter($query, array $filters)
     {
         if (isset($filters['date'])) {

@@ -277,6 +277,32 @@
             });
         }
 
+        function truncate_all(url, pool_id) {
+            swal({
+                    title: 'Are you sure?',
+                    text: 'Delete All Data?',
+                    icon: 'warning',
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        ajax_setup()
+                        $.ajax({
+                            url: url,
+                            type: 'DELETE',
+                            success: function(result) {
+                                show_toast('success', result.message || 'Success!')
+                                table.ajax.reload()
+                            },
+                            error: function(xhr, status, error) {
+                                show_toast('error', xhr.responseJSON.message || 'Server Error!')
+                            }
+                        })
+                    }
+                });
+        }
+
         function truncate(url, pool_id) {
             swal({
                     title: 'Are you sure?',

@@ -52,6 +52,8 @@ Route::group(['middleware' => ['auth:sanctum', 'active']], function () {
     Route::get('oil-paginate', [OilCoolantController::class, 'paginate'])->name('api.oils.paginate');
     Route::apiResource('oils', OilCoolantController::class)->names('api.oils');
 
+    Route::delete('logbooks', [LogbookController::class, 'destroyBatch'])->name('api.logbooks.destroybatch');
+    Route::delete('logbook-truncate', [LogbookController::class, 'truncate'])->name('api.logbooks.truncate');
     Route::get('logbook-paginate', [LogbookController::class, 'paginate'])->name('api.logbooks.paginate');
     Route::apiResource('logbooks', LogbookController::class)->names('api.logbooks');
 
@@ -73,6 +75,8 @@ Route::group(['middleware' => ['auth:sanctum', 'active']], function () {
     Route::get('ppm-paginate', [PpmController::class, 'paginate'])->name('api.ppms.paginate');
     Route::apiResource('ppms', PpmController::class)->names('api.ppms');
 
+    Route::delete('ppmdatas', [PpmDataController::class, 'destroyBatch'])->name('api.ppmdatas.destroybatch');
+    Route::delete('ppmdata-truncate', [PpmDataController::class, 'truncate'])->name('api.ppmdatas.truncate');
     Route::get('ppmdata-paginate', [PpmDataController::class, 'paginate'])->name('api.ppmdatas.paginate');
     Route::apiResource('ppmdatas', PpmDataController::class)->names('api.ppmdatas');
 

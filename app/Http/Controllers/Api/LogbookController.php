@@ -8,6 +8,7 @@ use App\Models\Logbook;
 use App\Models\LogbookManpower;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 use Yajra\DataTables\Facades\DataTables;
 
 class LogbookController extends Controller
@@ -162,5 +163,27 @@ class LogbookController extends Controller
     {
         $logbook->delete();
         return $this->response('Sukses Hapus Data!', new LogbookResource($logbook), 200);
+    }
+
+    public function destroyBatch(Request $request)
+    {
+        $this->validate($request, [
+            'id'        => 'required|array|min:1',
+            'id.*'      => 'integer|exists:hmkms,id',
+        ]);
+        $ids = $request->id;
+        $deleted = Logbook::whereIn('id', $ids)->delete();
+        $message = 'Success Delete : ' . $deleted . ' & Fail : ' . (count($request->id) - $deleted);
+        return $this->response($message, $deleted);
+    }
+
+    public function truncate()
+    {
+        Schema::disableForeignKeyConstraints();
+        $man_powers =  LogbookManpower::truncate();
+        $deleted =  Logbook::truncate();
+        Schema::enableForeignKeyConstraints();
+        $message = 'Success Delete All Data !';
+        return $this->response($message, $deleted);
     }
 }

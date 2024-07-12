@@ -10,30 +10,32 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <table class="table table-hover" id="table" style="width: 100%;cursor: pointer;">
-                        <thead>
-                            <tr>
-                                <th style="width: 30px;">#</th>
-                                <th>Date</th>
-                                <th>Unit</th>
-                                <th>Component</th>
-                                <th>Location</th>
-                                <th>Pre</th>
-                                <th>Start</th>
-                                <th>Finish</th>
-                                <th>KM RFU</th>
-                                <th>Problem</th>
-                                <th>Action</th>
-                                <th>Respon</th>
-                                <th>Status</th>
-                                <th>Remark</th>
-                                <th>Man Power</th>
-                                <th style="width: 50px">#</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
+                    <form action="" id="formSelected">
+                        <table class="table table-hover" id="table" style="width: 100%;cursor: pointer;">
+                            <thead>
+                                <tr>
+                                    <th style="width: 30px;">#</th>
+                                    <th>Date</th>
+                                    <th>Unit</th>
+                                    <th>Component</th>
+                                    <th>Location</th>
+                                    <th>Pre</th>
+                                    <th>Start</th>
+                                    <th>Finish</th>
+                                    <th>KM RFU</th>
+                                    <th>Problem</th>
+                                    <th>Action</th>
+                                    <th>Respon</th>
+                                    <th>Status</th>
+                                    <th>Remark</th>
+                                    <th>Man Power</th>
+                                    <th style="width: 50px">#</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </form>
                 </div>
             </div>
         </div>
@@ -109,6 +111,7 @@
         var url_index = "{{ route('api.logbooks.index') }}"
         var id = 0
         var perpage = 50
+        var url_truncate = "{{ route('api.logbooks.truncate') }}"
 
         $(".select2").select2()
 
@@ -278,8 +281,9 @@
             columns: [{
                 data: 'id',
                 searchable: false,
+                sortable: false,
                 render: function(data, type, row, meta) {
-                    return meta.row + meta.settings._iDisplayStart + 1;
+                    return `<div class="custom-checkbox custom-control"><input type="checkbox" id="check${data}" data-checkboxes="mygroup" name="id[]" value="${data}" class="custom-control-input child-chk select-customers-info"><label for="check${data}" class="custom-control-label">&nbsp;</label></div>`
                 }
             }, {
                 data: 'date',
@@ -404,7 +408,29 @@
                 action: function(e, dt, node, config) {
                     $('#modal_export').modal('show')
                 }
-            }],
+            }, {
+                text: '<i class="fa fa-tools"></i> Action',
+                className: 'btn btn-sm btn-warning bs-tooltip',
+                attr: {
+                    'data-toggle': 'tooltip',
+                    'title': 'Action'
+                },
+                extend: 'collection',
+                autoClose: true,
+                buttons: [{
+                    text: 'Delete Selected Data',
+                    className: 'btn btn-danger',
+                    action: function(e, dt, node, config) {
+                        delete_batch(url_index);
+                    }
+                }, {
+                    text: 'Delete All Data',
+                    className: 'btn btn-danger',
+                    action: function(e, dt, node, config) {
+                        truncate_all(url_truncate);
+                    }
+                }]
+            }, ],
             initComplete: function() {
                 $('#table').DataTable().buttons().container().appendTo(
                     '#tableData_wrapper .col-md-6:eq(0)');
@@ -413,8 +439,14 @@
                 var api = this.api();
                 text = `(${hrg(api.page.info().recordsDisplay)} data)`
                 $('#total_data').text(text);
-            }
+            },
+            headerCallback: function(e, a, t, n, s) {
+                e.getElementsByTagName("th")[0].innerHTML =
+                    '<div class="custom-checkbox custom-control"><input type="checkbox" class="custom-control-input chk-parent select-customers-info" id="checkbox-all"><label for="checkbox-all" class="custom-control-label">&nbsp;</label></div>'
+            },
         });
+
+        multiCheck(table);
 
         $(".dataTables_filter input").unbind().bind("input", function(e) {
             if (this.value.length >= 3 || e.keyCode == 13) {
