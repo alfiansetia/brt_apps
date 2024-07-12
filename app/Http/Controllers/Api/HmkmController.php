@@ -15,7 +15,7 @@ class HmkmController extends Controller
 
     public function __construct()
     {
-        $this->middleware(['role:admin'])->only(['destroy']);
+        $this->middleware(['role:admin'])->only(['destroy', 'destroyBatch', 'truncate']);
     }
 
     /**
