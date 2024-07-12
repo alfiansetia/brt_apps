@@ -277,6 +277,100 @@
             });
         }
 
+        function truncate(url, pool_id) {
+            swal({
+                    title: 'Are you sure?',
+                    text: 'Delete All Data in this Pool?',
+                    icon: 'warning',
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        ajax_setup()
+                        $.ajax({
+                            url: url,
+                            data: {
+                                pool_id: pool_id
+                            },
+                            type: 'DELETE',
+                            success: function(result) {
+                                show_toast('success', result.message || 'Success!')
+                                table.ajax.reload()
+                            },
+                            error: function(xhr, status, error) {
+                                show_toast('error', xhr.responseJSON.message || 'Server Error!')
+                            }
+                        })
+                    }
+                });
+        }
+
+        function selected() {
+            let id = $('input[name="id[]"]:checked').length;
+            if (id <= 0) {
+                show_toast('error', "No Selected Data!")
+                return false
+            } else {
+                return true
+            }
+        }
+
+        function delete_batch(url) {
+
+            if (!selected()) {
+                return
+            }
+
+            swal({
+                    title: 'Are you sure?',
+                    text: 'Delete Selection Data?',
+                    icon: 'warning',
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        ajax_setup()
+                        $.ajax({
+                            url: url,
+                            data: $("#formSelected").serialize(),
+                            type: 'DELETE',
+                            success: function(result) {
+                                show_toast('success', result.message || 'Success!')
+                                table.ajax.reload()
+                            },
+                            error: function(xhr, status, error) {
+                                show_toast('error', xhr.responseJSON.message || 'Server Error!')
+                            }
+                        })
+                    }
+                });
+        }
+
+        function multiCheck(tb_var) {
+            tb_var.on("change", ".chk-parent", function() {
+                    var e = $(this).closest("table").find("td:first-child .child-chk"),
+                        a = $(this).is(":checked");
+                    $(e).each(function() {
+                        a ? ($(this).prop("checked", !0), $(this).closest("tr").addClass("active")) : ($(this)
+                            .prop("checked", !1), $(this).closest("tr").removeClass("active"))
+                    })
+                }),
+                tb_var.on("change", "tbody tr .new-control", function() {
+                    $(this).parents("tr").toggleClass("active")
+                })
+        }
+
+        function checkall(clickchk, relChkbox) {
+
+            var checker = $('#' + clickchk);
+            var multichk = $('.' + relChkbox);
+            checker.click(function() {
+                multichk.prop('checked', $(this).prop('checked'));
+            });
+        }
+
         $(document).ready(function() {
             $(document).ajaxStart(function() {
                 $.blockUI({

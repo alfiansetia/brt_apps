@@ -42,6 +42,8 @@ Route::group(['middleware' => ['auth:sanctum', 'active']], function () {
     Route::get('component-paginate', [ComponentController::class, 'paginate'])->name('api.components.paginate');
     Route::apiResource('components', ComponentController::class)->names('api.components');
 
+    Route::delete('hmkms', [HmkmController::class, 'destroyBatch'])->name('api.hmkms.destroybatch');
+    Route::delete('hmkm-truncate', [HmkmController::class, 'truncate'])->name('api.hmkms.truncate');
     Route::get('hmkm-paginate', [HmkmController::class, 'paginate'])->name('api.hmkms.paginate');
     Route::apiResource('hmkms', HmkmController::class)->names('api.hmkms');
 
