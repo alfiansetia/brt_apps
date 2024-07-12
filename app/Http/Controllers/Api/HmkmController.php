@@ -144,8 +144,8 @@ class HmkmController extends Controller
             'pool_id'   => 'required|exists:pools,id',
         ]);
         $pool = Pool::find($request->pool_id);
-        $hmkm =  Hmkm::whereRelation('unit', 'pool_id', $pool->id)->delete();
+        $deleted =  Hmkm::whereRelation('unit', 'pool_id', $pool->id)->delete();
         $message = 'Success Delete All Data On Pool ' . $pool->name;
-        return $this->response($message, $hmkm);
+        return $this->response($message, $deleted);
     }
 }

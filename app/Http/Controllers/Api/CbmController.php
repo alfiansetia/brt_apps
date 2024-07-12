@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CbmResource;
 use App\Models\Cbm;
+use App\Models\Pool;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
@@ -102,5 +103,28 @@ class CbmController extends Controller
     {
         $cbm->delete();
         return $this->response('Sukses Hapus Data!', new CbmResource($cbm), 200);
+    }
+
+    public function destroyBatch(Request $request)
+    {
+        $this->validate($request, [
+            'id'        => 'required|array|min:1',
+            'id.*'      => 'integer|exists:cbms,id',
+        ]);
+        $ids = $request->id;
+        $deleted = Cbm::whereIn('id', $ids)->delete();
+        $message = 'Success Delete : ' . $deleted . ' & Fail : ' . (count($request->id) - $deleted);
+        return $this->response($message, $deleted);
+    }
+
+    public function truncate(Request $request)
+    {
+        $this->validate($request, [
+            'pool_id'   => 'required|exists:pools,id',
+        ]);
+        $pool = Pool::find($request->pool_id);
+        $deleted =  Cbm::whereRelation('unit', 'pool_id', $pool->id)->delete();
+        $message = 'Success Delete All Data On Pool ' . $pool->name;
+        return $this->response($message, $deleted);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\SpeedResource;
+use App\Models\Pool;
 use App\Models\Speed;
 use App\Models\SpeedItem;
 use Carbon\Carbon;
@@ -120,5 +121,28 @@ class SpeedController extends Controller
     {
         $speed->delete();
         return $this->response('Sukses Hapus Data!', new SpeedResource($speed), 200);
+    }
+
+    public function destroyBatch(Request $request)
+    {
+        $this->validate($request, [
+            'id'        => 'required|array|min:1',
+            'id.*'      => 'integer|exists:speeds,id',
+        ]);
+        $ids = $request->id;
+        $deleted = Speed::whereIn('id', $ids)->delete();
+        $message = 'Success Delete : ' . $deleted . ' & Fail : ' . (count($request->id) - $deleted);
+        return $this->response($message, $deleted);
+    }
+
+    public function truncate(Request $request)
+    {
+        $this->validate($request, [
+            'pool_id'   => 'required|exists:pools,id',
+        ]);
+        $pool = Pool::find($request->pool_id);
+        $deleted =  Speed::whereRelation('unit', 'pool_id', $pool->id)->delete();
+        $message = 'Success Delete All Data On Pool ' . $pool->name;
+        return $this->response($message, $deleted);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\OilCoolantResource;
 use App\Models\OilCoolant;
+use App\Models\Pool;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
@@ -110,5 +111,28 @@ class OilCoolantController extends Controller
     {
         $oil->delete();
         return $this->response('Sukses Hapus Data!', new OilCoolantResource($oil), 200);
+    }
+
+    public function destroyBatch(Request $request)
+    {
+        $this->validate($request, [
+            'id'        => 'required|array|min:1',
+            'id.*'      => 'integer|exists:oil_coolants,id',
+        ]);
+        $ids = $request->id;
+        $deleted = OilCoolant::whereIn('id', $ids)->delete();
+        $message = 'Success Delete : ' . $deleted . ' & Fail : ' . (count($request->id) - $deleted);
+        return $this->response($message, $deleted);
+    }
+
+    public function truncate(Request $request)
+    {
+        $this->validate($request, [
+            'pool_id'   => 'required|exists:pools,id',
+        ]);
+        $pool = Pool::find($request->pool_id);
+        $deleted =  OilCoolant::whereRelation('unit', 'pool_id', $pool->id)->delete();
+        $message = 'Success Delete All Data On Pool ' . $pool->name;
+        return $this->response($message, $deleted);
     }
 }
