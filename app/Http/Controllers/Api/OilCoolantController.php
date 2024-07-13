@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Exports\OilCoolantExport;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\OilCoolantResource;
 use App\Models\OilCoolant;
@@ -9,6 +10,9 @@ use App\Models\Pool;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
+use Maatwebsite\Excel\Excel as ExcelExcel;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Str;
 
 class OilCoolantController extends Controller
 {
@@ -134,5 +138,18 @@ class OilCoolantController extends Controller
         $deleted =  OilCoolant::whereRelation('unit', 'pool_id', $pool->id)->delete();
         $message = 'Success Delete All Data On Pool ' . $pool->name;
         return $this->response($message, $deleted);
+    }
+
+    public function export(Request $request)
+    {
+        $this->validate($request, [
+            'from'      => 'required|date_format:d/m/Y',
+            'to'        => 'required|date_format:d/m/Y',
+            'pool_id'   => 'required|exists:pools,id',
+            'unit_id'   => 'nullable|exists:units,id',
+        ]);
+        $filters = $request->only(['from', 'to', 'pool_id']);
+        $name = Str::slug('export_oilcoolant_' . $request->from . '_' . $request->to);
+        return Excel::download(new OilCoolantExport($filters), $name . '.xls', ExcelExcel::XLS);
     }
 }

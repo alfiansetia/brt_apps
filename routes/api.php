@@ -42,31 +42,37 @@ Route::group(['middleware' => ['auth:sanctum', 'active']], function () {
     Route::get('component-paginate', [ComponentController::class, 'paginate'])->name('api.components.paginate');
     Route::apiResource('components', ComponentController::class)->names('api.components');
 
+    Route::get('hmkm-export', [HmkmController::class, 'export'])->name('api.hmkms.export');
     Route::delete('hmkms', [HmkmController::class, 'destroyBatch'])->name('api.hmkms.destroybatch');
     Route::delete('hmkm-truncate', [HmkmController::class, 'truncate'])->name('api.hmkms.truncate');
     Route::get('hmkm-paginate', [HmkmController::class, 'paginate'])->name('api.hmkms.paginate');
     Route::apiResource('hmkms', HmkmController::class)->names('api.hmkms');
 
+    Route::get('oil-export', [OilCoolantController::class, 'export'])->name('api.oils.export');
     Route::delete('oils', [OilCoolantController::class, 'destroyBatch'])->name('api.oils.destroybatch');
     Route::delete('oil-truncate', [OilCoolantController::class, 'truncate'])->name('api.oils.truncate');
     Route::get('oil-paginate', [OilCoolantController::class, 'paginate'])->name('api.oils.paginate');
     Route::apiResource('oils', OilCoolantController::class)->names('api.oils');
 
+    Route::get('logbooks-export', [LogbookController::class, 'export'])->name('api.logbooks.export');
     Route::delete('logbooks', [LogbookController::class, 'destroyBatch'])->name('api.logbooks.destroybatch');
     Route::delete('logbook-truncate', [LogbookController::class, 'truncate'])->name('api.logbooks.truncate');
     Route::get('logbook-paginate', [LogbookController::class, 'paginate'])->name('api.logbooks.paginate');
     Route::apiResource('logbooks', LogbookController::class)->names('api.logbooks');
 
+    Route::get('cbms-export', [CbmController::class, 'export'])->name('api.cbms.export');
     Route::delete('cbms', [CbmController::class, 'destroyBatch'])->name('api.cbms.destroybatch');
     Route::delete('cbm-truncate', [CbmController::class, 'truncate'])->name('api.cbms.truncate');
     Route::get('cbm-paginate', [CbmController::class, 'paginate'])->name('api.cbms.paginate');
     Route::apiResource('cbms', CbmController::class)->names('api.cbms');
 
+    Route::get('dmcrs-export', [DmcrController::class, 'export'])->name('api.dmcrs.export');
     Route::delete('dmcrs', [DmcrController::class, 'destroyBatch'])->name('api.dmcrs.destroybatch');
     Route::delete('dmcr-truncate', [DmcrController::class, 'truncate'])->name('api.dmcrs.truncate');
     Route::get('dmcr-paginate', [DmcrController::class, 'paginate'])->name('api.dmcrs.paginate');
     Route::apiResource('dmcrs', DmcrController::class)->names('api.dmcrs');
 
+    Route::get('keluhans-export', [KeluhanController::class, 'export'])->name('api.keluhans.export');
     Route::delete('keluhans', [KeluhanController::class, 'destroyBatch'])->name('api.keluhans.destroybatch');
     Route::delete('keluhan-truncate', [KeluhanController::class, 'truncate'])->name('api.keluhans.truncate');
     Route::get('keluhan-paginate', [KeluhanController::class, 'paginate'])->name('api.keluhans.paginate');
@@ -75,11 +81,13 @@ Route::group(['middleware' => ['auth:sanctum', 'active']], function () {
     Route::get('ppm-paginate', [PpmController::class, 'paginate'])->name('api.ppms.paginate');
     Route::apiResource('ppms', PpmController::class)->names('api.ppms');
 
+    Route::get('ppmdata-export', [PpmDataController::class, 'export'])->name('api.ppmdatas.export');
     Route::delete('ppmdatas', [PpmDataController::class, 'destroyBatch'])->name('api.ppmdatas.destroybatch');
     Route::delete('ppmdata-truncate', [PpmDataController::class, 'truncate'])->name('api.ppmdatas.truncate');
     Route::get('ppmdata-paginate', [PpmDataController::class, 'paginate'])->name('api.ppmdatas.paginate');
     Route::apiResource('ppmdatas', PpmDataController::class)->names('api.ppmdatas');
 
+    Route::get('speeds-export', [SpeedController::class, 'export'])->name('api.speeds.export');
     Route::delete('speeds', [SpeedController::class, 'destroyBatch'])->name('api.speeds.destroybatch');
     Route::delete('speed-truncate', [SpeedController::class, 'truncate'])->name('api.speeds.truncate');
     Route::get('speed-paginate', [SpeedController::class, 'paginate'])->name('api.speeds.paginate');

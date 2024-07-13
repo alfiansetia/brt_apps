@@ -200,7 +200,7 @@
             if (unit == null) {
                 unit = ''
             }
-            let url = "{{ route('hmkms.export') }}?from=" + from + '&to=' + to + '&pool_id=' + pool_id +
+            let url = "{{ route('api.hmkms.export') }}?from=" + from + '&to=' + to + '&pool_id=' + pool_id +
                 '&unit_id=' + unit
             download_file(url)
         })

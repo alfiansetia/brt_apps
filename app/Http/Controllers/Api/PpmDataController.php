@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Exports\PpmDataExport;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PpmDataResource;
 use App\Models\PpmData;
@@ -9,6 +10,9 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Yajra\DataTables\Facades\DataTables;
+use Maatwebsite\Excel\Excel as ExcelExcel;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Str;
 
 class PpmDataController extends Controller
 {
@@ -148,5 +152,16 @@ class PpmDataController extends Controller
         }
         $message = 'Success Delete All Data !';
         return $this->response($message, $deleted);
+    }
+
+    public function export(Request $request)
+    {
+        $this->validate($request, [
+            'from'      => 'required|date_format:d/m/Y',
+            'to'        => 'required|date_format:d/m/Y',
+        ]);
+        $filters = $request->only(['from', 'to']);
+        $name = Str::slug('export_ppmdata_' . $request->from . '_' . $request->to);
+        return Excel::download(new PpmDataExport($filters), $name . '.xls', ExcelExcel::XLS);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Exports\LogbookExport;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\LogbookResource;
 use App\Models\Logbook;
@@ -10,6 +11,9 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
 use Yajra\DataTables\Facades\DataTables;
+use Maatwebsite\Excel\Excel as ExcelExcel;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Str;
 
 class LogbookController extends Controller
 {
@@ -185,5 +189,16 @@ class LogbookController extends Controller
         Schema::enableForeignKeyConstraints();
         $message = 'Success Delete All Data !';
         return $this->response($message, $deleted);
+    }
+
+    public function export(Request $request)
+    {
+        $this->validate($request, [
+            'from'      => 'required|date_format:d/m/Y',
+            'to'        => 'required|date_format:d/m/Y',
+        ]);
+        $filters = $request->only(['from', 'to']);
+        $name = Str::slug('export_logbook_' . $request->from . '_' . $request->to);
+        return Excel::download(new LogbookExport($filters), $name . '.xls', ExcelExcel::XLS);
     }
 }

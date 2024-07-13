@@ -48,31 +48,23 @@ Route::group(['middleware' => ['auth', 'active']], function () {
     Route::get('pools', [PoolController::class, 'index'])->name('pools.index');
 
     Route::get('hmkms', [HmkmController::class, 'index'])->name('hmkms.index');
-    Route::get('hmkm-export', [HmkmController::class, 'export'])->name('hmkms.export');
 
     Route::get('oils', [OilCoolantController::class, 'index'])->name('oils.index');
-    Route::get('oil-export', [OilCoolantController::class, 'export'])->name('oils.export');
 
     Route::get('logbooks', [LogbookController::class, 'index'])->name('logbooks.index');
-    Route::get('logbooks-export', [LogbookController::class, 'export'])->name('logbooks.export');
 
     Route::get('cbms', [CbmController::class, 'index'])->name('cbms.index');
-    Route::get('cbms-export', [CbmController::class, 'export'])->name('cbms.export');
 
     Route::get('dmcrs', [DmcrController::class, 'index'])->name('dmcrs.index');
-    Route::get('dmcrs-export', [DmcrController::class, 'export'])->name('dmcrs.export');
 
     Route::get('keluhans', [KeluhanController::class, 'index'])->name('keluhans.index');
-    Route::get('keluhans-export', [KeluhanController::class, 'export'])->name('keluhans.export');
 
     Route::get('ppms', [PpmController::class, 'index'])->name('ppms.index');
     Route::get('ppms', [PpmController::class, 'index'])->name('ppms.index');
 
     Route::get('ppms_data', [PpmDataController::class, 'index'])->name('ppms_data.index');
-    Route::get('ppms_data-export', [PpmDataController::class, 'export'])->name('ppms_data.export');
 
     Route::get('speeds', [SpeedController::class, 'index'])->name('speeds.index');
-    Route::get('speeds-export', [SpeedController::class, 'export'])->name('speeds.export');
 
     // });
     Route::get('/tes', [OnboardingController::class, 'tes'])->name('onboarding.tes');

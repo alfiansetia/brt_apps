@@ -2,14 +2,19 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Exports\SpeedExport;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\SpeedResource;
 use App\Models\Pool;
 use App\Models\Speed;
 use App\Models\SpeedItem;
+use App\Models\Unit;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
+use Maatwebsite\Excel\Excel as ExcelExcel;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Str;
 
 class SpeedController extends Controller
 {
@@ -144,5 +149,33 @@ class SpeedController extends Controller
         $deleted =  Speed::whereRelation('unit', 'pool_id', $pool->id)->delete();
         $message = 'Success Delete All Data On Pool ' . $pool->name;
         return $this->response($message, $deleted);
+    }
+
+
+    public function export(Request $request)
+    {
+        $this->validate($request, [
+            'from'      => 'required|date_format:d/m/Y',
+            'to'        => 'required|date_format:d/m/Y',
+            'pool_id'   => 'required|exists:pools,id',
+        ]);
+        $filters = $request->only(['from', 'to', 'pool_id']);
+        $units = Unit::filter($filters)->get();
+
+        $results['column'] = ['Unit'];
+        $results['row'] = [];
+
+        $speeds = Speed::filter($filters)->with('items.unit')->orderBy('date', 'ASC')->get();
+        $results['column'] = array_merge($results['column'], $speeds->pluck('date')->toArray());
+        foreach ($units as $key => $unit) {
+            $data = [];
+            $data[] = $unit->code;
+            foreach ($speeds  as $item) {
+                $data[] = $item->items()->where('unit_id', $unit->id)->first()->value ?? 0;
+            }
+            $results['row'][$key] = $data;
+        }
+        $name = Str::slug('export_speeds_' . $request->from . '_' . $request->to);
+        return Excel::download(new SpeedExport($results), $name . '.xls', ExcelExcel::XLS);
     }
 }

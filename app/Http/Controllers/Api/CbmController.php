@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Exports\CbmExport;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CbmResource;
 use App\Models\Cbm;
@@ -9,6 +10,9 @@ use App\Models\Pool;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
+use Maatwebsite\Excel\Excel as ExcelExcel;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Str;
 
 class CbmController extends Controller
 {
@@ -126,5 +130,18 @@ class CbmController extends Controller
         $deleted =  Cbm::whereRelation('unit', 'pool_id', $pool->id)->delete();
         $message = 'Success Delete All Data On Pool ' . $pool->name;
         return $this->response($message, $deleted);
+    }
+
+
+    public function export(Request $request)
+    {
+        $this->validate($request, [
+            'from'      => 'required|date_format:d/m/Y',
+            'to'        => 'required|date_format:d/m/Y',
+            'pool_id'   => 'required|exists:pools,id',
+        ]);
+        $filters = $request->only(['from', 'to', 'pool_id']);
+        $name = Str::slug('export_cbm_' . $request->from . '_' .  $request->to);
+        return Excel::download(new CbmExport($filters), $name . '.xls', ExcelExcel::XLS);
     }
 }
