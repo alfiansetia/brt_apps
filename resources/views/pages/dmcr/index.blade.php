@@ -29,6 +29,10 @@
                                     <th>Desc</th>
                                     <th>Action</th>
                                     <th>Component</th>
+                                    <th>Part Number</th>
+                                    <th>Part Name</th>
+                                    <th>Part Qty</th>
+                                    <th>Component</th>
                                     <th>Man Power</th>
                                     <th style="width: 50px">Action</th>
                                 </tr>
@@ -119,11 +123,10 @@
             alias: 'numeric',
             groupSeparator: '.',
             autoGroup: true,
-            digits: 2,
+            digits: 0,
             rightAlign: false,
             removeMaskOnSubmit: true,
             autoUnmask: true,
-            digitsOptional: false,
             min: 0,
         });
 
@@ -226,7 +229,8 @@
         $('#btn_export').click(function() {
             let from = $('#range').data('daterangepicker').startDate.format('DD/MM/YYYY');
             let to = $('#range').data('daterangepicker').endDate.format('DD/MM/YYYY');
-            window.open("{{ route('dmcrs.export') }}?from=" + from + '&to=' + to + '&pool_id=' + pool_id, '_blank')
+            let url = "{{ route('dmcrs.export') }}?from=" + from + '&to=' + to + '&pool_id=' + pool_id
+            download_file(url)
         })
 
         var table = $("#table").DataTable({
@@ -298,6 +302,20 @@
             }, {
                 data: 'component.name',
                 defaultContent: '',
+            }, {
+                data: 'part_number',
+            }, {
+                data: 'part_name',
+            }, {
+                data: 'part_qty',
+                searchable: false,
+                render: function(data, type, row, meta) {
+                    if (type == 'display') {
+                        return hrg(data)
+                    } else {
+                        return data
+                    }
+                }
             }, {
                 data: 'id',
                 searchable: false,
@@ -418,6 +436,11 @@
                 $("#finish").data('daterangepicker').setEndDate(result.data.finish);
                 $('#action').val(result.data.action)
                 $('#desc').val(result.data.desc)
+
+                $('#part_number').val(result.data.part_number)
+                $('#part_name').val(result.data.part_name)
+                $('#part_qty').val(result.data.part_qty)
+
                 // $('#users').val(null).empty();
                 $('#users').val(result.data.man_power_ids).change();
                 // if (result.data.man_powers.length > 0) {
@@ -516,6 +539,10 @@
             $('#action').val('')
             // $('#users').val(null).empty()
             $('#users').val([]).change()
+            $('#part_number').val('')
+            $('#part_name').val('')
+            $('#part_qty').val(0)
+
         }
     </script>
 @endpush

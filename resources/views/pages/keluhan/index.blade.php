@@ -157,8 +157,8 @@
         $('#btn_export').click(function() {
             let from = $('#range').data('daterangepicker').startDate.format('DD/MM/YYYY');
             let to = $('#range').data('daterangepicker').endDate.format('DD/MM/YYYY');
-            window.open("{{ route('keluhans.export') }}?from=" + from + '&to=' + to + '&pool_id=' + pool_id,
-                '_blank')
+            let url = "{{ route('keluhans.export') }}?from=" + from + '&to=' + to + '&pool_id=' + pool_id
+            download_file(url)
         })
 
         var table = $("#table").DataTable({

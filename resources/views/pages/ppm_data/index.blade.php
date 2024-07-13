@@ -240,7 +240,8 @@
         $('#btn_export').click(function() {
             let from = $('#range').data('daterangepicker').startDate.format('DD/MM/YYYY');
             let to = $('#range').data('daterangepicker').endDate.format('DD/MM/YYYY');
-            window.open("{{ route('ppms_data.export') }}?from=" + from + '&to=' + to, '_blank')
+            let url = "{{ route('ppms_data.export') }}?from=" + from + '&to=' + to
+            download_file(url)
         })
 
         var table = $("#table").DataTable({

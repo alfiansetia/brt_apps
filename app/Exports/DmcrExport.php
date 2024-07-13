@@ -40,6 +40,9 @@ class DmcrExport implements FromQuery, WithHeadings, WithMapping, WithColumnForm
             'Description',
             'Action',
             'Component',
+            'Part Number',
+            'Part Name',
+            'Part Qty',
             'Man Powers',
         ];
     }
@@ -70,6 +73,9 @@ class DmcrExport implements FromQuery, WithHeadings, WithMapping, WithColumnForm
             $row->desc,
             $row->action,
             $row->component->name ?? '',
+            $row->part_number,
+            $row->part_name,
+            $row->part_qty,
             $manPowersNames,
         ];
     }
@@ -81,6 +87,7 @@ class DmcrExport implements FromQuery, WithHeadings, WithMapping, WithColumnForm
             'B' => NumberFormat::FORMAT_DATE_DDMMYYYY,
             'G' => NumberFormat::FORMAT_DATE_TIME4,
             'H' => NumberFormat::FORMAT_DATE_TIME4,
+            'O' => NumberFormat::FORMAT_NUMBER,
         ];
     }
 }

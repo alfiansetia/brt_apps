@@ -89,6 +89,24 @@
                             <span class="error invalid-feedback err_component" style="display: hide;"></span>
                         </div>
                         <div class="form-group">
+                            <label class="control-label" for="part_number">Part Number :</label>
+                            <input type="text" name="part_number" class="form-control" id="part_number"
+                                placeholder="Please Enter Part Number" maxlength="200">
+                            <span class="error invalid-feedback err_part_number" style="display: hide;"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="part_name">Part Name :</label>
+                            <textarea name="part_name" id="part_name" class="form-control" maxlength="200"
+                                placeholder="Please Enter Part Name"></textarea>
+                            <span class="error invalid-feedback err_part_name" style="display: hide;"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="part_qty">Part Qty :</label>
+                            <input type="text" name="part_qty" class="form-control mask_angka" id="part_qty"
+                                placeholder="Please Enter Part Qty" min="0">
+                            <span class="error invalid-feedback err_part_qty" style="display: hide;"></span>
+                        </div>
+                        <div class="form-group">
                             <label class="control-label" for="users">Man Powers :</label>
                             <select name="users[]" id="users" class="form-control" style="width: 100%;" required>
                                 @foreach ($users as $user)

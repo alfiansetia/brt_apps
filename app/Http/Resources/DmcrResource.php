@@ -33,6 +33,9 @@ class DmcrResource extends JsonResource
             'man_power_ids' => $this->whenLoaded('man_powers', function () {
                 return $this->man_powers->pluck('user_id');
             }),
+            'part_number'   => $this->part_number,
+            'part_name'     => $this->part_name,
+            'part_qty'      => $this->part_qty,
         ];
     }
 }

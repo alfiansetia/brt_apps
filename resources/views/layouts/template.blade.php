@@ -332,6 +332,38 @@
                 });
         }
 
+        function download_file(url) {
+            $.ajax({
+                url: url,
+                type: 'GET',
+                xhrFields: {
+                    responseType: 'blob',
+                },
+                success: function(data, status, xhr) {
+                    var filename = "";
+                    var disposition = xhr.getResponseHeader('Content-Disposition');
+                    if (disposition && disposition.indexOf('attachment') !== -1) {
+                        var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+                        var matches = filenameRegex.exec(disposition);
+                        if (matches != null && matches[1]) {
+                            filename = matches[1].replace(/['"]/g, '');
+                        }
+                    }
+                    var link = document.createElement('a');
+                    var url = window.URL.createObjectURL(data);
+                    link.href = url;
+                    link.download = filename;
+                    document.body.append(link);
+                    link.click();
+                    link.remove();
+                    window.URL.revokeObjectURL(url);
+                },
+                error: function(xhr, status, error) {
+                    show_toast('error', xhr.responseJSON.message || 'server Error!')
+                }
+            });
+        }
+
         function selected() {
             let id = $('input[name="id[]"]:checked').length;
             if (id <= 0) {

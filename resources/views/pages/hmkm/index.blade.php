@@ -200,8 +200,9 @@
             if (unit == null) {
                 unit = ''
             }
-            window.open("{{ route('hmkms.export') }}?from=" + from + '&to=' + to + '&pool_id=' + pool_id +
-                '&unit_id=' + unit, '_blank')
+            let url = "{{ route('hmkms.export') }}?from=" + from + '&to=' + to + '&pool_id=' + pool_id +
+                '&unit_id=' + unit
+            download_file(url)
         })
 
         var table = $("#table").DataTable({

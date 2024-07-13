@@ -51,17 +51,20 @@ class DmcrController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'unit'      => 'required|exists:units,id',
-            'component' => 'required|exists:components,id',
-            'type'      => 'required|in:schedule,unschedule',
-            'shift'     => 'required|in:day,night',
-            'date'      => 'required|date_format:d/m/Y',
-            'start'     => 'required|date_format:d/m/Y H:i',
-            'finish'    => 'required|date_format:d/m/Y H:i',
-            'desc'      => 'nullable|max:200',
-            'action'    => 'nullable|max:200',
-            'users'     => 'nullable|array',
-            'users.*'   => 'exists:users,id',
+            'unit'          => 'required|exists:units,id',
+            'component'     => 'required|exists:components,id',
+            'type'          => 'required|in:schedule,unschedule',
+            'shift'         => 'required|in:day,night',
+            'date'          => 'required|date_format:d/m/Y',
+            'start'         => 'required|date_format:d/m/Y H:i',
+            'finish'        => 'required|date_format:d/m/Y H:i',
+            'desc'          => 'nullable|max:200',
+            'action'        => 'nullable|max:200',
+            'users'         => 'nullable|array',
+            'users.*'       => 'exists:users,id',
+            'part_number'   => 'nullable|max:200',
+            'part_name'     => 'nullable|max:200',
+            'part_qty'      => 'integer|gte:0',
         ]);
         $dmcr = Dmcr::create([
             'unit_id'       => $request->unit,
@@ -73,6 +76,9 @@ class DmcrController extends Controller
             'finish'        => $request->finish,
             'desc'          => $request->desc,
             'action'        => $request->action,
+            'part_number'   => $request->part_number,
+            'part_name'     => $request->part_name,
+            'part_qty'      => $request->part_qty,
         ]);
 
         $manpowersData = [];
@@ -100,17 +106,20 @@ class DmcrController extends Controller
     public function update(Request $request, Dmcr $dmcr)
     {
         $this->validate($request, [
-            'unit'      => 'required|exists:units,id',
-            'component' => 'required|exists:components,id',
-            'type'      => 'required|in:schedule,unschedule',
-            'shift'     => 'required|in:day,night',
-            'date'      => 'required|date_format:d/m/Y',
-            'start'     => 'required|date_format:d/m/Y H:i',
-            'finish'    => 'required|date_format:d/m/Y H:i',
-            'desc'      => 'nullable|max:200',
-            'action'    => 'nullable|max:200',
-            'users'     => 'nullable|array',
-            'users.*'   => 'exists:users,id',
+            'unit'          => 'required|exists:units,id',
+            'component'     => 'required|exists:components,id',
+            'type'          => 'required|in:schedule,unschedule',
+            'shift'         => 'required|in:day,night',
+            'date'          => 'required|date_format:d/m/Y',
+            'start'         => 'required|date_format:d/m/Y H:i',
+            'finish'        => 'required|date_format:d/m/Y H:i',
+            'desc'          => 'nullable|max:200',
+            'action'        => 'nullable|max:200',
+            'users'         => 'nullable|array',
+            'users.*'       => 'exists:users,id',
+            'part_number'   => 'nullable|max:200',
+            'part_name'     => 'nullable|max:200',
+            'part_qty'      => 'integer|gte:0',
         ]);
         $dmcr->update([
             'unit_id'       => $request->unit,
@@ -122,6 +131,9 @@ class DmcrController extends Controller
             'finish'        => $request->finish,
             'desc'          => $request->desc,
             'action'        => $request->action,
+            'part_number'   => $request->part_number,
+            'part_name'     => $request->part_name,
+            'part_qty'      => $request->part_qty,
         ]);
         foreach ($dmcr->man_powers ?? [] as $item) {
             $item->delete();
