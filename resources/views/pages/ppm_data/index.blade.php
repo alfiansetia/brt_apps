@@ -305,10 +305,15 @@
                 sortable: false,
                 render: function(data, type, row, meta) {
                     if (type == 'display') {
-                        return `<div class="btn-group" role="group" aria-label="Basic example">
-                                    <button class="btn btn-info btn-sm btn-download">Download</button>
-                                    <button class="btn btn-danger btn-sm btn-delete">Delete</button>
+                        text = `<div class="btn-group" role="group" aria-label="Basic example">`
+                        if (row.file != null) {
+                            text += `<button class="btn btn-info btn-sm btn-download">Download</button>`
+                        } else {
+                            text += "<span class='badge badge-warning'>No File!</span>"
+                        }
+                        text += `<button class="btn btn-danger btn-sm btn-delete">Delete</button>
                                 </div>`;
+                        return text
                     } else {
                         return data
                     }
