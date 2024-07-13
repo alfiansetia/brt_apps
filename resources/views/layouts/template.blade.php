@@ -357,6 +357,7 @@
                     link.click();
                     link.remove();
                     window.URL.revokeObjectURL(url);
+                    $.unblockUI()
                 },
                 error: function(xhr, status, error) {
                     show_toast('error', xhr.responseJSON.message || 'server Error!')
@@ -431,11 +432,15 @@
 
         $(document).ready(function() {
             $(document).ajaxStart(function() {
+                $('button').prop('disabled', true)
                 $.blockUI({
                     message: '<img src="{{ asset('assets/img/loading.gif') }}" width="20px" height="20px" /> Just a moment...',
                     // baseZ: 2000,
                 });
-            }).ajaxStop($.unblockUI);
+            }).ajaxStop(function() {
+                $('button').prop('disabled', false)
+                $.unblockUI()
+            });
 
             bsCustomFileInput.init()
 
