@@ -301,7 +301,12 @@
             $.get(url_index + '/' + ids).done(function(result) {
                 $('#modal_form_delete').prop('disabled', false)
                 $('#name').val(result.data.name)
-                $('#part_number').val(result.data.pn).trigger('change')
+                var newValue = result.data.pn;
+                var selectElement = $('#part_number');
+                if (selectElement.find("option[value='" + newValue + "']").length === 0) {
+                    selectElement.append(new Option(newValue, newValue));
+                }
+                selectElement.val(newValue).trigger('change');
                 $('#target').val(result.data.target)
 
                 $('#form').attr('action', url_index + '/' + ids)
