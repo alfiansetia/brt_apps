@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CbmController;
+use App\Http\Controllers\CbmProjectController;
 use App\Http\Controllers\ComponentController;
 use App\Http\Controllers\DmcrController;
 use App\Http\Controllers\HmkmController;
@@ -65,6 +66,8 @@ Route::group(['middleware' => ['auth', 'active']], function () {
     Route::get('ppms_data', [PpmDataController::class, 'index'])->name('ppms_data.index');
 
     Route::get('speeds', [SpeedController::class, 'index'])->name('speeds.index');
+
+    Route::get('cbm_projects', [CbmProjectController::class, 'index'])->name('cbm_projects.index');
 
     // });
     Route::get('/tes', [OnboardingController::class, 'tes'])->name('onboarding.tes');

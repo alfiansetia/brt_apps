@@ -127,8 +127,8 @@
                     if (type == 'display') {
                         return `
                         <div class="btn-group" role="group" aria-label="Basic example">
-                            <button class="btn btn-info btn-sm btn-detail">Detail</button>
-                            <button class="btn btn-danger btn-sm btn-delete">Delete</button>
+                            <button type="button" class="btn btn-info btn-sm btn-detail">Detail</button>
+                            <button type="button" class="btn btn-danger btn-sm btn-delete">Delete</button>
                         </div>`;
                     } else {
                         return data

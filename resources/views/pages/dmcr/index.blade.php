@@ -333,7 +333,7 @@
                 searchable: false,
                 render: function(data, type, row, meta) {
                     if (type == 'display') {
-                        return `<button class="btn btn-danger btn-sm btn-delete">Delete</button>`;
+                        return `<button type="button" class="btn btn-danger btn-sm btn-delete">Delete</button>`;
                     } else {
                         return data
                     }

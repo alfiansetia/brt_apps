@@ -430,6 +430,10 @@
             });
         }
 
+        function tooltip() {
+            $("[data-toggle='tooltip']").tooltip();
+        }
+
         $(document).ready(function() {
             $(document).ajaxStart(function() {
                 $('button').prop('disabled', true)

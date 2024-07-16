@@ -30,6 +30,11 @@
                     <a class="nav-link" href="{{ route('cbms.index') }}?pool={{ request()->query('pool') }}"><i
                             class="fas fa-wrench"></i><span>CBM</span></a>
                 </li>
+                <li class="{{ $title == 'Data CBM Project' ? 'active' : '' }}">
+                    <a class="nav-link"
+                        href="{{ route('cbm_projects.index') }}?pool={{ request()->query('pool') }}"><i
+                            class="fas fa-wrench"></i><span>CBM Project</span></a>
+                </li>
                 <li class="{{ $title == 'Data DMCR' ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('dmcrs.index') }}?pool={{ request()->query('pool') }}"><i
                             class="fas fa-list"></i><span>DMCR</span></a>

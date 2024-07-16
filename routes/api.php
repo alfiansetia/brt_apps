@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CbmController;
+use App\Http\Controllers\Api\CbmProjectController;
 use App\Http\Controllers\Api\ComponentController;
 use App\Http\Controllers\Api\DmcrController;
 use App\Http\Controllers\Api\HmkmController;
@@ -92,6 +93,12 @@ Route::group(['middleware' => ['auth:sanctum', 'active']], function () {
     Route::delete('speed-truncate', [SpeedController::class, 'truncate'])->name('api.speeds.truncate');
     Route::get('speed-paginate', [SpeedController::class, 'paginate'])->name('api.speeds.paginate');
     Route::apiResource('speeds', SpeedController::class)->names('api.speeds');
+
+    Route::get('cbm_projects-export', [CbmProjectController::class, 'export'])->name('api.cbm_projects.export');
+    Route::delete('cbm_projects', [CbmProjectController::class, 'destroyBatch'])->name('api.cbm_projects.destroybatch');
+    Route::delete('cbm_project-truncate', [CbmProjectController::class, 'truncate'])->name('api.cbm_projects.truncate');
+    Route::get('cbm_project-paginate', [CbmProjectController::class, 'paginate'])->name('api.cbm_projects.paginate');
+    Route::apiResource('cbm_projects', CbmProjectController::class)->names('api.cbm_projects');
 
     Route::get('user-paginate', [UserController::class, 'paginate'])->name('api.users.paginate');
     Route::apiResource('users', UserController::class)->names('api.users');
