@@ -29,7 +29,7 @@ class CbmProjectController extends Controller
     {
         $this->validate($request, [
             'pool_id'       => 'required|exists:pools,id',
-            'part_number'   => 'required|exists:dmcrs,part_number',
+            'part_number'   => 'required|max:200',
             'name'          => 'required|max:200',
             'target'        => 'required|integer|gte:0',
         ]);
@@ -56,7 +56,7 @@ class CbmProjectController extends Controller
     public function update(Request $request, CbmProject $cbm_project)
     {
         $this->validate($request, [
-            'part_number'   => 'required|exists:dmcrs,part_number',
+            'part_number'   => 'required|max:200',
             'name'          => 'required|max:200',
             'target'        => 'required|integer|gte:0',
         ]);
