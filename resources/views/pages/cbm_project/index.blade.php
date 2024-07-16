@@ -14,7 +14,7 @@
         <div class="col-12">
             <div class="row mb-2">
                 <div class="col-sm-12 col-lg-8 mb-2">
-                    <input type="search" id="input_search" class="form-control" placeholder="Seearch">
+                    <input type="search" id="input_search" class="form-control" placeholder="Search">
                 </div>
                 <div class="col-sm-12 col-lg-4  mb-2 d-flex justify-content-between">
                     <button type="button" id="btn_search" class="btn btn-primary flex-grow-1 mr-1" onclick="get_data()"><i
