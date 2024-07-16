@@ -62,6 +62,24 @@
         </div>
 
         <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+            <a href="{{ route('cbm_projects.index') }}?pool={{ request()->query('pool') }}">
+                <div class="card card-statistic-1">
+                    <div class="card-icon bg-warning">
+                        <i class="fas fa-wrench"></i>
+                    </div>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            <h4>CBM Project</h4>
+                        </div>
+                        <div class="card-body cbm">
+                            {{ hrg($datas['cbm_project']) }} Data
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-sm-6 col-12">
             <a href="{{ route('dmcrs.index') }}?pool={{ request()->query('pool') }}">
                 <div class="card card-statistic-1">
                     <div class="card-icon bg-success">

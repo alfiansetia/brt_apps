@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cbm;
+use App\Models\CbmProject;
 use App\Models\Dmcr;
 use App\Models\Hmkm;
 use App\Models\Keluhan;
@@ -35,6 +36,7 @@ class OnboardingController extends Controller
         $datas['dmcr'] = Dmcr::filter($filters)->count();
         $datas['keluhan'] = Keluhan::filter($filters)->count();
         $datas['speed'] = Speed::filter($filters)->count();
+        $datas['cbm_project'] = CbmProject::filter($filters)->count();
         return view('pages.onboarding_menu', compact('pool', 'datas'));
     }
 
