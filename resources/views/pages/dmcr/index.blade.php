@@ -32,7 +32,6 @@
                                     <th>Part Number</th>
                                     <th>Part Name</th>
                                     <th>Part Qty</th>
-                                    <th>Component</th>
                                     <th>Man Power</th>
                                     <th style="width: 50px">Action</th>
                                 </tr>
@@ -263,8 +262,8 @@
             lengthChange: true,
             columnDefs: [],
             order: [
+                [14, 'desc'],
                 [1, 'desc'],
-                [0, 'desc'],
             ],
             columns: [{
                 data: 'id',

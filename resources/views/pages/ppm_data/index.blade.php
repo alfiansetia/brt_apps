@@ -274,8 +274,8 @@
             lengthChange: true,
             columnDefs: [],
             order: [
+                [4, 'desc'],
                 [1, 'desc'],
-                [0, 'desc'],
             ],
             columns: [{
                 data: 'id',
@@ -302,7 +302,6 @@
             }, {
                 data: 'id',
                 searchable: false,
-                sortable: false,
                 render: function(data, type, row, meta) {
                     if (type == 'display') {
                         text = `<div class="btn-group" role="group" aria-label="Basic example">`

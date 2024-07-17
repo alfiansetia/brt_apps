@@ -191,8 +191,8 @@
             lengthChange: true,
             columnDefs: [],
             order: [
+                [9, 'desc'],
                 [1, 'desc'],
-                [0, 'desc'],
             ],
             columns: [{
                 data: 'id',
@@ -217,6 +217,7 @@
                 }
             }, {
                 data: 'km',
+                searchable: false,
                 render: function(data, type, row, meta) {
                     if (type == 'display') {
                         return hrg(data)
@@ -234,7 +235,7 @@
                 data: 'activity',
             }, {
                 data: 'id',
-                sortable: false,
+                searchable: false,
                 render: function(data, type, row, meta) {
                     if (type == 'display') {
                         return `<button type="button" class="btn btn-danger btn-sm btn-delete">Delete</button>`;

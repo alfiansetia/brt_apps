@@ -235,8 +235,8 @@
             lengthChange: true,
             columnDefs: [],
             order: [
+                [13, 'desc'],
                 [1, 'desc'],
-                [0, 'desc'],
             ],
             columns: [{
                 data: 'id',
@@ -352,7 +352,6 @@
             }, {
                 data: 'id',
                 searchable: false,
-                sortable: false,
                 render: function(data, type, row, meta) {
                     if (type == 'display') {
                         return `<button type="button" class="btn btn-danger btn-sm btn-delete">Delete</button>`;

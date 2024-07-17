@@ -276,8 +276,8 @@
             lengthChange: true,
             columnDefs: [],
             order: [
+                [15, 'desc'],
                 [1, 'desc'],
-                [0, 'desc'],
             ],
             columns: [{
                 data: 'id',
@@ -356,7 +356,6 @@
             }, {
                 data: 'id',
                 searchable: false,
-                sortable: false,
                 render: function(data, type, row, meta) {
                     if (type == 'display') {
                         return row.man_powers.map(element => element.user.name).join(', ');
@@ -366,7 +365,7 @@
                 }
             }, {
                 data: 'id',
-                sortable: false,
+                searchable: false,
                 render: function(data, type, row, meta) {
                     if (type == 'display') {
                         return `<button type="button" class="btn btn-danger btn-sm btn-delete">Delete</button>`;
