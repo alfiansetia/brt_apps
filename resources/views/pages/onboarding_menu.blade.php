@@ -65,7 +65,7 @@
             <a href="{{ route('cbm_projects.index') }}?pool={{ request()->query('pool') }}">
                 <div class="card card-statistic-1">
                     <div class="card-icon bg-danger">
-                        <i class="fas fa-wrench"></i>
+                        <i class="fas fa-tools"></i>
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
