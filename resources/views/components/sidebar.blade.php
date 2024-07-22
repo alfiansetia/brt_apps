@@ -48,9 +48,9 @@
                             class="fas fa-tachometer-alt"></i><span>Speed Limit</span></a>
                 </li>
             @endif
-            <li class="{{ $title == 'Data Logbook' ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('logbooks.index') }}"><i
-                        class="fas fa-tags"></i><span>LogBook</span></a>
+            <li class="{{ $title == 'Data Logbook Storing' ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('logbooks.index') }}"><i class="fas fa-tags"></i><span>LogBook
+                        Storing</span></a>
             </li>
             <li class="{{ $title == 'Data PPM' ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('ppms_data.index') }}"><i

@@ -1,4 +1,4 @@
-@extends('layouts.template', ['title' => 'Data Logbook'])
+@extends('layouts.template', ['title' => 'Data Logbook Storing'])
 @push('css')
     <link rel="stylesheet" href="{{ asset('lib/datatables.net-bs4/css/dataTables.bootstrap4.css') }}">
     <link rel="stylesheet" href="{{ asset('lib/datatables-buttons/css/buttons.bootstrap4.min.css') }}">

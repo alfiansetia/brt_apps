@@ -72,7 +72,7 @@
                             {{-- <h4 style="font-weight: bold">Logbook</h4> --}}
                         </div>
                         <div class="card-body">
-                            <h4>Logbook</h4>
+                            <h4>Logbook Storing</h4>
                             {{-- {{ $datas['logbook'] }} Data --}}
                         </div>
                     </div>
