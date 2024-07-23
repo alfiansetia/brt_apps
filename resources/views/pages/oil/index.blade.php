@@ -256,6 +256,7 @@
                         page: params.page || 1,
                         limit: perpage,
                         role: 'user',
+                        pool_id: pool_id,
                     };
                 },
                 processResults: function(data, params) {

@@ -78,6 +78,9 @@ class User extends Authenticatable
         if (isset($filters['role'])) {
             $query->where('role', $filters['role']);
         }
+        if (isset($filters['pool_id'])) {
+            $query->where('pool_id', $filters['pool_id']);
+        }
     }
 
     public function pool()
