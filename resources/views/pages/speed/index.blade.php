@@ -333,11 +333,11 @@
 
         function set_form_add(data) {
             let teks = `<div class="form-group row">
-                <div class="col-5" style="vertical-align: middle">
+                <div class="col-4" style="vertical-align: middle">
                     <label>${data.code}</label>
                     <input type="hidden" name="units[]" value="${data.id}">
                 </div>
-                <div class="col-7">
+                <div class="col-8">
                     <div class="selectgroup w-100">
                         <label class="selectgroup-item">
                             <input type="radio" name="values[${data.id}]" value="35" class="selectgroup-input"
@@ -348,6 +348,10 @@
                             <input type="radio" name="values[${data.id}]" value="45" class="selectgroup-input">
                             <span class="selectgroup-button">45kpj</span>
                         </label>
+                        <label class="selectgroup-item">
+                            <input type="radio" name="values[${data.id}]" value="80" class="selectgroup-input">
+                            <span class="selectgroup-button">80kpj</span>
+                        </label>
                     </div>
                 </div>
             </div>`
@@ -356,11 +360,11 @@
 
         function set_form_edit(data) {
             let teks = `<div class="form-group row">
-                <div class="col-5" style="vertical-align: middle">
+                <div class="col-4" style="vertical-align: middle">
                     <label>${data.unit.code}</label>
                     <input type="hidden" name="units[]" value="${data.unit_id}">
                 </div>
-                <div class="col-7">
+                <div class="col-8">
                     <div class="selectgroup w-100">
                         <label class="selectgroup-item">
                             <input type="radio" name="values[${data.unit_id}]" value="35" class="selectgroup-input"
@@ -371,6 +375,11 @@
                             <input type="radio" name="values[${data.unit_id}]" value="45" class="selectgroup-input" 
                             ${data.value == 45 ? "checked" : ''}>
                             <span class="selectgroup-button">45kpj</span>
+                        </label>
+                        <label class="selectgroup-item">
+                            <input type="radio" name="values[${data.unit_id}]" value="80" class="selectgroup-input" 
+                            ${data.value == 80 ? "checked" : ''}>
+                            <span class="selectgroup-button">80kpj</span>
                         </label>
                     </div>
                 </div>

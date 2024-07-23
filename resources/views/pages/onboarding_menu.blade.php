@@ -105,7 +105,7 @@
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
-                            <h4>Keluhan</h4>
+                            <h4>Keluhan / Temuan</h4>
                         </div>
                         <div class="card-body cbm">
                             {{ hrg($datas['keluhan']) }} Data

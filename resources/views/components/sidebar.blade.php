@@ -41,7 +41,7 @@
                 </li>
                 <li class="{{ $title == 'Data Keluhan' ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('keluhans.index') }}?pool={{ request()->query('pool') }}"><i
-                            class="fas fa-comments"></i><span>Keluhan</span></a>
+                            class="fas fa-comments"></i><span>Keluhan / Temuan</span></a>
                 </li>
                 <li class="{{ $title == 'Data Speed Limit' ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('speeds.index') }}?pool={{ request()->query('pool') }}"><i

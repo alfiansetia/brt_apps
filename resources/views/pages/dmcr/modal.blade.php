@@ -109,9 +109,9 @@
                         <div class="form-group">
                             <label class="control-label" for="users">Man Powers :</label>
                             <select name="users[]" id="users" class="form-control" style="width: 100%;" required>
-                                @foreach ($users as $user)
+                                {{-- @foreach ($users as $user)
                                     <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                @endforeach
+                                @endforeach --}}
                             </select>
                             <span class="error invalid-feedback err_users" style="display: hide;"></span>
                         </div>

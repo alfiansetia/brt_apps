@@ -19,7 +19,7 @@
                             <span class="error invalid-feedback err_date" style="display: hide;"></span>
                         </div>
                         <div class="form-group">
-                            <label class="control-label" for="name">Name Pramudi :</label>
+                            <label class="control-label" for="name">Name Pramudi / Mekanik :</label>
                             <input type="text" name="name" class="form-control" id="name"
                                 placeholder="Please Enter Name" maxlength="200" required>
                             <span class="error invalid-feedback err_name" style="display: hide;"></span>
