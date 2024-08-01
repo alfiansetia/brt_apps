@@ -26,6 +26,13 @@
                                     <th>Type</th>
                                     <th>Start</th>
                                     <th>Finish</th>
+                                    <th>Desc</th>
+                                    <th>Action</th>
+                                    <th>Component</th>
+                                    <th>Part Number</th>
+                                    <th>Part Name</th>
+                                    <th>Part Qty</th>
+                                    <th>Man Power</th>
                                     <th style="width: 50px">Action</th>
                                 </tr>
                             </thead>
@@ -37,28 +44,6 @@
             </div>
         </div>
     </div>
-    {{-- <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <table class="table table-hover" id="table-item" style="width: 100%;cursor: pointer;">
-                    <thead>
-                        <tr>
-                            <th>Desc</th>
-                            <th>Action</th>
-                            <th>Component</th>
-                            <th>Part Number</th>
-                            <th>Part Name</th>
-                            <th>Part Qty</th>
-                            <th>Man Power</th>
-                            <th style="width: 50px">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div> --}}
     @include('pages.dmcr.modal')
 @endsection
 
@@ -125,14 +110,11 @@
             });
         });
         var url_index = "{{ route('api.dmcrs.index') }}"
-        var url_index_item = "{{ route('api.dmcr_items.index') }}"
         var id = 0
-        var id_item = 0
         var perpage = 50
         var pool_id = "{{ request()->query('pool') }}"
         var url_index_with_pool = url_index + "?pool_id=" + pool_id
         var url_truncate = "{{ route('api.dmcrs.truncate') }}"
-        var table_item
 
         $(".select2").select2()
 
@@ -281,7 +263,7 @@
             lengthChange: true,
             columnDefs: [],
             order: [
-                [7, 'desc'],
+                [14, 'desc'],
                 [1, 'desc'],
             ],
             columns: [{
@@ -313,6 +295,38 @@
             }, {
                 data: 'finish',
                 searchable: false,
+            }, {
+                data: 'desc',
+            }, {
+                data: 'action',
+            }, {
+                data: 'component.name',
+                defaultContent: '',
+            }, {
+                data: 'part_number',
+            }, {
+                data: 'part_name',
+            }, {
+                data: 'part_qty',
+                searchable: false,
+                render: function(data, type, row, meta) {
+                    if (type == 'display') {
+                        return hrg(data)
+                    } else {
+                        return data
+                    }
+                }
+            }, {
+                data: 'id',
+                searchable: false,
+                sortable: false,
+                render: function(data, type, row, meta) {
+                    if (type == 'display') {
+                        return row.man_powers.map(element => element.user.name).join(', ');
+                    } else {
+                        return data
+                    }
+                }
             }, {
                 data: 'id',
                 sortable: false,
@@ -397,15 +411,6 @@
             },
         });
 
-        $('#btn_item_add').click(function() {
-            modal_item_add()
-            $('#dmcr_id').attr('value', id)
-        })
-
-        $('#modal_form_item').on('hidden.bs.modal', function() {
-            $('body').addClass('modal-open');
-        });
-
         multiCheck(table);
 
         $(".dataTables_filter input").unbind().bind("input", function(e) {
@@ -429,6 +434,24 @@
                 $("#start").data('daterangepicker').setEndDate(result.data.start);
                 $("#finish").data('daterangepicker').setStartDate(result.data.finish);
                 $("#finish").data('daterangepicker').setEndDate(result.data.finish);
+                $('#action').val(result.data.action)
+                $('#desc').val(result.data.desc)
+
+                $('#part_number').val(result.data.part_number)
+                $('#part_name').val(result.data.part_name)
+                $('#part_qty').val(result.data.part_qty)
+
+                // $('#users').val(result.data.man_power_ids).change();
+                $('#users').val(null).empty();
+                if (result.data.man_powers.length > 0) {
+                    let options = [];
+                    result.data.man_powers.forEach(function(item) {
+                        let option = new Option(item.user.name, item.user_id, true, true);
+                        options.push(option);
+                        $('#users').append(option).trigger('change');
+                    });
+                    $('#users').val(result.data.man_powers.map(item => item.user_id)).trigger('change');
+                }
 
                 $("input[name='shift'][value='" + result.data.shift + "']").prop('checked', true)
                     .trigger('change');
@@ -443,88 +466,21 @@
                 } else {
                     $('#unit').val('').change()
                 }
+                if (result.data.component_id != null) {
+                    let option = new Option(`${result.data.component.name}`,
+                        result
+                        .data.component_id,
+                        true, true);
+                    $('#component').append(option).trigger('change');
+                } else {
+                    $('#component').val('').change()
+                }
 
                 $('#form').attr('action', url_index + '/' + id)
                 $('#modal_form_title').html('Edit Data')
                 $('#modal_form_submit').val('PUT')
                 $('#modal_form_password_help').show()
                 $('#modal_form').modal('show')
-
-                $('#btn_item_add').show()
-                $('#div_item').show()
-
-                $('#table_item').DataTable().clear().destroy();
-
-                table_item = $("#table_item").DataTable({
-                    processing: true,
-                    serverSide: true,
-                    ajax: url_index_item + "?dmcr_id=" + id,
-                    dom: "<'dt--top-section'<'row'<'col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center'B><'col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3'f>>>" +
-                        "<'table-responsive'tr>" +
-                        "<'dt--bottom-section d-sm-flex justify-content-sm-between text-center'<'dt--pages-count  mb-sm-0 mb-3'i><'dt--pagination'p>>",
-                    oLanguage: {
-                        oPaginate: {
-                            sPrevious: '<i class="fas fa-chevron-left"></i>',
-                            sNext: '<i class="fas fa-chevron-right"></i>'
-                        },
-                        sSearch: '',
-                        sSearchPlaceholder: "Search...",
-                        sLengthMenu: "Results :  _MENU_",
-                    },
-                    lengthChange: false,
-                    searching: false,
-                    paging: false,
-                    info: false,
-                    columnDefs: [],
-                    order: [
-                        [7, 'desc'],
-                    ],
-                    columns: [{
-                        data: 'desc',
-                    }, {
-                        data: 'action',
-                    }, {
-                        data: 'component.name',
-                        defaultContent: '',
-                    }, {
-                        data: 'part_number',
-                    }, {
-                        data: 'part_name',
-                    }, {
-                        data: 'part_qty',
-                        searchable: false,
-                        render: function(data, type, row, meta) {
-                            if (type == 'display') {
-                                return hrg(data)
-                            } else {
-                                return data
-                            }
-                        }
-                    }, {
-                        data: 'id',
-                        searchable: false,
-                        sortable: false,
-                        render: function(data, type, row, meta) {
-                            if (type == 'display') {
-                                return row.man_powers.map(element => element.user.name)
-                                    .join(', ');
-                            } else {
-                                return data
-                            }
-                        }
-                    }, {
-                        data: 'id',
-                        searchable: false,
-                        render: function(data, type, row, meta) {
-                            if (type == 'display') {
-                                return `<button type="button" class="btn btn-danger btn-sm btn-delete">Delete</button>`;
-                            } else {
-                                return data
-                            }
-                        }
-                    }, ],
-                    buttons: [],
-                });
             }).fail(function(xhr) {
                 show_toast('error', xhr.responseJSON.message || 'server Error!')
             })
@@ -556,78 +512,9 @@
             }
         })
 
-        $('#form_item').submit(function(e) {
-            e.preventDefault()
-        }).validate({
-            errorElement: 'span',
-            errorPlacement: function(error, element) {
-                error.addClass('invalid-feedback');
-                element.closest('.form-group').append(error);
-            },
-            highlight: function(element, errorClass, validClass) {
-                $(element).addClass('is-invalid');
-            },
-            unhighlight: function(element, errorClass, validClass) {
-                $(element).removeClass('is-invalid');
-                $(element).addClass('is-valid');
-            },
-            submitHandler: function(form) {
-                send_ajax_custom('form_item', $('#modal_form_item_submit').val())
-            }
-        })
-
         $('#modal_form').on('shown.bs.modal', function() {
             $('#desc').focus();
         })
-
-        $('#table_item tbody').on('click', 'tr td:not(:first-child):not(:last-child)', function() {
-            clear_validate('form_item')
-            row = $(this).parents('tr')[0];
-            id_item = table_item.row(row).data().id
-            $.get(url_index_item + '/' + id_item).done(function(result) {
-                $('#action').val(result.data.action)
-                $('#desc').val(result.data.desc)
-                $('#part_number').val(result.data.part_number)
-                $('#part_name').val(result.data.part_name)
-                $('#part_qty').val(result.data.part_qty)
-
-                if (result.data.component_id != null) {
-                    let option = new Option(`${result.data.component.name}`,
-                        result
-                        .data.component_id,
-                        true, true);
-                    $('#component').append(option).trigger('change');
-                } else {
-                    $('#component').val('').change()
-                }
-
-                // $('#users').val(result.data.man_power_ids).change();
-                $('#users').val(null).empty();
-                if (result.data.man_powers.length > 0) {
-                    let options = [];
-                    result.data.man_powers.forEach(function(item) {
-                        let option = new Option(item.user.name, item.user_id, true, true);
-                        options.push(option);
-                        $('#users').append(option).trigger('change');
-                    });
-                    $('#users').val(result.data.man_powers.map(item => item.user_id)).trigger('change');
-                }
-
-                $('#form_item').attr('action', url_index_item + '/' + id_item)
-                $('#modal_form_item_title').html('Edit Data')
-                $('#modal_form_item_submit').val('PUT')
-                $('#modal_form_item').modal('show')
-
-            }).fail(function(xhr) {
-                show_toast('error', xhr.responseJSON.message || 'server Error!')
-            })
-        });
-
-        $('#table_item tbody').on('click', 'tr .btn-delete', function() {
-            row = $(this).parents('tr')[0];
-            id_item = table_item.row(row).data().id
-            send_delete_custom("{{ route('api.dmcr_items.index') }}" + "/" + id_item)
-        });
 
         function modal_add() {
             clear_validate('form')
@@ -656,73 +543,6 @@
             $('#part_name').val('')
             $('#part_qty').val(0)
 
-            $('#btn_item_add').hide()
-            $('#div_item').hide()
-        }
-
-        function modal_item_add() {
-            clear_validate('form')
-            $('#form_item').attr('action', url_index_item)
-            $('#modal_form_item_submit').val('POST')
-            $('#modal_form_item_title').html('Tambah Data')
-            $('#modal_form_item').modal('show')
-
-            $('#component').val('').change()
-            $('#desc').val('')
-            $('#action').val('')
-            $('#users').val(null).empty()
-            // $('#users').val([]).change()
-            $('#part_number').val('')
-            $('#part_name').val('')
-            $('#part_qty').val(0)
-        }
-
-        function send_ajax_custom(formID, method) {
-            ajax_setup()
-            let data = new FormData($('#' + formID)[0])
-            data.append('_method', method)
-            $.ajax({
-                url: $('#' + formID).attr('action'),
-                method: 'POST',
-                processData: false,
-                contentType: false,
-                data: data,
-                // data: $('#' + formID).serialize(),
-                success: function(result) {
-                    show_toast('success', result.message || 'Success!')
-                    table_item.ajax.reload()
-                    $('#modal_form_item').modal('hide')
-                },
-                error: function(xhr, status, error) {
-                    handleResponseForm(xhr, formID)
-                }
-            })
-        }
-
-        function send_delete_custom(url) {
-            swal({
-                    title: 'Are you sure?',
-                    text: 'Delete Data?',
-                    icon: 'warning',
-                    buttons: true,
-                    dangerMode: true,
-                })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        ajax_setup()
-                        $.ajax({
-                            url: url,
-                            type: 'DELETE',
-                            success: function(result) {
-                                show_toast('success', result.message || 'Success!')
-                                table_item.ajax.reload()
-                            },
-                            error: function(xhr, status, error) {
-                                show_toast('error', xhr.responseJSON.message || 'Server Error!')
-                            }
-                        })
-                    }
-                });
         }
     </script>
 @endpush

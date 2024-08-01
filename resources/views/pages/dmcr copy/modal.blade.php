@@ -1,7 +1,7 @@
 @push('modal')
     <div class="modal animated fade fadeInDown" id="modal_form" role="dialog" aria-labelledby="exampleModalCenterTitle"
         aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modal_form_title">Add Data</h5>
@@ -11,7 +11,7 @@
                 </div>
                 <form id="form" class="form-vertical" action="" method="POST">
                     @csrf
-                    <div class="modal-body pb-0">
+                    <div class="modal-body">
                         <div class="form-group">
                             <label class="form-label">Shift :</label>
                             <div class="selectgroup w-100">
@@ -71,54 +71,6 @@
                                 placeholder="Please Enter Finish" required readonly>
                             <span class="error invalid-feedback err_finish" style="display: hide;"></span>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i
-                                class="fas fa-times mr-1" data-toggle="tooltip" title="Close"></i>Close</button>
-                        <button type="submit" id="modal_form_submit" class="btn btn-primary"><i
-                                class="fas fa-paper-plane mr-1" data-toggle="tooltip" title="Save"></i>Save</button>
-
-                        <button type="button" id="btn_item_add" class="btn btn-primary" style="display: none"><i
-                                class="fas fa-plus mr-1" data-toggle="tooltip" title="Add Item"></i>Add
-                            Item</button>
-                        <div class="table-responsive" id="div_item" style="display: none">
-                            <table class="table table-hover" id="table_item" style="width: 100%;cursor: pointer;">
-                                <thead>
-                                    <tr>
-                                        <th>Desc</th>
-                                        <th>Action</th>
-                                        <th>Component</th>
-                                        <th>Part Number</th>
-                                        <th>Part Name</th>
-                                        <th>Part Qty</th>
-                                        <th>Man Power</th>
-                                        <th style="width: 50px">#</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal animated fade fadeInDown" id="modal_form_item" role="dialog"
-        aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modal_form_item_title">Add Item</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true" data-toggle="tooltip" title="Close">&times;</span>
-                    </button>
-                </div>
-                <form id="form_item" class="form-vertical" action="{{ route('api.dmcr_items.store') }}" method="POST">
-                    @csrf
-                    <input type="hidden" name="dmcr" id="dmcr_id">
-                    <div class="modal-body">
                         <div class="form-group">
                             <label class="control-label" for="desc">Desc :</label>
                             <textarea name="desc" id="desc" class="form-control" maxlength="200" placeholder="Please Enter Desc"></textarea>
@@ -167,7 +119,7 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal"><i
                                 class="fas fa-times mr-1" data-toggle="tooltip" title="Close"></i>Close</button>
-                        <button type="submit" id="modal_form_item_submit" class="btn btn-primary"><i
+                        <button type="submit" id="modal_form_submit" class="btn btn-primary"><i
                                 class="fas fa-paper-plane mr-1" data-toggle="tooltip" title="Save"></i>Save</button>
                     </div>
                 </form>

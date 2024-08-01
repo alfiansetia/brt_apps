@@ -61,13 +61,18 @@ class Dmcr extends Model
         return $this->belongsTo(Unit::class);
     }
 
-    public function component()
-    {
-        return $this->belongsTo(Component::class);
-    }
+    // public function component()
+    // {
+    //     return $this->belongsTo(Component::class);
+    // }
 
-    public function man_powers()
+    // public function man_powers()
+    // {
+    //     return $this->hasMany(DmcrManpower::class);
+    // }
+
+    public function items()
     {
-        return $this->hasMany(DmcrManpower::class);
+        return $this->hasMany(DmcrItem::class);
     }
 }

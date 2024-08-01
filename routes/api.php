@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\CbmController;
 use App\Http\Controllers\Api\CbmProjectController;
 use App\Http\Controllers\Api\ComponentController;
 use App\Http\Controllers\Api\DmcrController;
+use App\Http\Controllers\Api\DmcrItemController;
 use App\Http\Controllers\Api\HmkmController;
 use App\Http\Controllers\Api\KeluhanController;
 use App\Http\Controllers\Api\LogbookController;
@@ -72,6 +73,8 @@ Route::group(['middleware' => ['auth:sanctum', 'active']], function () {
     Route::delete('dmcr-truncate', [DmcrController::class, 'truncate'])->name('api.dmcrs.truncate');
     Route::get('dmcr-paginate', [DmcrController::class, 'paginate'])->name('api.dmcrs.paginate');
     Route::apiResource('dmcrs', DmcrController::class)->names('api.dmcrs');
+
+    Route::apiResource('dmcr_items', DmcrItemController::class)->names('api.dmcr_items');
 
     Route::get('keluhans-export', [KeluhanController::class, 'export'])->name('api.keluhans.export');
     Route::delete('keluhans', [KeluhanController::class, 'destroyBatch'])->name('api.keluhans.destroybatch');
