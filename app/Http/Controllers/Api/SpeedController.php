@@ -60,6 +60,7 @@ class SpeedController extends Controller
             [
                 // 'date'      => 'required|date_format:d/m/Y|unique:speeds,date',
                 'date'      => 'required|date_format:d/m/Y',
+                'pool_id'   => 'required|exists:pools,id',
                 'units'     => 'array',
                 'values'    => 'array',
                 'units.*'   => 'exists:units,id|distinct',
@@ -68,6 +69,7 @@ class SpeedController extends Controller
         );
         $speed = Speed::create([
             'date'      => $request->date,
+            'pool_id'   => $request->pool_id,
         ]);
         foreach ($request->units ?? [] as $item) {
             $speeditem = SpeedItem::create([
@@ -146,7 +148,7 @@ class SpeedController extends Controller
             'pool_id'   => 'required|exists:pools,id',
         ]);
         $pool = Pool::find($request->pool_id);
-        $deleted =  Speed::whereRelation('unit', 'pool_id', $pool->id)->delete();
+        $deleted =  Speed::where('pool_id', $pool->id)->delete();
         $message = 'Success Delete All Data On Pool ' . $pool->name;
         return $this->response($message, $deleted);
     }

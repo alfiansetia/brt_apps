@@ -19,7 +19,7 @@ class OilCoolant extends Model
             $query->where('type', $filters['type']);
         }
         if (isset($filters['pool_id'])) {
-            $query->whereRelation('unit', 'pool_id',  $filters['pool_id']);
+            $query->where('pool_id',  $filters['pool_id']);
         }
         if (isset($filters['unit_id'])) {
             $query->where('unit_id', $filters['unit_id']);

@@ -57,6 +57,7 @@ class KeluhanController extends Controller
             'date'          => 'required|date_format:d/m/Y',
             'name'          => 'required|max:200',
             'unit'          => 'required|exists:units,id',
+            'pool_id'       => 'required|exists:pools,id',
             'km'            => 'required|integer|gte:0',
             'keluhan'       => 'required|max:200',
             'responsible'   => 'required|in:UT,MB,TJ',
@@ -67,6 +68,7 @@ class KeluhanController extends Controller
             'date'          => $request->date,
             'name'          => $request->name,
             'unit_id'       => $request->unit,
+            'pool_id'       => $request->pool_id,
             'km'            => $request->km,
             'keluhan'       => $request->keluhan,
             'responsible'   => $request->responsible,
@@ -139,7 +141,7 @@ class KeluhanController extends Controller
             'pool_id'   => 'required|exists:pools,id',
         ]);
         $pool = Pool::find($request->pool_id);
-        $deleted =  Keluhan::whereRelation('unit', 'pool_id', $pool->id)->delete();
+        $deleted =  Keluhan::where('pool_id', $pool->id)->delete();
         $message = 'Success Delete All Data On Pool ' . $pool->name;
         return $this->response($message, $deleted);
     }

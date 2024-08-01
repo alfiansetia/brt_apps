@@ -16,7 +16,7 @@ class Keluhan extends Model
     public function scopeFilter($query, array $filters)
     {
         if (isset($filters['pool_id'])) {
-            $query->whereRelation('unit', 'pool_id',  $filters['pool_id']);
+            $query->where('pool_id',  $filters['pool_id']);
         }
         if (isset($filters['unit_id'])) {
             $query->where('unit_id', $filters['unit_id']);

@@ -59,6 +59,7 @@ class DmcrController extends Controller
     {
         $this->validate($request, [
             'unit'          => 'required|exists:units,id',
+            'pool_id'       => 'required|exists:pools,id',
             // 'component'     => 'required|exists:components,id',
             'type'          => 'required|in:schedule,unschedule',
             'shift'         => 'required|in:day,night',
@@ -75,6 +76,7 @@ class DmcrController extends Controller
         ]);
         $dmcr = Dmcr::create([
             'unit_id'       => $request->unit,
+            'pool_id'       => $request->pool_id,
             // 'component_id'  => $request->component,
             'shift'         => $request->shift,
             'type'          => $request->type,
@@ -185,7 +187,7 @@ class DmcrController extends Controller
             'pool_id'   => 'required|exists:pools,id',
         ]);
         $pool = Pool::find($request->pool_id);
-        $deleted =  Dmcr::whereRelation('unit', 'pool_id', $pool->id)->delete();
+        $deleted =  Dmcr::where('pool_id', $pool->id)->delete();
         $message = 'Success Delete All Data On Pool ' . $pool->name;
         return $this->response($message, $deleted);
     }

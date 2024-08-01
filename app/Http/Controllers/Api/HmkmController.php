@@ -49,6 +49,7 @@ class HmkmController extends Controller
         $this->validate($request, [
             'date'      => 'required|date_format:d/m/Y',
             'unit'      => 'required|exists:units,id',
+            'pool_id'   => 'required|exists:pools,id',
             'hm'        => 'required|integer|gte:0',
             'km'        => 'required|integer|gte:0',
             'hm_ac'     => 'required|integer|gte:0',
@@ -63,6 +64,7 @@ class HmkmController extends Controller
         $hmkm = Hmkm::create([
             'date'      => $request->date,
             'unit_id'   => $request->unit,
+            'pool_id'   => $request->pool_id,
             'hm'        => $request->hm,
             'km'        => $request->km,
             'hm_ac'     => $request->hm_ac,
@@ -148,7 +150,7 @@ class HmkmController extends Controller
             'pool_id'   => 'required|exists:pools,id',
         ]);
         $pool = Pool::find($request->pool_id);
-        $deleted =  Hmkm::whereRelation('unit', 'pool_id', $pool->id)->delete();
+        $deleted =  Hmkm::where('pool_id', $pool->id)->delete();
         $message = 'Success Delete All Data On Pool ' . $pool->name;
         return $this->response($message, $deleted);
     }

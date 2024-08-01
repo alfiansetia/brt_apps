@@ -57,6 +57,7 @@ class OilCoolantController extends Controller
             'date'      => 'required|date_format:d/m/Y',
             'user'      => 'required|exists:users,id',
             'unit'      => 'required|exists:units,id',
+            'pool_id'   => 'required|exists:pools,id',
             'product'   => 'required|exists:products,id',
             'amount'    => 'required|numeric|gte:0',
             'type'      => 'required|in:service,levelling',
@@ -66,6 +67,7 @@ class OilCoolantController extends Controller
             'date'          => $request->date,
             'user_id'       => $request->user,
             'unit_id'       => $request->unit,
+            'pool_id'       => $request->pool_id,
             'product_id'    => $request->product,
             'amount'        => $request->amount,
             'type'          => $request->type,
@@ -135,7 +137,7 @@ class OilCoolantController extends Controller
             'pool_id'   => 'required|exists:pools,id',
         ]);
         $pool = Pool::find($request->pool_id);
-        $deleted =  OilCoolant::whereRelation('unit', 'pool_id', $pool->id)->delete();
+        $deleted =  OilCoolant::where('pool_id', $pool->id)->delete();
         $message = 'Success Delete All Data On Pool ' . $pool->name;
         return $this->response($message, $deleted);
     }

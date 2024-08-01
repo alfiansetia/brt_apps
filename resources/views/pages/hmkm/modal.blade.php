@@ -11,6 +11,7 @@
                 </div>
                 <form id="form" class="form-vertical" action="" method="POST">
                     @csrf
+                    <input type="hidden" name="pool_id" value="{{ request()->query('pool') }}">
                     <div class="modal-body">
                         <div class="form-group">
                             <label class="control-label" for="unit">Unit :</label>

@@ -56,6 +56,7 @@ class CbmController extends Controller
         $this->validate($request, [
             'date'      => 'required|date_format:d/m/Y',
             'unit'      => 'required|exists:units,id',
+            'pool_id'   => 'required|exists:pools,id',
             'component' => 'required|exists:components,id',
             'km'        => 'required|integer|gte:0',
             'desc'      => 'nullable|max:200',
@@ -63,6 +64,7 @@ class CbmController extends Controller
         $cbm = Cbm::create([
             'date'          => $request->date,
             'unit_id'       => $request->unit,
+            'pool_id'       => $request->pool_id,
             'component_id'  => $request->component,
             'km'            => $request->km,
             'desc'          => $request->desc,
@@ -127,7 +129,7 @@ class CbmController extends Controller
             'pool_id'   => 'required|exists:pools,id',
         ]);
         $pool = Pool::find($request->pool_id);
-        $deleted =  Cbm::whereRelation('unit', 'pool_id', $pool->id)->delete();
+        $deleted =  Cbm::where('pool_id', $pool->id)->delete();
         $message = 'Success Delete All Data On Pool ' . $pool->name;
         return $this->response($message, $deleted);
     }
