@@ -31,8 +31,8 @@ class DmcrItemController extends Controller
         $this->validate($request, [
             'dmcr'          => 'required|exists:dmcrs,id',
             'component'     => 'required|exists:components,id',
-            'desc'          => 'nullable|max:200',
-            'action'        => 'nullable|max:200',
+            'desc'          => 'required|max:200',
+            'action'        => 'required|max:200',
             'users'         => 'nullable|array',
             'users.*'       => 'exists:users,id',
             'part_number'   => 'nullable|max:200',

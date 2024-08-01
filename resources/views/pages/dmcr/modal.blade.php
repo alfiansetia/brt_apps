@@ -121,12 +121,14 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label class="control-label" for="desc">Desc :</label>
-                            <textarea name="desc" id="desc" class="form-control" maxlength="200" placeholder="Please Enter Desc"></textarea>
+                            <textarea name="desc" id="desc" class="form-control" maxlength="200" placeholder="Please Enter Desc"
+                                required></textarea>
                             <span class="error invalid-feedback err_desc" style="display: hide;"></span>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="action">Action :</label>
-                            <textarea name="action" id="action" class="form-control" maxlength="200" placeholder="Please Enter Action"></textarea>
+                            <textarea name="action" id="action" class="form-control" maxlength="200" placeholder="Please Enter Action"
+                                required></textarea>
                             <span class="error invalid-feedback err_action" style="display: hide;"></span>
                         </div>
                         <div class="form-group">
