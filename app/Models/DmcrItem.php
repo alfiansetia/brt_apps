@@ -12,6 +12,16 @@ class DmcrItem extends Model
 
     protected $guarded = ['id'];
 
+    protected function casts(): array
+    {
+        return [
+            'id'            => 'integer',
+            'dmcr_id'       => 'integer',
+            'component_id'  => 'integer',
+            'part_qty'      => 'integer',
+        ];
+    }
+
     public function scopeFilter($query, array $filters)
     {
         if (isset($filters['dmcr_id'])) {

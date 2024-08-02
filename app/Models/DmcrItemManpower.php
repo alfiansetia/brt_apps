@@ -11,6 +11,15 @@ class DmcrItemManpower extends Model
 
     protected $guarded = ['id'];
 
+    protected function casts(): array
+    {
+        return [
+            'id'            => 'integer',
+            'dmcr_item_id'  => 'integer',
+            'user_id'       => 'integer',
+        ];
+    }
+
     public function scopeFilter($query, array $filters)
     {
         if (isset($filters['user_id'])) {

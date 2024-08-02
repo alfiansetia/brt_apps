@@ -13,6 +13,17 @@ class Cbm extends Model
 
     protected $guarded = ['id'];
 
+    protected function casts(): array
+    {
+        return [
+            'id'            => 'integer',
+            'unit_id'       => 'integer',
+            'component_id'  => 'integer',
+            'pool_id'       => 'integer',
+            'km'            => 'integer',
+        ];
+    }
+
     public function scopeFilter($query, array $filters)
     {
         if (isset($filters['name'])) {

@@ -13,6 +13,24 @@ class Hmkm extends Model
 
     protected $guarded = ['id'];
 
+    protected function casts(): array
+    {
+        return [
+            'id'        => 'integer',
+            'unit_id'   => 'integer',
+            'hm'        => 'integer',
+            'km'        => 'integer',
+            'hm_ac'     => 'integer',
+            'breakpad1' => 'integer',
+            'breakpad2' => 'integer',
+            'breakpad3' => 'integer',
+            'breakpad4' => 'integer',
+            'breakpad5' => 'integer',
+            'breakpad6' => 'integer',
+            'pool_id'   => 'integer',
+        ];
+    }
+
     public function scopeFilter($query, array $filters)
     {
         if (isset($filters['pool_id'])) {
