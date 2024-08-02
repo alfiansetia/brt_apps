@@ -228,6 +228,7 @@
             }, {
                 data: 'date',
             }, {
+                name: 'unit_id',
                 data: 'unit.code',
                 defaultContent: '',
                 render: function(data, type, row, meta) {
@@ -238,6 +239,7 @@
                     }
                 }
             }, {
+                name: 'component_id',
                 data: 'component.name',
                 defaultContent: '',
             }, {

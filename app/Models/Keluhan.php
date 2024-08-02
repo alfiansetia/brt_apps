@@ -16,7 +16,7 @@ class Keluhan extends Model
     public function scopeFilter($query, array $filters)
     {
         if (isset($filters['pool_id'])) {
-            $query->where('pool_id',  $filters['pool_id']);
+            $query->where('keluhans.pool_id',  $filters['pool_id']);
         }
         if (isset($filters['unit_id'])) {
             $query->where('unit_id', $filters['unit_id']);
@@ -42,5 +42,10 @@ class Keluhan extends Model
     public function unit()
     {
         return $this->belongsTo(Unit::class);
+    }
+
+    public function pool()
+    {
+        return $this->belongsTo(Pool::class);
     }
 }

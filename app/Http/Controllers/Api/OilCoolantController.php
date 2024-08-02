@@ -36,6 +36,12 @@ class OilCoolantController extends Controller
             } catch (\Exception $e) {
                 // 
             }
+        })->filterColumn('unit_id', function ($query, $keyword) {
+            $query->whereRelation('unit', 'code', 'like', "%$keyword%");
+        })->filterColumn('product_id', function ($query, $keyword) {
+            $query->whereRelation('product', 'name', 'like', "%$keyword%");
+        })->filterColumn('user_id', function ($query, $keyword) {
+            $query->whereRelation('user', 'name', 'like', "%$keyword%");
         })->setTransformer(function ($item) {
             return OilCoolantResource::make($item)->resolve();
         })->toJson();

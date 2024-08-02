@@ -27,7 +27,7 @@ class HmkmController extends Controller
      */
     public function index(Request $request)
     {
-        $filters = $request->only(['pool_id', 'date']);
+        $filters = $request->only(['pool_id', 'unit_id']);
         $query = Hmkm::query()->with('unit')->filter($filters);
         return DataTables::eloquent($query)->filterColumn('date', function ($query, $keyword) {
             try {
@@ -36,6 +36,8 @@ class HmkmController extends Controller
             } catch (\Exception $e) {
                 // 
             }
+        })->filterColumn('unit_id', function ($query, $keyword) {
+            $query->whereRelation('unit', 'code', 'like', "%$keyword%");
         })->setTransformer(function ($item) {
             return HmkmResource::make($item)->resolve();
         })->toJson();

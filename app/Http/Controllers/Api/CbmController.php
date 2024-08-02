@@ -36,6 +36,10 @@ class CbmController extends Controller
             } catch (\Exception $e) {
                 // 
             }
+        })->filterColumn('unit_id', function ($query, $keyword) {
+            $query->whereRelation('unit', 'code', 'like', "%$keyword%");
+        })->filterColumn('component_id', function ($query, $keyword) {
+            $query->whereRelation('component', 'code', 'like', "%$keyword%");
         })->setTransformer(function ($item) {
             return CbmResource::make($item)->resolve();
         })->toJson();

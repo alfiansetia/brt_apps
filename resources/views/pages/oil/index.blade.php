@@ -326,9 +326,11 @@
             }, {
                 data: 'date',
             }, {
+                name: 'user_id',
                 data: 'user.name',
                 defaultContent: '',
             }, {
+                name: 'unit_id',
                 data: 'unit.code',
                 defaultContent: '',
                 render: function(data, type, row, meta) {
@@ -339,6 +341,7 @@
                     }
                 }
             }, {
+                name: 'product_id',
                 data: 'product.name',
                 defaultContent: '',
             }, {

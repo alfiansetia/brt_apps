@@ -36,6 +36,8 @@ class KeluhanController extends Controller
             } catch (\Exception $e) {
                 // 
             }
+        })->filterColumn('unit_id', function ($query, $keyword) {
+            $query->whereRelation('unit', 'code', 'like', "%$keyword%");
         })->setTransformer(function ($item) {
             return KeluhanResource::make($item)->resolve();
         })->toJson();

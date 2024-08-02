@@ -206,6 +206,7 @@
             }, {
                 data: 'name',
             }, {
+                name: 'unit_id',
                 data: 'unit.code',
                 defaultContent: '',
                 render: function(data, type, row, meta) {

@@ -30,7 +30,9 @@ class HmkmResource extends JsonResource
             'breakpad5' => $this->breakpad5,
             'breakpad6' => $this->breakpad6,
             'unit_id'   => $this->unit_id,
+            'pool_id'   => $this->pool_id,
             'unit'      => new UnitResource($this->whenLoaded('unit')),
+            'pool'      => new PoolResource($this->whenLoaded('pool')),
         ];
     }
 }
