@@ -18,7 +18,7 @@ class DmcrItem extends Model
             $query->where('dmcr_id', $filters['dmcr_id']);
         }
         if (isset($filters['pool_id'])) {
-            $query->whereRelation('dmcr.unit', 'pool_id',  $filters['pool_id']);
+            $query->whereRelation('dmcr', 'pool_id',  $filters['pool_id']);
         }
         // if (isset($filters['from']) && isset($filters['to'])) {
         //     $from = Carbon::createFromFormat('d/m/Y', $filters['from'])->startOfDay();
