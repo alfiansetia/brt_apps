@@ -287,6 +287,7 @@
             }, {
                 data: 'date',
             }, {
+                name: 'unit_id',
                 data: 'unit.code',
                 defaultContent: '',
                 render: function(data, type, row, meta) {
@@ -297,6 +298,7 @@
                     }
                 }
             }, {
+                name: 'ppm_id',
                 data: 'ppm.name',
                 defaultContent: '',
             }, {

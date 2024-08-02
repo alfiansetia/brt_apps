@@ -30,7 +30,11 @@ class LogbookController extends Controller
     {
         $filters = $request->only(['unit_id', 'component_id', 'pool_id', 'date']);
         $query = Logbook::query()->with(['unit', 'component', 'man_powers.user'])->filter($filters);
-        return DataTables::eloquent($query)->filterColumn('date', function ($query, $keyword) {
+        return DataTables::eloquent($query)->filterColumn('unit_id', function ($query, $keyword) {
+            $query->whereRelation('unit', 'code', 'like', "%$keyword%");
+        })->filterColumn('component_id', function ($query, $keyword) {
+            $query->whereRelation('component', 'name', 'like', "%$keyword%");
+        })->filterColumn('date', function ($query, $keyword) {
             try {
                 $date = Carbon::createFromFormat('d/m/Y', $keyword)->format('Y-m-d');
                 $query->whereDate('date', $date);
