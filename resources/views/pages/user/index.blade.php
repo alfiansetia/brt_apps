@@ -125,6 +125,7 @@
             }, {
                 data: 'email',
             }, {
+                name: 'pool_id',
                 data: 'pool.name',
                 defaultContent: '',
             }, {

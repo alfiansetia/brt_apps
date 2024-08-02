@@ -136,6 +136,7 @@
                     return meta.row + meta.settings._iDisplayStart + 1;
                 }
             }, {
+                name: 'pool_id',
                 data: 'pool.name',
                 defaultContent: '',
             }, {

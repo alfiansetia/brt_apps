@@ -485,6 +485,7 @@
                     }, {
                         data: 'action',
                     }, {
+                        name: 'component_id',
                         data: 'component.name',
                         defaultContent: '',
                     }, {

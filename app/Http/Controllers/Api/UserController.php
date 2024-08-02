@@ -24,7 +24,9 @@ class UserController extends Controller
     {
         $filters = $request->only(['name', 'email', 'role', 'pool_id']);
         $query = User::query()->with('pool')->filter($filters);
-        return DataTables::eloquent($query)->setTransformer(function ($item) {
+        return DataTables::eloquent($query)->filterColumn('pool_id', function ($query, $keyword) {
+            $query->whereRelation('pool', 'name', 'like', "%$keyword%");
+        })->setTransformer(function ($item) {
             return UserResource::make($item)->resolve();
         })->toJson();
     }

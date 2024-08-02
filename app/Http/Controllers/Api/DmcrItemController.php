@@ -18,7 +18,9 @@ class DmcrItemController extends Controller
     {
         $filters = $request->only(['dmcr_id', 'desc']);
         $query = DmcrItem::query()->with(['dmcr', 'component', 'man_powers.user'])->filter($filters);
-        return DataTables::eloquent($query)->setTransformer(function ($item) {
+        return DataTables::eloquent($query)->filterColumn('component_id', function ($query, $keyword) {
+            $query->whereRelation('component', 'name', 'like', "%$keyword%");
+        })->setTransformer(function ($item) {
             return DmcrItemResource::make($item)->resolve();
         })->toJson();
     }

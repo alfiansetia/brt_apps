@@ -22,7 +22,9 @@ class UnitController extends Controller
     {
         $filters = $request->only(['pool_id', 'code', 'type']);
         $query = Unit::query()->with('pool')->filter($filters);
-        return DataTables::eloquent($query)->setTransformer(function ($item) {
+        return DataTables::eloquent($query)->filterColumn('pool_id', function ($query, $keyword) {
+            $query->whereRelation('pool', 'name', 'like', "%$keyword%");
+        })->setTransformer(function ($item) {
             return UnitResource::make($item)->resolve();
         })->toJson();
     }
