@@ -29,7 +29,7 @@ class CbmProject extends Model
 
     public function actual(): int
     {
-        $data = DmcrItem::whereRelation('dmcr.unit', 'pool_id', $this->pool_id)
+        $data = DmcrItem::whereRelation('dmcr', 'pool_id', $this->pool_id)
             ->where('part_number', $this->pn)
             ->sum('part_qty') ?? 0;
         return $data;
