@@ -43,24 +43,24 @@ class Dmcr extends Model
     protected function date(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => Carbon::parse($value)->format('d/m/Y'),
-            set: fn ($value) => Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d'),
+            get: fn($value) => Carbon::parse($value)->format('d/m/Y'),
+            set: fn($value) => Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d'),
         );
     }
 
     protected function start(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => Carbon::parse($value)->format('d/m/Y H:i:s'),
-            set: fn ($value) => Carbon::createFromFormat('d/m/Y H:i', $value)->format('Y-m-d H:i:s'),
+            get: fn($value) => Carbon::parse($value)->format('d/m/Y H:i'),
+            set: fn($value) => Carbon::createFromFormat('d/m/Y H:i', $value)->format('Y-m-d H:i:s'),
         );
     }
 
     protected function finish(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => Carbon::parse($value)->format('d/m/Y H:i:s'),
-            set: fn ($value) => Carbon::createFromFormat('d/m/Y H:i', $value)->format('Y-m-d H:i:s'),
+            get: fn($value) => Carbon::parse($value)->format('d/m/Y H:i'),
+            set: fn($value) => Carbon::createFromFormat('d/m/Y H:i', $value)->format('Y-m-d H:i:s'),
         );
     }
 
