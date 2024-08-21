@@ -368,6 +368,10 @@
             $('body').addClass('modal-open');
         });
 
+        $('#modal_image').on('hidden.bs.modal', function() {
+            $('body').addClass('modal-open');
+        });
+
 
         multiCheck(table);
 
