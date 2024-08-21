@@ -3,7 +3,6 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    {{-- @include('pages.service.style') --}}
 
     <style>
         html {
@@ -217,6 +216,15 @@
                 <tr class="row">
                     <td class="initial left-border right-border" colspan="25"></td>
                 </tr>
+
+                @if ($loop->iteration % 4 == 0)
+                    <tr class="row">
+                        <td class="initial left-border right-border bottom-border" colspan="25"></td>
+                    </tr>
+                    <tr class="row" style="page-break-before: always;">
+                        <td class="initial" colspan="25"></td>
+                    </tr>
+                @endif
             @empty
                 <tr class="row">
                     <td class="initial left-border right-border" colspan="25"></td>
