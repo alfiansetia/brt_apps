@@ -135,7 +135,7 @@
                                     required>
                                 <label class="custom-file-label" for="image">Choose file</label>
                             </div>
-                            <small class="form-text text-muted">Max Size 3MB</small>
+                            <small class="form-text text-muted">Max Size 5MB</small>
                             <span class="error invalid-feedback err_image"></span>
                             <br><img class="image_preview mt-1" src="#" style="display: none;max-width: 200px" />
                         </div>

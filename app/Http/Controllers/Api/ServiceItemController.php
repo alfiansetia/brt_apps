@@ -33,7 +33,7 @@ class ServiceItemController extends Controller
             'service'       => 'required|exists:services,id',
             'label'         => 'required|max:200',
             'custom_label'  => 'required_if:label,other|max:200',
-            'image'         => 'required|image|mimes:jpg,jpeg,png|max:3072',
+            'image'         => 'required|image|mimes:jpg,jpeg,png|max:5120',
         ]);
         $label  = $request->label;
         if ($label == 'other') {
