@@ -224,6 +224,9 @@
                     <tr class="row" style="page-break-before: always;">
                         <td class="initial" colspan="25"></td>
                     </tr>
+                    <tr class="row">
+                        <td class="initial left-border right-border top-border" colspan="25"></td>
+                    </tr>
                 @endif
             @empty
                 <tr class="row">
