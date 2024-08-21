@@ -47,6 +47,10 @@
                     <a class="nav-link" href="{{ route('speeds.index') }}?pool={{ request()->query('pool') }}"><i
                             class="fas fa-tachometer-alt"></i><span>Speed Limit</span></a>
                 </li>
+                <li class="{{ $title == 'Data Service' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('services.index') }}?pool={{ request()->query('pool') }}"><i
+                            class="fas fa-cogs"></i><span>Service</span></a>
+                </li>
             @endif
             <li class="{{ $title == 'Data Logbook Storing' ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('logbooks.index') }}"><i class="fas fa-tags"></i><span>LogBook

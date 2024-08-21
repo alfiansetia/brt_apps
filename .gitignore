@@ -20,6 +20,7 @@ yarn-error.log
 /.vscode
 /public/assets/img/pool
 /public/assets/img/unit
+/public/assets/img/service
 /public/unit.json
 /public/hmkm.json
 /public/dmcr.json

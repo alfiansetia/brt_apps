@@ -16,6 +16,7 @@ use App\Http\Controllers\PpmController;
 use App\Http\Controllers\PpmDataController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SpeedController;
 use App\Http\Controllers\UnitController;
 use Illuminate\Support\Facades\Auth;
@@ -68,6 +69,10 @@ Route::group(['middleware' => ['auth', 'active']], function () {
     Route::get('speeds', [SpeedController::class, 'index'])->name('speeds.index');
 
     Route::get('cbm_projects', [CbmProjectController::class, 'index'])->name('cbm_projects.index');
+
+    Route::get('service/{service}/download', [ServiceController::class, 'download'])->name('services.download');
+    Route::get('services', [ServiceController::class, 'index'])->name('services.index');
+    Route::get('service/{service}', [ServiceController::class, 'show'])->name('services.show');
 
     // });
     Route::get('/tes', [OnboardingController::class, 'tes'])->name('onboarding.tes');

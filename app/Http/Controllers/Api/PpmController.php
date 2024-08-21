@@ -76,6 +76,7 @@ class PpmController extends Controller
      */
     public function destroy(Ppm $ppm)
     {
-        //
+        $ppm->delete();
+        return $this->response('Sukses Hapus Data!', new PpmResource($ppm), 200);
     }
 }

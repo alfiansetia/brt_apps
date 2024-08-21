@@ -16,6 +16,8 @@ use App\Http\Controllers\Api\PpmController;
 use App\Http\Controllers\Api\PpmDataController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ProfileController;
+use App\Http\Controllers\Api\ServiceController;
+use App\Http\Controllers\Api\ServiceItemController;
 use App\Http\Controllers\Api\SpeedController;
 use App\Http\Controllers\Api\UnitController;
 use App\Http\Controllers\Api\UserController;
@@ -103,11 +105,16 @@ Route::group(['middleware' => ['auth:sanctum', 'active']], function () {
     Route::get('cbm_project-paginate', [CbmProjectController::class, 'paginate'])->name('api.cbm_projects.paginate');
     Route::apiResource('cbm_projects', CbmProjectController::class)->names('api.cbm_projects');
 
+    Route::delete('services', [ServiceController::class, 'destroyBatch'])->name('api.services.destroybatch');
+    Route::get('service-paginate', [ServiceController::class, 'paginate'])->name('api.services.paginate');
+    Route::apiResource('services', ServiceController::class)->names('api.services');
+
+    Route::apiResource('service_items', ServiceItemController::class)->names('api.service_items');
+
     Route::get('user-paginate', [UserController::class, 'paginate'])->name('api.users.paginate');
     Route::apiResource('users', UserController::class)->names('api.users');
 
     Route::get('onboardings', [OnboardingController::class, 'index'])->name('api.onboardings.index');
 
-    Route::group(['middleware' => ['role:admin']], function () {
-    });
+    Route::group(['middleware' => ['role:admin']], function () {});
 });

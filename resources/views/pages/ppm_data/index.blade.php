@@ -308,11 +308,12 @@
                     if (type == 'display') {
                         text = `<div class="btn-group" role="group" aria-label="Basic example">`
                         if (row.file != null) {
-                            text += `<button class="btn btn-info btn-sm btn-download">Download</button>`
+                            text +=
+                                `<button type="button" class="btn btn-info btn-sm btn-download">Download</button>`
                         } else {
                             text += "<span class='badge badge-warning'>No File!</span>"
                         }
-                        text += `<button class="btn btn-danger btn-sm btn-delete">Delete</button>
+                        text += `<button type="button" class="btn btn-danger btn-sm btn-delete">Delete</button>
                                 </div>`;
                         return text
                     } else {
