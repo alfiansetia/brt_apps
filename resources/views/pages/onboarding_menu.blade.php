@@ -144,7 +144,7 @@
                             <h4>Service</h4>
                         </div>
                         <div class="card-body cbm">
-                            {{ hrg($datas['speed']) }} Data
+                            {{ hrg($datas['service']) }} Data
                         </div>
                     </div>
                 </div>

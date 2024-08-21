@@ -9,6 +9,7 @@ use App\Models\Hmkm;
 use App\Models\Keluhan;
 use App\Models\OilCoolant;
 use App\Models\Pool;
+use App\Models\Service;
 use App\Models\Speed;
 use Illuminate\Http\Request;
 
@@ -35,6 +36,7 @@ class OnboardingController extends Controller
         $datas['keluhan'] = Keluhan::filter($filters)->count();
         $datas['speed'] = Speed::filter($filters)->count();
         $datas['cbm_project'] = CbmProject::filter($filters)->count();
+        $datas['service'] = Service::filter($filters)->count();
         return view('pages.onboarding_menu', compact('pool', 'datas'));
     }
 
