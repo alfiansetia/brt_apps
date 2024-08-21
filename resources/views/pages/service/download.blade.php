@@ -217,7 +217,7 @@
                     <td class="initial left-border right-border" colspan="25"></td>
                 </tr>
 
-                @if ($loop->iteration % 4 == 0)
+                @if ($loop->iteration % 4 == 0 && count($items) > 4)
                     <tr class="row">
                         <td class="initial left-border right-border bottom-border" colspan="25"></td>
                     </tr>
