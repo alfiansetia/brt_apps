@@ -1,7 +1,6 @@
 @extends('layouts.template', ['title' => 'Data CBM Project'])
 @push('css')
-    <link rel="stylesheet" href="{{ asset('lib/datatables.net-bs4/css/dataTables.bootstrap4.css') }}">
-    <link rel="stylesheet" href="{{ asset('lib/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('lib/datatable-new/datatables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/select2.min.css') }}">
 @endpush
 @section('content')
@@ -52,12 +51,7 @@
 @endsection
 
 @push('js')
-    <script src="{{ asset('lib/datatables/media/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('lib/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('lib/datatables.net-select-bs4/js/select.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('lib/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('lib/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('lib/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+    <script src="{{ asset('lib/datatable-new/datatables.min.js') }}"></script>
 
     <script src="{{ asset('lib/select2/dist/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('lib/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
@@ -142,159 +136,6 @@
             let url = "{{ route('api.cbms.export') }}?from=" + from + '&to=' + to + '&pool_id=' + pool_id
             download_file(url)
         })
-
-        // var table = $("#table").DataTable({
-        //     processing: true,
-        //     serverSide: true,
-        //     searchDelay: 500,
-        //     ajax: {
-        //         url: url_index_with_pool,
-        //         error: function(xhr, textStatus, errorThrown) {
-        //             show_toast('error', xhr.responseJSON.message || 'server Error!')
-        //         },
-        //     },
-        //     dom: "<'dt--top-section'<'row'<'col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center'B><'col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3'f>>>" +
-        //         "<'table-responsive'tr>" +
-        //         "<'dt--bottom-section d-sm-flex justify-content-sm-between text-center'<'dt--pages-count  mb-sm-0 mb-3'i><'dt--pagination'p>>",
-        //     oLanguage: {
-        //         oPaginate: {
-        //             sPrevious: '<i class="fas fa-chevron-left"></i>',
-        //             sNext: '<i class="fas fa-chevron-right"></i>'
-        //         },
-        //         sSearch: '',
-        //         sSearchPlaceholder: "Search...",
-        //         sLengthMenu: "Results :  _MENU_",
-        //     },
-        //     lengthMenu: [
-        //         [10, 50, 100, 500, 1000],
-        //         ['10 rows', '50 rows', '100 rows', '500 rows', '1000 rows']
-        //     ],
-        //     pageLength: 10,
-        //     lengthChange: true,
-        //     columnDefs: [],
-        //     order: [
-        //         [1, 'desc'],
-        //         [0, 'desc'],
-        //     ],
-        //     columns: [{
-        //         data: 'id',
-        //         searchable: false,
-        //         sortable: false,
-        //         render: function(data, type, row, meta) {
-        //             return `<div class="custom-checkbox custom-control"><input type="checkbox" id="check${data}" data-checkboxes="mygroup" name="id[]" value="${data}" class="custom-control-input child-chk select-customers-info"><label for="check${data}" class="custom-control-label">&nbsp;</label></div>`
-        //         }
-        //     }, {
-        //         data: 'pn',
-        //     }, {
-        //         data: 'name',
-        //     }, {
-        //         data: 'target',
-        //         searchable: false,
-        //     }, {
-        //         data: 'actual',
-        //         searchable: false,
-        //     }, {
-        //         data: 'id',
-        //         searchable: false,
-        //         sortable: false,
-        //         render: function(data, type, row, meta) {
-        //             if (type == 'display') {
-        //                 return `<button type="button" class="btn btn-danger btn-sm btn-delete">Delete</button>`;
-        //             } else {
-        //                 return data
-        //             }
-        //         }
-        //     }],
-        //     buttons: [, {
-        //         text: '<i class="fa fa-plus mr-1"></i>Add',
-        //         className: 'btn btn-sm btn-primary bs-tooltip',
-        //         attr: {
-        //             'data-toggle': 'tooltip',
-        //             'title': 'Add Data'
-        //         },
-        //         action: function(e, dt, node, config) {
-        //             modal_add()
-        //         }
-        //     }, {
-        //         extend: "colvis",
-        //         attr: {
-        //             'data-toggle': 'tooltip',
-        //             'title': 'Column Visible'
-        //         },
-        //         className: 'btn btn-sm btn-primary'
-        //     }, {
-        //         extend: "pageLength",
-        //         attr: {
-        //             'data-toggle': 'tooltip',
-        //             'title': 'Page Length'
-        //         },
-        //         className: 'btn btn-sm btn-info'
-        //     }, {
-        //         text: '<i class="fa fa-file-excel mr-1"></i>Export',
-        //         className: 'btn btn-sm btn-info bs-tooltip',
-        //         attr: {
-        //             'data-toggle': 'tooltip',
-        //             'title': 'Export'
-        //         },
-        //         action: function(e, dt, node, config) {
-        //             $('#modal_export').modal('show')
-        //         }
-        //     }, {
-        //         text: '<i class="fa fa-tools"></i> Action',
-        //         className: 'btn btn-sm btn-warning bs-tooltip',
-        //         attr: {
-        //             'data-toggle': 'tooltip',
-        //             'title': 'Action'
-        //         },
-        //         extend: 'collection',
-        //         autoClose: true,
-        //         buttons: [{
-        //             text: 'Delete Selected Data',
-        //             className: 'btn btn-danger',
-        //             action: function(e, dt, node, config) {
-        //                 delete_batch(url_index);
-        //             }
-        //         }, {
-        //             text: 'Delete All Data in Pool',
-        //             className: 'btn btn-danger',
-        //             action: function(e, dt, node, config) {
-        //                 truncate(url_truncate, pool_id);
-        //             }
-        //         }]
-        //     }, ],
-        //     initComplete: function() {
-        //         $('#table').DataTable().buttons().container().appendTo(
-        //             '#tableData_wrapper .col-md-6:eq(0)');
-        //     },
-        //     drawCallback: function(settings) {
-        //         var api = this.api();
-        //         text = `(${hrg(api.page.info().recordsDisplay)} data)`
-        //         $('#total_data').text(text);
-        //     },
-        //     headerCallback: function(e, a, t, n, s) {
-        //         e.getElementsByTagName("th")[0].innerHTML =
-        //             '<div class="custom-checkbox custom-control"><input type="checkbox" class="custom-control-input chk-parent select-customers-info" id="checkbox-all"><label for="checkbox-all" class="custom-control-label">&nbsp;</label></div>'
-        //     },
-        // });
-
-        // multiCheck(table);
-
-        // $(".dataTables_filter input").unbind().bind("input", function(e) {
-        //     if (this.value.length >= 3 || e.keyCode == 13) {
-        //         table.search(this.value).draw();
-        //     }
-        //     if (this.value == "") {
-        //         table.search("").draw();
-        //     }
-        //     return;
-        // });
-
-        // $('#table tbody').on('click', 'tr td:not(:first-child):not(:last-child)', function() {
-        //     clear_validate('form')
-        //     row = $(this).parents('tr')[0];
-        //     id = table.row(row).data().id
-        //     edit(ids)
-        // });
 
         function edit(ids) {
             id = ids

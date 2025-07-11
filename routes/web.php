@@ -11,6 +11,7 @@ use App\Http\Controllers\KeluhanController;
 use App\Http\Controllers\LogbookController;
 use App\Http\Controllers\OilCoolantController;
 use App\Http\Controllers\OnboardingController;
+use App\Http\Controllers\OneScaniaController;
 use App\Http\Controllers\PoolController;
 use App\Http\Controllers\PpmController;
 use App\Http\Controllers\PpmDataController;
@@ -76,4 +77,6 @@ Route::group(['middleware' => ['auth', 'active']], function () {
 
     // });
     Route::get('/tes', [OnboardingController::class, 'tes'])->name('onboarding.tes');
+
+    Route::get('one_scanias', [OneScaniaController::class, 'index'])->name('one_scanias.index');
 });

@@ -60,6 +60,11 @@
                 <a class="nav-link" href="{{ route('ppms_data.index') }}"><i
                         class="fas fa-file-pdf"></i><span>PPM</span></a>
             </li>
+
+            <li class="{{ $title == 'Data One Scania' ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('one_scanias.index') }}">
+                    <i class="fas fa-truck-moving"></i><span>One Scania</span></a>
+            </li>
             @if ($user->is_admin())
                 <li class="menu-header">Master</li>
                 @php
