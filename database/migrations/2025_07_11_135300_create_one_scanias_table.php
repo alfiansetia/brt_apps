@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('satuan_map')->nullable();
             $table->integer('price_map')->nullable();
             $table->string('satuan_vendor')->nullable();
-            $table->integer('satuan_vendor')->nullable();
+            $table->integer('price_vendor')->nullable();
             $table->string('vendor')->nullable();
             $table->string('brand')->nullable();
             $table->string('remark')->nullable();

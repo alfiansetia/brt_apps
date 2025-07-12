@@ -95,6 +95,8 @@ class OneScaniaController extends Controller
      */
     public function update(Request $request, OneScania $one_scania)
     {
+        // dd($one_scania);
+        // return $this->response($request->all());
         $this->validate($request, [
             'name'              => 'required|string|max:200',
             'unit'              => 'nullable|string|max:200',

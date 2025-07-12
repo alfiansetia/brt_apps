@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\KeluhanController;
 use App\Http\Controllers\Api\LogbookController;
 use App\Http\Controllers\Api\OilCoolantController;
 use App\Http\Controllers\Api\OnboardingController;
+use App\Http\Controllers\Api\OneScaniaController;
 use App\Http\Controllers\Api\PoolController;
 use App\Http\Controllers\Api\PpmController;
 use App\Http\Controllers\Api\PpmDataController;
@@ -108,6 +109,11 @@ Route::group(['middleware' => ['auth:sanctum', 'active']], function () {
     Route::delete('services', [ServiceController::class, 'destroyBatch'])->name('api.services.destroybatch');
     Route::get('service-paginate', [ServiceController::class, 'paginate'])->name('api.services.paginate');
     Route::apiResource('services', ServiceController::class)->names('api.services');
+
+    Route::delete('one_scanias', [OneScaniaController::class, 'destroyBatch'])->name('api.one_scanias.destroybatch');
+    Route::delete('one_scanias-truncate', [OneScaniaController::class, 'truncate'])->name('api.one_scanias.truncate');
+    Route::get('one_scania-paginate', [OneScaniaController::class, 'paginate'])->name('api.one_scanias.paginate');
+    Route::apiResource('one_scanias', OneScaniaController::class)->names('api.one_scanias');
 
     Route::apiResource('service_items', ServiceItemController::class)->names('api.service_items');
 

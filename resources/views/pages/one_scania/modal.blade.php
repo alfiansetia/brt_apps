@@ -13,35 +13,85 @@
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
+                            <label class="control-label" for="name">Part Name :</label>
+                            <input type="text" name="name" class="form-control" id="name"
+                                placeholder="Please Enter Part Name" required>
+                            <span class="error invalid-feedback err_name" style="display: hide;"></span>
+                        </div>
+                        <div class="form-group">
                             <label class="control-label" for="unit">Unit :</label>
-                            <div class="input-group">
-                                <select name="unit" id="unit" class="custom-select select2" style="width: 100%;"
-                                    required>
-                                </select>
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary" type="button" data-toggle="modal" value="unit"
-                                        data-target="#qrScannerModal"><i class="fas fa-qrcode"></i></button>
-                                </div>
-                            </div>
+                            <input type="text" name="unit" class="form-control" id="unit"
+                                placeholder="Please Enter Part Unit" required>
                             <span class="error invalid-feedback err_unit" style="display: hide;"></span>
                         </div>
                         <div class="form-group">
-                            <label class="control-label" for="date">Date :</label>
-                            <input type="text" name="date" class="form-control datepicker" id="date"
-                                placeholder="Please Enter date" required readonly>
-                            <span class="error invalid-feedback err_date" style="display: hide;"></span>
+                            <label class="control-label" for="component">Component :</label>
+                            <input type="text" name="component" class="form-control" id="component"
+                                placeholder="Please Enter Part Component" required>
+                            <span class="error invalid-feedback err_component" style="display: hide;"></span>
                         </div>
                         <div class="form-group">
-                            <label class="control-label" for="ppm">PPM :</label>
-                            <select name="ppm" id="ppm" class="custom-select select2" style="width: 100%;"
-                                required>
-                            </select>
-                            <span class="error invalid-feedback err_ppm" style="display: hide;"></span>
+                            <label class="control-label" for="number">Part Number :</label>
+                            <input type="text" name="number" class="form-control" id="number"
+                                placeholder="Please Enter Part Number" required>
+                            <span class="error invalid-feedback err_number" style="display: hide;"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="satuan_map">Satuan :</label>
+                            <input type="text" name="satuan_map" class="form-control" id="satuan_map"
+                                placeholder="Please Enter Part Satuan" required>
+                            <span class="error invalid-feedback err_satuan_map" style="display: hide;"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="price_map">Price MAP :</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">Rp.</div>
+                                </div>
+                                <input type="text" name="price_map" class="form-control mask_angka" id="price_map"
+                                    placeholder="Please Enter Part Price MAP" value="0" required>
+                            </div>
+                            <span class="error invalid-feedback err_price_map" style="display: hide;"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="satuan_vendor">Satuan :</label>
+                            <input type="text" name="satuan_vendor" class="form-control" id="satuan_vendor"
+                                placeholder="Please Enter Part Satuan" required>
+                            <span class="error invalid-feedback err_satuan_vendor" style="display: hide;"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="price_vendor">Price Vendor :</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">Rp.</div>
+                                </div>
+                                <input type="text" name="price_vendor" class="form-control mask_angka"
+                                    id="price_vendor" placeholder="Please Enter Part Price Vendor" value="0"
+                                    required>
+                            </div>
+                            <span class="error invalid-feedback err_price_vendor" style="display: hide;"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="vendor">Vendor :</label>
+                            <input type="text" name="vendor" class="form-control" id="vendor"
+                                placeholder="Please Enter Part Vendor" required>
+                            <span class="error invalid-feedback err_vendor" style="display: hide;"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="brand">Brand :</label>
+                            <input type="text" name="brand" class="form-control" id="brand"
+                                placeholder="Please Enter Part Brand" required>
+                            <span class="error invalid-feedback err_brand" style="display: hide;"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="remark">Remark :</label>
+                            <textarea name="remark" id="remark" class="form-control" maxlength="200" placeholder="Please Enter Remark"></textarea>
+                            <span class="error invalid-feedback err_remark" style="display: hide;"></span>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="file">File :</label>
                             <div class="custom-file mb-2">
-                                <input type="file" name="file" class="custom-file-input" id="file" required>
+                                <input type="file" name="file" class="custom-file-input" id="file">
                                 <label class="custom-file-label" for="file">Choose file</label>
                             </div>
                             <small class="form-text text-muted">PDF/Image Max Size 10MB</small>
@@ -49,8 +99,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times mr-1"
-                                data-toggle="tooltip" title="Close"></i>Close</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i
+                                class="fas fa-times mr-1" data-toggle="tooltip" title="Close"></i>Close</button>
                         <button type="submit" id="modal_form_submit" class="btn btn-primary"><i
                                 class="fas fa-paper-plane mr-1" data-toggle="tooltip" title="Save"></i>Save</button>
                     </div>
@@ -58,8 +108,6 @@
             </div>
         </div>
     </div>
-
-    @include('components.modal.scan')
 
     @include('components.modal.export')
 @endpush

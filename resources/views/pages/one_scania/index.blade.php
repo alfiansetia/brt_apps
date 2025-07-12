@@ -14,9 +14,17 @@
                             <thead>
                                 <tr>
                                     <th style="width: 30px;">#</th>
-                                    <th>Date</th>
+                                    <th>Name</th>
                                     <th>Unit</th>
-                                    <th>PPM</th>
+                                    <th>Component</th>
+                                    <th>Part Number</th>
+                                    <th>Satuan</th>
+                                    <th>Price MAP</th>
+                                    <th>Satuan</th>
+                                    <th>Price Vendor</th>
+                                    <th>Vendor</th>
+                                    <th>Brand</th>
+                                    <th>Remark</th>
                                     <th style="width: 50px">Action</th>
                                 </tr>
                             </thead>
@@ -28,7 +36,7 @@
             </div>
         </div>
     </div>
-    @include('pages.ppm_data.modal')
+    @include('pages.one_scania.modal')
 @endsection
 
 @push('js')
@@ -42,118 +50,12 @@
 
     <script>
         $(document).ready(function() {
-            var html5QrCode;
-            var currentType;
-
-            var qrCodeSuccessCallback = function(decodedText, decodedResult) {
-                console.log(`Code matched = ${decodedText}`, decodedResult);
-                let code = decodedText;
-                if (currentType == 'unit') {
-                    $.get("{{ url('api/unit-findcode') }}/" + code).done(function(result) {
-                        let option = new Option(`${result.data.code} (${result.data.type})`,
-                            result
-                            .data.id,
-                            true, true);
-                        $('#unit').append(option).trigger('change');
-                    }).fail(function(xhr) {
-                        show_toast('error', xhr.responseJSON.message || "Server Error!")
-                    })
-                } else {
-                    $.get("{{ url('api/product-findcode') }}/" + code).done(function(result) {
-                        let option = new Option(`${result.data.name}`,
-                            result
-                            .data.id,
-                            true, true);
-                        $('#product').append(option).trigger('change');
-                    }).fail(function(xhr) {
-                        show_toast('error', xhr.responseJSON.message || "Server Error!")
-                    })
-                }
-                $('#qrScannerModal').modal('hide');
-                html5QrCode.stop().then(() => {
-                    console.log("QR Code scanning stopped.");
-                }).catch(err => {
-                    console.error("Unable to stop scanning.", err);
-                });
-            };
-
-            $('#qrScannerModal').on('shown.bs.modal', function(event) {
-                var button = $(event.relatedTarget);
-                currentType = button.val();
-
-                console.log(currentType);
-
-                html5QrCode = new Html5Qrcode("reader");
-                html5QrCode.start({
-                    facingMode: "environment"
-                }, {
-                    fps: 10,
-                    qrbox: 250
-                }, qrCodeSuccessCallback).catch(err => {
-                    show_toast('error', 'Unable to start scanning : ' + err)
-                    console.error("Unable to start scanning.", err);
-                });
-            });
-
-            $('#qrScannerModal').on('hidden.bs.modal', function() {
-                $('body').addClass('modal-open');
-                if (html5QrCode) {
-                    html5QrCode.stop().then(() => {
-                        console.log("QR Code scanning stopped.");
-                    }).catch(err => {
-                        console.error("Unable to stop scanning.", err);
-                    });
-                }
-            });
-            // var html5QrCode;
-            // var qrCodeSuccessCallback = function(decodedText, decodedResult) {
-            //     console.log(`Code matched = ${decodedText}`, decodedResult);
-            //     let code = decodedText;
-            //     $.get("{{ url('api/unit-findcode') }}/" + code).done(function(result) {
-            //         let option = new Option(`${result.data.code} (${result.data.type})`,
-            //             result
-            //             .data.id,
-            //             true, true);
-            //         $('#unit').append(option).trigger('change');
-            //     }).fail(function(xhr) {
-            //         show_toast('error', xhr.responseJSON.message || "Server Error!")
-            //     })
-            //     $('#qrScannerModal').modal('hide');
-            //     html5QrCode.stop().then(() => {
-            //         console.log("QR Code scanning stopped.");
-            //     }).catch(err => {
-            //         console.error("Unable to stop scanning.", err);
-            //     });
-            // };
-
-            // $('#qrScannerModal').on('shown.bs.modal', function() {
-            //     html5QrCode = new Html5Qrcode("reader");
-            //     html5QrCode.start({
-            //         facingMode: "environment"
-            //     }, {
-            //         fps: 10,
-            //         qrbox: 250
-            //     }, qrCodeSuccessCallback).catch(err => {
-            //         show_toast('error', 'Unable to start scanning : ' + err)
-            //         console.error("Unable to start scanning.", err);
-            //     });
-            // });
-
-            // $('#qrScannerModal').on('hidden.bs.modal', function() {
-            //     $('body').addClass('modal-open');
-            //     if (html5QrCode) {
-            //         html5QrCode.stop().then(() => {
-            //             console.log("QR Code scanning stopped.");
-            //         }).catch(err => {
-            //             console.error("Unable to stop scanning.", err);
-            //         });
-            //     }
-            // });
+            // 
         });
-        var url_index = "{{ route('api.ppmdatas.index') }}"
+        var url_index = "{{ route('api.one_scanias.index') }}"
         var id = 0
         var perpage = 50
-        var url_truncate = "{{ route('api.ppmdatas.truncate') }}"
+        var url_truncate = "{{ route('api.one_scanias.truncate') }}"
 
         $(".select2").select2()
 
@@ -161,71 +63,12 @@
             alias: 'numeric',
             groupSeparator: '.',
             autoGroup: true,
-            digits: 2,
+            digits: 0,
             rightAlign: false,
             removeMaskOnSubmit: true,
             autoUnmask: true,
-            digitsOptional: false,
             min: 0,
         });
-
-        $("#unit").select2({
-            placeholder: 'Select Unit',
-            allowClear: true,
-            ajax: {
-                url: "{{ route('api.units.paginate') }}",
-                data: function(params) {
-                    return {
-                        code: params.term || '',
-                        page: params.page || 1,
-                        limit: perpage,
-                    };
-                },
-                processResults: function(data, params) {
-                    params.page = params.page || 1;
-                    return {
-                        results: $.map(data.data, function(item) {
-                            return {
-                                text: `${item.code} (${item.type})`,
-                                id: item.id,
-                            }
-                        }),
-                        pagination: {
-                            more: (params.page * perpage) < (data.meta.total || 0)
-                        }
-                    };
-                },
-            }
-        })
-
-        $("#ppm").select2({
-            placeholder: 'Select PPM!',
-            allowClear: true,
-            ajax: {
-                url: "{{ route('api.ppms.paginate') }}",
-                data: function(params) {
-                    return {
-                        name: params.term || '',
-                        page: params.page || 1,
-                        limit: perpage,
-                    };
-                },
-                processResults: function(data, params) {
-                    params.page = params.page || 1;
-                    return {
-                        results: $.map(data.data, function(item) {
-                            return {
-                                text: `${item.name}`,
-                                id: item.id,
-                            }
-                        }),
-                        pagination: {
-                            more: (params.page * perpage) < (data.meta.total || 0)
-                        }
-                    };
-                },
-            }
-        })
 
         $('#btn_export').click(function() {
             let from = $('#range').data('daterangepicker').startDate.format('DD/MM/YYYY');
@@ -263,10 +106,7 @@
             pageLength: 10,
             lengthChange: true,
             columnDefs: [],
-            order: [
-                [4, 'desc'],
-                [1, 'desc'],
-            ],
+            order: [],
             columns: [{
                 data: 'id',
                 width: '30px',
@@ -276,22 +116,47 @@
                     return `<div class="custom-checkbox custom-control"><input type="checkbox" id="check${data}" data-checkboxes="mygroup" name="id[]" value="${data}" class="custom-control-input child-chk select-customers-info"><label for="check${data}" class="custom-control-label">&nbsp;</label></div>`
                 }
             }, {
-                data: 'date',
+                data: 'name',
             }, {
-                name: 'unit_id',
-                data: 'unit.code',
-                defaultContent: '',
+                data: 'unit',
+            }, {
+                data: 'component',
+            }, {
+                data: 'number',
+            }, {
+                data: 'satuan_map',
+            }, {
+                data: 'price_map',
+                className: 'text-left',
                 render: function(data, type, row, meta) {
                     if (type == 'display') {
-                        return row.unit_id != null ? `${row.unit.code} (${row.unit.type})` : '';
-                    } else {
-                        return data
+                        if (data < 1) {
+                            return ''
+                        }
+                        return 'Rp ' + hrg(data)
                     }
+                    return data
                 }
             }, {
-                name: 'ppm_id',
-                data: 'ppm.name',
-                defaultContent: '',
+                data: 'satuan_vendor',
+            }, {
+                data: 'price_vendor',
+                className: 'text-left',
+                render: function(data, type, row, meta) {
+                    if (type == 'display') {
+                        if (data < 1) {
+                            return ''
+                        }
+                        return 'Rp ' + hrg(data)
+                    }
+                    return data
+                }
+            }, {
+                data: 'vendor',
+            }, {
+                data: 'brand',
+            }, {
+                data: 'remark',
             }, {
                 data: 'id',
                 searchable: false,
@@ -386,33 +251,24 @@
 
         multiCheck(table);
 
-
-
         $('#table tbody').on('click', 'tr td:not(:first-child):not(:last-child)', function() {
             clear_validate('form')
             row = $(this).parents('tr')[0];
             id = table.row(row).data().id
             $.get(url_index + '/' + id).done(function(result) {
-                $('#file').attr('required', false)
-                $('#form')[0].reset()
-                $("#date").data('daterangepicker').setStartDate(result.data.date);
-                $("#date").data('daterangepicker').setEndDate(result.data.date);
-                if (result.data.unit_id != null) {
-                    let option = new Option(`${result.data.unit.code} (${result.data.unit.type})`, result
-                        .data.unit_id,
-                        true, true);
-                    $('#unit').append(option).trigger('change');
-                } else {
-                    $('#unit').val('').change()
-                }
-                if (result.data.ppm_id != null) {
-                    let option = new Option(`${result.data.ppm.name}`,
-                        result.data.ppm_id,
-                        true, true);
-                    $('#ppm').append(option).trigger('change');
-                } else {
-                    $('#ppm').val('').change()
-                }
+                // $('#form')[0].reset()
+                $("#name").val(result.data.name);
+                $("#unit").val(result.data.unit);
+                $("#component").val(result.data.component);
+                $("#number").val(result.data.number);
+                $("#satuan_map").val(result.data.satuan_map);
+                $("#price_map").val(result.data.price_map);
+                $("#satuan_vendor").val(result.data.satuan_vendor);
+                $("#price_vendor").val(result.data.price_vendor);
+                $("#vendor").val(result.data.vendor);
+                $("#brand").val(result.data.brand);
+                $("#remark").val(result.data.remark);
+
                 $('#form').attr('action', url_index + '/' + id)
                 $('#modal_form_title').html('Edit Data')
                 $('#modal_form_submit').val('PUT')
@@ -460,20 +316,17 @@
         })
 
         $('#modal_form').on('shown.bs.modal', function() {
-            $('#date').focus();
+            $('#name').focus();
         })
 
         function modal_add() {
             $('#form')[0].reset()
-            $('#file').attr('required', true)
+            // $('#file').attr('required', true)
             clear_validate('form')
             $('#form').attr('action', url_index)
             $('#modal_form_submit').val('POST')
             $('#modal_form_title').html('Tambah Data')
             $('#modal_form').modal('show')
-            $('#unit').val('').change()
-            $('#ppm').val('').change()
-            set_date('date')
         }
     </script>
 @endpush

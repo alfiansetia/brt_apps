@@ -19,8 +19,16 @@ class OneScaniaResource extends JsonResource
             'id'            => $this->id,
             'DT_RowId'      => $this->id,
             'name'          => $this->name,
-            'unit_id'       => $this->unit_id,
-            'ppm_id'        => $this->ppm_id,
+            'unit'          => $this->unit,
+            'component'     => $this->component,
+            'number'        => $this->number,
+            'satuan_map'    => $this->satuan_map,
+            'price_map'     => $this->price_map,
+            'satuan_vendor' => $this->satuan_vendor,
+            'price_vendor'  => $this->price_vendor,
+            'vendor'        => $this->vendor,
+            'brand'         => $this->brand,
+            'remark'        => $this->remark,
             'file'          => $this->file,
         ];
     }
