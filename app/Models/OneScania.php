@@ -11,8 +11,8 @@ class OneScania extends Model
 
     public function scopeFilter($query, array $filters)
     {
-        if (isset($filters['type'])) {
-            $query->where('type', $filters['type']);
+        if (isset($filters['number'])) {
+            $query->where('number', 'like', '%' . $filters['number'] . '%');
         }
     }
 }
