@@ -17,7 +17,7 @@ class OneScaniaController extends Controller
      */
     public function index(Request $request)
     {
-        if (auth()->user()->role != 'user') {
+        if (auth()->user()->role == 'user') {
             return view('pages.one_scania.index_user',);
         }
         return view('pages.one_scania.index');
