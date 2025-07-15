@@ -15,4 +15,16 @@ class OneScania extends Model
             $query->where('number', 'like', '%' . $filters['number'] . '%');
         }
     }
+
+    public function getFileAttribute($value)
+    {
+        if (!$value) {
+            return null;
+        }
+        if ($value && file_exists(public_path('/assets/file/one_scania/' . $value))) {
+            return url('assets/file/one_scania/' . $value);
+        } else {
+            return null;
+        }
+    }
 }

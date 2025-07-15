@@ -99,6 +99,23 @@
             </a>
         </div>
 
+        <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+            <a href="{{ route('one_scanias.index') }}">
+                <div class="card card-statistic-1">
+                    <div class="card-icon bg-danger">
+                        <i class="fas fa-toolbox"></i>
+                    </div>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                        </div>
+                        <div class="card-body">
+                            <h4>One Scania</h4>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
 
     </div>
 @endsection

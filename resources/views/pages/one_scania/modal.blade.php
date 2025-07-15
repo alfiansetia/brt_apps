@@ -109,5 +109,38 @@
         </div>
     </div>
 
-    @include('components.modal.export')
+    <div class="modal fade" id="modal_import" tabindex="-1" aria-labelledby="modal_importLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal_importLabel">Import From File</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="form_import" enctype="multipart/form-data">
+                        @csrf
+                        <div class="form-group">
+                            <label class="control-label" for="import_file">Pilih File :</label>
+                            <div class="custom-file">
+                                <input name="file" type="file" class="custom-file-input" id="import_file"
+                                    accept=".xlsx,.xls,.csv">
+                                <label class="custom-file-label" for="import_file">Choose file</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <a href="{{ asset('master_import/onescania.xlsx') }}" class="btn btn-info" target="_blank">
+                        <i class="fas fa-download mr-1" data-toggle="tooltip" title="Download Sample"></i>Download Sample
+                    </a>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times mr-1"
+                            data-toggle="tooltip" title="Close"></i>Close</button>
+                    <button type="button" id="btn_import" class="btn btn-primary"><i class="fas fa-upload mr-1"
+                            data-toggle="tooltip" title="Import"></i>Upload</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endpush

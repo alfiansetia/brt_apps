@@ -111,6 +111,7 @@ Route::group(['middleware' => ['auth:sanctum', 'active']], function () {
     Route::apiResource('services', ServiceController::class)->names('api.services');
 
     Route::delete('one_scanias', [OneScaniaController::class, 'destroyBatch'])->name('api.one_scanias.destroybatch');
+    Route::post('one_scanias-import', [OneScaniaController::class, 'import'])->name('api.one_scanias.import');
     Route::delete('one_scanias-truncate', [OneScaniaController::class, 'truncate'])->name('api.one_scanias.truncate');
     Route::get('one_scania-paginate', [OneScaniaController::class, 'paginate'])->name('api.one_scanias.paginate');
     Route::apiResource('one_scanias', OneScaniaController::class)->names('api.one_scanias');

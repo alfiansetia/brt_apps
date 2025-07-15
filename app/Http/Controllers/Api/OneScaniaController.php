@@ -4,17 +4,21 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\OneScaniaResource;
+use App\Imports\OneScaniaImport;
 use App\Models\OneScania;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\Validators\ValidationException;
 use Yajra\DataTables\Facades\DataTables;
 
 class OneScaniaController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['role:admin'])->only(['destroy', 'destroyBatch', 'truncate']);
+        $this->middleware(['role:admin'])->except(['index', 'paginate', 'show']);
     }
 
     /**
@@ -174,5 +178,33 @@ class OneScaniaController extends Controller
         }
         $message = 'Success Delete All Data !';
         return $this->response($message, $deleted);
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|file|mimes:xlsx,xls,csv|max:5120',
+        ]);
+        DB::beginTransaction();
+        try {
+            Excel::import(new OneScaniaImport, $request->file('file'));
+            DB::commit();
+            return $this->response('Data berhasil diimport!');
+        } catch (ValidationException $e) {
+            DB::rollBack();
+            $failures = $e->failures();
+            $messages = [];
+            foreach ($failures as $failure) {
+                $messages[] = 'Baris ' . $failure->row() . ': ' . implode(', ', $failure->errors());
+            }
+
+            return response()->json([
+                'message' => 'Gagal import!, ' . implode(', ', $messages),
+                'errors' => $messages,
+            ], 422);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return $this->response('Gagal import: ' . $th->getMessage(), [], 500);
+        }
     }
 }

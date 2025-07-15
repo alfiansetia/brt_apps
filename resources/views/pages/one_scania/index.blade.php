@@ -1,7 +1,6 @@
 @extends('layouts.template', ['title' => 'Data One Scania'])
 @push('css')
     <link rel="stylesheet" href="{{ asset('lib/datatable-new/datatables.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/select2.min.css') }}">
 @endpush
 @section('content')
     <div class="row">
@@ -42,11 +41,9 @@
 @push('js')
     <script src="{{ asset('lib/datatable-new/datatables.min.js') }}"></script>
 
-    <script src="{{ asset('lib/select2/dist/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('lib/jquery-validation-1.20.1/dist/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('lib/Inputmask-5.0.9/dist/jquery.inputmask.min.js') }}"></script>
 
-    <script src="{{ asset('lib/html5-qrcode/html5-qrcode.min.js') }}"></script>
 
     <script>
         $(document).ready(function() {
@@ -56,8 +53,6 @@
         var id = 0
         var perpage = 50
         var url_truncate = "{{ route('api.one_scanias.truncate') }}"
-
-        $(".select2").select2()
 
         $('.mask_angka').inputmask({
             alias: 'numeric',
@@ -202,14 +197,14 @@
                 },
                 className: 'btn btn-sm btn-info'
             }, {
-                text: '<i class="fa fa-file-excel mr-1"></i>Export',
+                text: '<i class="fa fa-file-excel mr-1"></i>Import',
                 className: 'btn btn-sm btn-info bs-tooltip',
                 attr: {
                     'data-toggle': 'tooltip',
-                    'title': 'Export'
+                    'title': 'Import'
                 },
                 action: function(e, dt, node, config) {
-                    $('#modal_export').modal('show')
+                    $('#modal_import').modal('show')
                 }
             }, {
                 text: '<i class="fa fa-tools"></i> Action',
@@ -328,5 +323,31 @@
             $('#modal_form_title').html('Tambah Data')
             $('#modal_form').modal('show')
         }
+
+        const old_up = $('#btn_import').html()
+
+        $('#btn_import').on('click', function() {
+            var formData = new FormData($('#form_import')[0]);
+            $.ajax({
+                url: "{{ route('api.one_scanias.import') }}",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                beforeSend: function() {
+                    $('#btn_import').prop('disabled', true).html('Uploading...');
+                },
+                success: function(res) {
+                    table.ajax.reload();
+                    $('#btn_import').prop('disabled', false).html(old_up);
+                    $('#modal_import').modal('hide');
+                    show_toast('success', 'Import berhasil!')
+                },
+                error: function(xhr) {
+                    $('#btn_import').prop('disabled', false).html(old_up);
+                    show_toast('error', xhr.responseJSON.message || 'Terjadi kesalahan saat import.')
+                }
+            });
+        });
     </script>
 @endpush

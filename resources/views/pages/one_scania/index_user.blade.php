@@ -31,6 +31,10 @@
                 search()
             })
 
+            $('#input_search').change(function() {
+                search()
+            })
+
             $('form').submit(function(e) {
                 e.preventDefault()
                 search()
@@ -103,6 +107,14 @@
                                                 <td class="col-5">Remark</td>
                                                 <td class="col-7">${item.remark || ''}</td>
                                             </tr>
+                                            <tr>
+                                                <td class="col-5">Lampiran</td>
+                                                <td class="col-7">${
+                                                                item.file
+                                                                    ? `<b><a href="${item.file}">Download Lampiran</a></b>`
+                                                                    : `<span class="text-muted">Tidak ada lampiran</span>`
+                                                            }</td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -112,7 +124,6 @@
                 },
                 error: function(xhr, status, error) {
                     show_toast('error', xhr.responseJSON.message || 'Error!')
-                    // 
                 }
             })
         }

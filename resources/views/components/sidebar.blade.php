@@ -63,7 +63,7 @@
 
             <li class="{{ $title == 'Data One Scania' ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('one_scanias.index') }}">
-                    <i class="fas fa-truck-moving"></i><span>One Scania</span></a>
+                    <i class="fas fa-toolbox"></i><span>One Scania</span></a>
             </li>
             @if ($user->is_admin())
                 <li class="menu-header">Master</li>

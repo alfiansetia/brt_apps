@@ -26,6 +26,7 @@ class OneScaniaResource extends JsonResource
             'price_map'         => $this->price_map,
             'price_map_parse'   => hrg($this->price_map),
             'satuan_vendor'     => $this->satuan_vendor,
+            'price_vendor'      => $this->price_vendor,
             'price_vendor_parse' => hrg($this->price_vendor),
             'vendor'            => $this->vendor,
             'brand'             => $this->brand,
