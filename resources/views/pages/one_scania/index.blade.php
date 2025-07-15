@@ -247,11 +247,11 @@
         multiCheck(table);
 
         $('#table tbody').on('click', 'tr td:not(:first-child):not(:last-child)', function() {
+            $('#form')[0].reset()
             clear_validate('form')
             row = $(this).parents('tr')[0];
             id = table.row(row).data().id
             $.get(url_index + '/' + id).done(function(result) {
-                // $('#form')[0].reset()
                 $("#name").val(result.data.name);
                 $("#unit").val(result.data.unit);
                 $("#component").val(result.data.component);

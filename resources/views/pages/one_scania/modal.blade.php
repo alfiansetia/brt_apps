@@ -49,7 +49,7 @@
                                     <div class="input-group-text">Rp.</div>
                                 </div>
                                 <input type="text" name="price_map" class="form-control mask_angka" id="price_map"
-                                    placeholder="Please Enter Part Price MAP" value="0" required>
+                                    placeholder="Please Enter Part Price MAP" value="0">
                             </div>
                             <span class="error invalid-feedback err_price_map" style="display: hide;"></span>
                         </div>
@@ -66,8 +66,7 @@
                                     <div class="input-group-text">Rp.</div>
                                 </div>
                                 <input type="text" name="price_vendor" class="form-control mask_angka"
-                                    id="price_vendor" placeholder="Please Enter Part Price Vendor" value="0"
-                                    required>
+                                    id="price_vendor" placeholder="Please Enter Part Price Vendor" value="0">
                             </div>
                             <span class="error invalid-feedback err_price_vendor" style="display: hide;"></span>
                         </div>

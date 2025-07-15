@@ -18,9 +18,9 @@ return new class extends Migration
             $table->string('component')->nullable();
             $table->string('number')->nullable();
             $table->string('satuan_map')->nullable();
-            $table->integer('price_map')->nullable();
+            $table->integer('price_map')->default(0);
             $table->string('satuan_vendor')->nullable();
-            $table->integer('price_vendor')->nullable();
+            $table->integer('price_vendor')->default(0);
             $table->string('vendor')->nullable();
             $table->string('brand')->nullable();
             $table->string('remark')->nullable();
