@@ -23,8 +23,8 @@
                                     <th>Finish</th>
                                     <th>KM RFU</th>
                                     <th>Problem</th>
-                                    <th>Action</th>
                                     <th>Respon</th>
+                                    <th>Action</th>
                                     <th>Status</th>
                                     <th>Remark</th>
                                     <th>Man Power</th>
