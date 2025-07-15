@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CbmController;
 use App\Http\Controllers\CbmProjectController;
 use App\Http\Controllers\ComponentController;
@@ -41,6 +42,8 @@ Route::group(['middleware' => ['auth', 'active']], function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::put('/profile', [ProfileController::class, 'password'])->name('password.update');
+
+    Route::get('logout', [LoginController::class, 'logout']);
 
 
     // Route::group(['middleware' => ['role:admin']], function () {

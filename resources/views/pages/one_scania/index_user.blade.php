@@ -5,13 +5,13 @@
     <div class="row">
 
         <div class="col-12">
-            <form action="" method="GET">
+            <form action="" id="form_search" method="GET">
                 <div class="input-group mb-3">
                     <input type="search" name="search" id="input_search" class="form-control form-control-lg"
                         placeholder="Cari Part Number" value="{{ request()->query('search') }}">
                     <div class="input-group-append">
-                        <button type="button" id="btn_search" class="btn btn-primary"><i
-                                class="fas fa-search"></i></button>
+                        <button type="button" id="btn_search" class="btn btn-primary">Cari <i
+                                class="fas fa-search ml-2"></i></button>
                     </div>
                 </div>
             </form>
@@ -35,7 +35,7 @@
                 search()
             })
 
-            $('form').submit(function(e) {
+            $('#form_search').submit(function(e) {
                 e.preventDefault()
                 search()
             })

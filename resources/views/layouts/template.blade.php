@@ -164,6 +164,7 @@
         }
 
         function logout_() {
+
             swal({
                     title: 'Are you sure?',
                     text: 'Logout?',
@@ -173,7 +174,8 @@
                 })
                 .then((willDelete) => {
                     if (willDelete) {
-                        $('#form_logout').submit();
+                        // $('#form_logout').submit();
+                        window.location.href = "{{ url('logout') }}"
                     }
                 });
         }
