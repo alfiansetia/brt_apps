@@ -111,7 +111,7 @@
                                                 <td class="col-5">Lampiran</td>
                                                 <td class="col-7">${
                                                                 item.file
-                                                                    ? `<b><a href="${item.file}">Download Lampiran</a></b>`
+                                                                    ? `<b><a href="${item.file}" target="_blank">Download Lampiran</a></b>`
                                                                     : `<span class="text-muted">Tidak ada lampiran</span>`
                                                             }</td>
                                             </tr>
