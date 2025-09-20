@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\LogbookController;
 use App\Http\Controllers\Api\OilCoolantController;
 use App\Http\Controllers\Api\OnboardingController;
 use App\Http\Controllers\Api\OneScaniaController;
+use App\Http\Controllers\Api\PartController;
 use App\Http\Controllers\Api\PoolController;
 use App\Http\Controllers\Api\PpmController;
 use App\Http\Controllers\Api\PpmDataController;
@@ -22,6 +23,7 @@ use App\Http\Controllers\Api\ServiceItemController;
 use App\Http\Controllers\Api\SpeedController;
 use App\Http\Controllers\Api\UnitController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\PartController as ControllersPartController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -117,11 +119,16 @@ Route::group(['middleware' => ['auth:sanctum', 'active']], function () {
     Route::apiResource('one_scanias', OneScaniaController::class)->names('api.one_scanias');
 
     Route::apiResource('service_items', ServiceItemController::class)->names('api.service_items');
+    Route::apiResource('part_items', ControllersPartController::class)->names('api.part_items');
 
     Route::get('user-paginate', [UserController::class, 'paginate'])->name('api.users.paginate');
     Route::apiResource('users', UserController::class)->names('api.users');
 
     Route::get('onboardings', [OnboardingController::class, 'index'])->name('api.onboardings.index');
+
+    Route::delete('parts', [PartController::class, 'destroyBatch'])->name('api.parts.destroybatch');
+    Route::get('service-paginate', [PartController::class, 'paginate'])->name('api.parts.paginate');
+    Route::apiResource('parts', PartController::class)->names('api.parts');
 
     Route::group(['middleware' => ['role:admin']], function () {});
 });
