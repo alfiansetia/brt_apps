@@ -588,6 +588,7 @@ $(function() {
             format: 'DD/MM/YYYY'
         },
         singleDatePicker: true,
+        drops: "up",
     });
 
     }
