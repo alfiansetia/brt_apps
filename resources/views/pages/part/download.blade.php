@@ -126,8 +126,17 @@
         @foreach ($news as $row)
             <tr>
                 @foreach ($row as $index => $item)
-                    <td class="{{ $loop->first ? 'left2' : ($loop->last ? 'right2' : 'center') }} center"
-                        colspan="3">
+                    @php
+                        $first = false;
+                        $last = false;
+                        if ($index % 4 == 0) {
+                            $first = true;
+                        }
+                        if ($index == 3) {
+                            $last = true;
+                        }
+                    @endphp
+                    <td class="{{ $first ? 'left2' : '' }} {{ $last ? 'right2' : '' }} center" colspan="3">
                         <img class="image" src="{{ $item->imagepath() }}" />
                     </td>
                 @endforeach
@@ -148,8 +157,17 @@
         @foreach ($olds as $row)
             <tr>
                 @foreach ($row as $index => $item)
-                    <td class="{{ $loop->first ? 'left2' : ($loop->last ? 'right2' : 'center') }} center"
-                        colspan="3">
+                    @php
+                        $first = false;
+                        $last = false;
+                        if ($index % 4 == 0) {
+                            $first = true;
+                        }
+                        if ($index == 3) {
+                            $last = true;
+                        }
+                    @endphp
+                    <td class="{{ $first ? 'left2' : '' }} {{ $last ? 'right2' : '' }} center" colspan="3">
                         <img class="image" src="{{ $item->imagepath() }}" />
                     </td>
                 @endforeach
@@ -162,7 +180,7 @@
         @endforeach
 
         <tr>
-            <td class="left2 right2 top1 bottom1 bold center f20" colspan="12">
+            <td class="left2 right2 top1 bottom2 bold center f20" colspan="12">
                 PART BEKAS
             </td>
         </tr>
