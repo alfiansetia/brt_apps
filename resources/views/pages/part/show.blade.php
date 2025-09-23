@@ -134,6 +134,11 @@
                         <img class="image" src="{{ $item->image }}" />
                     </td>
                 @endforeach
+                @for ($i = count($row); $i < 4; $i++)
+                    <td class="{{ $i == 3 ? 'right2' : 'center' }} center" colspan="3">
+                        {{-- kosong --}}
+                    </td>
+                @endfor
             </tr>
         @endforeach
 
@@ -179,6 +184,11 @@
                         <img class="image" src="{{ $item->image }}" />
                     </td>
                 @endforeach
+                @for ($i = count($row); $i < 4; $i++)
+                    <td class="{{ $i == 3 ? 'right2' : 'center' }} center" colspan="3">
+                        {{-- kosong --}}
+                    </td>
+                @endfor
             </tr>
         @endforeach
 
