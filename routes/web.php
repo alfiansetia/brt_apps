@@ -84,5 +84,7 @@ Route::group(['middleware' => ['auth', 'active']], function () {
 
     Route::get('one_scanias', [OneScaniaController::class, 'index'])->name('one_scanias.index');
 
-    Route::get('data-part', [PartController::class, 'index'])->name('parts.index');
+    Route::get('part/{part}/download', [PartController::class, 'download'])->name('parts.download');
+    Route::get('parts', [PartController::class, 'index'])->name('parts.index');
+    Route::get('part/{part}', [PartController::class, 'show'])->name('parts.show');
 });

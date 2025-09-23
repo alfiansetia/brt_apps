@@ -22,8 +22,8 @@ class PartController extends Controller
      */
     public function index(Request $request)
     {
-        $filters = $request->only(['pool_id', 'type', 'unit_id']);
-        $query = Part::query()->with(['unit', 'pool', 'items'])->filter($filters);
+        $filters = $request->only(['pool_id', 'unit_id']);
+        $query = Part::query()->with(['unit', 'pool', 'new_parts', 'old_parts'])->filter($filters);
         return DataTables::eloquent($query)->filterColumn('date', function ($query, $keyword) {
             try {
                 $date = Carbon::createFromFormat('d/m/Y', $keyword)->format('Y-m-d');
@@ -51,22 +51,24 @@ class PartController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'type'      => 'required|in:S,M,L',
-            'pool_id'   => 'required|exists:pools,id',
-            'date'      => 'required|date_format:d/m/Y',
-            'unit'      => 'required|exists:units,id',
-            'km'        => 'required|integer|gte:0',
-            'last_date' => 'required|date_format:d/m/Y',
-            'last_km'   => 'required|integer|gte:0',
+            'pool_id'       => 'required|exists:pools,id',
+            'unit'          => 'required|exists:units,id',
+            'unit_detail'   => 'required|max:100',
+            'sn'            => 'required|max:100',
+            'hm'            => 'required|integer|gte:0',
+            'km'            => 'required|integer|gte:0',
+            'start_date'    => 'required|date_format:d/m/Y',
+            'finish_date'   => 'required|date_format:d/m/Y',
         ]);
         $part = Part::create([
-            'type'      => $request->type,
-            'date'      => $request->date,
-            'unit_id'   => $request->unit,
-            'pool_id'   => $request->pool_id,
-            'km'        => $request->km,
-            'last_date' => $request->last_date,
-            'last_km'   => $request->last_km,
+            'pool_id'       => $request->pool_id,
+            'unit_id'       => $request->unit,
+            'unit_detail'   => $request->unit_detail,
+            'sn'            => $request->sn,
+            'hm'            => $request->hm,
+            'km'            => $request->km,
+            'start_date'    => $request->start_date,
+            'finish_date'   => $request->finish_date,
         ]);
         return $this->response('Sukses Tambah Data!', new PartResource($part), 200);
     }
@@ -76,7 +78,7 @@ class PartController extends Controller
      */
     public function show(Part $part)
     {
-        return new PartResource($part->load(['unit', 'pool', 'items']));
+        return new PartResource($part->load(['unit', 'pool', 'new_parts', 'old_parts']));
     }
 
     /**
@@ -85,20 +87,22 @@ class PartController extends Controller
     public function update(Request $request, Part $part)
     {
         $this->validate($request, [
-            'type'      => 'required|in:S,M,L',
-            'date'      => 'required|date_format:d/m/Y',
-            'unit'      => 'required|exists:units,id',
-            'km'        => 'required|integer|gte:0',
-            'last_date' => 'required|date_format:d/m/Y',
-            'last_km'   => 'required|integer|gte:0',
+            'unit'          => 'required|exists:units,id',
+            'unit_detail'   => 'required|max:100',
+            'sn'            => 'required|max:100',
+            'hm'            => 'required|integer|gte:0',
+            'km'            => 'required|integer|gte:0',
+            'start_date'    => 'required|date_format:d/m/Y',
+            'finish_date'   => 'required|date_format:d/m/Y',
         ]);
         $part->update([
-            'type'      => $request->type,
-            'date'      => $request->date,
-            'unit_id'   => $request->unit,
-            'km'        => $request->km,
-            'last_date' => $request->last_date,
-            'last_km'   => $request->last_km,
+            'unit_id'       => $request->unit,
+            'unit_detail'   => $request->unit_detail,
+            'sn'            => $request->sn,
+            'hm'            => $request->hm,
+            'km'            => $request->km,
+            'start_date'    => $request->start_date,
+            'finish_date'   => $request->finish_date,
         ]);
         return $this->response('Sukses Ubah Data!', new PartResource($part), 200);
     }
@@ -108,11 +112,11 @@ class PartController extends Controller
      */
     public function destroy(Part $part)
     {
-        $part = $part->load('items');
-        $items = $part->items;
+        $part = $part->load('all_parts');
+        $items = $part->all_parts;
         foreach ($items as $item) {
             $img = $item->getRawOriginal('image');
-            $destinationPath = public_path('/assets/img/service/');
+            $destinationPath = public_path('/assets/img/part/');
             if (!empty($img) && file_exists($destinationPath . $img)) {
                 File::delete($destinationPath . $img);
             }
@@ -126,14 +130,14 @@ class PartController extends Controller
     {
         $this->validate($request, [
             'id'        => 'required|array|min:1',
-            'id.*'      => 'integer|exists:oil_coolants,id',
+            'id.*'      => 'integer|exists:parts,id',
         ]);
         $ids = $request->id;
-        $deleted = Part::with('items')->whereIn('id', $ids)->get();
+        $deleted = Part::with('all_parts')->whereIn('id', $ids)->get();
         foreach ($deleted as $items) {
             foreach ($items->items as $item) {
                 $img = $item->getRawOriginal('image');
-                $destinationPath = public_path('/assets/img/service/');
+                $destinationPath = public_path('/assets/img/part/');
                 if (!empty($img) && file_exists($destinationPath . $img)) {
                     File::delete($destinationPath . $img);
                 }

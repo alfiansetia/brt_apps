@@ -14,24 +14,6 @@
                     <input type="hidden" name="pool_id" value="{{ request()->query('pool') }}">
                     <div class="modal-body">
                         <div class="form-group">
-                            <label class="form-label">Type Service :</label>
-                            <div class="selectgroup w-100">
-                                <label class="selectgroup-item">
-                                    <input type="radio" name="type" value="S" class="selectgroup-input" checked>
-                                    <span class="selectgroup-button">S</span>
-                                </label>
-                                <label class="selectgroup-item">
-                                    <input type="radio" name="type" value="M" class="selectgroup-input">
-                                    <span class="selectgroup-button">M</span>
-                                </label>
-                                <label class="selectgroup-item">
-                                    <input type="radio" name="type" value="L" class="selectgroup-input">
-                                    <span class="selectgroup-button">L</span>
-                                </label>
-                            </div>
-                            <span class="error invalid-feedback err_type" style="display: hide;"></span>
-                        </div>
-                        <div class="form-group">
                             <label class="control-label" for="unit">Unit :</label>
                             <div class="input-group">
                                 <select name="unit" id="unit" class="custom-select select2" style="width: 100%;"
@@ -45,10 +27,22 @@
                             <span class="error invalid-feedback err_unit" style="display: hide;"></span>
                         </div>
                         <div class="form-group">
-                            <label class="control-label" for="date">Date :</label>
-                            <input type="text" name="date" class="form-control datepicker" id="date"
-                                placeholder="Please Enter date" required readonly>
-                            <span class="error invalid-feedback err_date" style="display: hide;"></span>
+                            <label class="control-label" for="unit_detail">Unit :</label>
+                            <input type="text" name="unit_detail" class="form-control" id="unit_detail"
+                                placeholder="Please Enter Unit" maxlength="100" required>
+                            <span class="error invalid-feedback err_unit_detail" style="display: hide;"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="sn">Serial Number :</label>
+                            <input type="text" name="sn" class="form-control" id="sn"
+                                placeholder="Please Enter Serial Number" maxlength="100" required>
+                            <span class="error invalid-feedback err_sn" style="display: hide;"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="hm">HM Unit :</label>
+                            <input type="text" name="hm" class="form-control mask_angka" id="hm"
+                                placeholder="Please Enter HM Unit" min="0" required>
+                            <span class="error invalid-feedback err_hm" style="display: hide;"></span>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="km">KM Unit :</label>
@@ -57,19 +51,19 @@
                             <span class="error invalid-feedback err_km" style="display: hide;"></span>
                         </div>
                         <div class="form-group">
-                            <label class="control-label" for="last_date">Date Last Service :</label>
-                            <input type="text" name="last_date" class="form-control datepicker" id="last_date"
-                                placeholder="Please Enter Date Last Service" required readonly>
-                            <span class="error invalid-feedback err_last_date" style="display: hide;"></span>
+                            <label class="control-label" for="start_date">Start Date :</label>
+                            <input type="text" name="start_date" class="form-control datepicker" id="start_date"
+                                placeholder="Please Enter Start Date" required readonly>
+                            <span class="error invalid-feedback err_start_date" style="display: hide;"></span>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label" for="last_km">KM Last Service :</label>
-                            <input type="text" name="last_km" class="form-control mask_angka" id="last_km"
-                                placeholder="Please Enter KM Last Service" min="0" required>
-                            <span class="error invalid-feedback err_last_km" style="display: hide;"></span>
+                        <div class="form-group mb-0">
+                            <label class="control-label" for="finish_date">Finish Date :</label>
+                            <input type="text" name="finish_date" class="form-control datepicker" id="finish_date"
+                                placeholder="Please Enter Start Date" required readonly>
+                            <span class="error invalid-feedback err_finish_date" style="display: hide;"></span>
                         </div>
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer pt-0">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal"><i
                                 class="fas fa-times mr-1" data-toggle="tooltip" title="Close"></i>Close</button>
                         <button type="submit" id="modal_form_submit" class="btn btn-primary"><i
@@ -79,6 +73,9 @@
                                 class="fas fa-plus mr-1" data-toggle="tooltip" title="Add Item"></i>Add
                             Image</button>
                         <div class="table-responsive" id="div_item" style="display: none">
+                            <h6>[ Part Baru : <span class="text-success" id="part_baru"></span> ] [ Part Bekas : <span
+                                    class="text-danger" id="part_bekas"></span>
+                                ]</h6>
                             <table class="table table-hover" id="table_item" style="width: 100%;cursor: pointer;">
                                 <thead>
                                     <tr>
@@ -108,24 +105,24 @@
                         <span aria-hidden="true" data-toggle="tooltip" title="Close">&times;</span>
                     </button>
                 </div>
-                <form id="form_item" class="form-vertical" action="{{ route('api.service_items.store') }}"
-                    method="POST">
+                <form id="form_item" class="form-vertical" action="{{ route('api.part_items.store') }}" method="POST">
                     @csrf
-                    <input type="hidden" name="service" id="service_id">
+                    <input type="hidden" name="part" id="part_id">
                     <div class="modal-body">
                         <div class="form-group">
-                            <label class="control-label" for="label">Label :</label>
-                            <select name="label" id="label" class="form-control select2" style="width: 100%;"
-                                required>
-                            </select>
-                            <span class="error invalid-feedback err_label" style="display: hide;"></span>
-                        </div>
-
-                        <div class="form-group" id="input_custom_label">
-                            <label class="control-label" for="custom_label">Custom Label :</label>
-                            <textarea name="custom_label" id="custom_label" class="form-control" maxlength="200"
-                                placeholder="Please Enter Custom Label" required></textarea>
-                            <span class="error invalid-feedback err_custom_label" style="display: hide;"></span>
+                            <label class="form-label">Type Part :</label>
+                            <div class="selectgroup w-100">
+                                <label class="selectgroup-item">
+                                    <input type="radio" name="type" value="new" class="selectgroup-input"
+                                        checked>
+                                    <span class="selectgroup-button">BARU</span>
+                                </label>
+                                <label class="selectgroup-item">
+                                    <input type="radio" name="type" value="old" class="selectgroup-input">
+                                    <span class="selectgroup-button">BEKAS</span>
+                                </label>
+                            </div>
+                            <span class="error invalid-feedback err_type" style="display: hide;"></span>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="image">Image :</label>

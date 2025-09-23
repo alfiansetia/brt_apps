@@ -8,6 +8,7 @@ use App\Models\Dmcr;
 use App\Models\Hmkm;
 use App\Models\Keluhan;
 use App\Models\OilCoolant;
+use App\Models\Part;
 use App\Models\Pool;
 use App\Models\Service;
 use App\Models\Speed;
@@ -37,6 +38,7 @@ class OnboardingController extends Controller
         $datas['speed'] = Speed::filter($filters)->count();
         $datas['cbm_project'] = CbmProject::filter($filters)->count();
         $datas['service'] = Service::filter($filters)->count();
+        $datas['parts'] = Part::filter($filters)->count();
         return view('pages.onboarding_menu', compact('pool', 'datas'));
     }
 

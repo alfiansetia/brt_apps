@@ -18,12 +18,13 @@
                             <thead>
                                 <tr>
                                     <th style="width: 30px;">#</th>
-                                    <th>Type</th>
-                                    <th>Date</th>
                                     <th>Unit</th>
+                                    <th>Unit Detail</th>
+                                    <th>SN</th>
+                                    <th>HM</th>
                                     <th>KM</th>
-                                    <th>Date Last Service</th>
-                                    <th>KM Last Service</th>
+                                    <th>Start Date</th>
+                                    <th>Finish Date</th>
                                     <th style="width: 50px">Action</th>
                                 </tr>
                             </thead>
@@ -35,7 +36,7 @@
             </div>
         </div>
     </div>
-    @include('pages.service.modal')
+    @include('pages.part.modal')
 @endsection
 
 @push('js')
@@ -116,33 +117,6 @@
             autoUnmask: true,
             min: 0,
         });
-
-        $("input[name='type']").change(function() {
-            type = $("input[name='type']:checked").val();
-            console.log(type);
-            labels = get_label(type)
-            $('#label').empty()
-            $('#label').append(new Option('other', 'other',
-                true, true));
-            labels.forEach(element => {
-                let option = new Option(element, element,
-                    true, true);
-                $('#label').append(option);
-            });
-            $('#label').val('other').change()
-        })
-
-        $("#label").change(function() {
-            let label = $('#label').val()
-            if (label == 'other') {
-                $('#input_custom_label').show()
-                $('#custom_label').val('')
-            } else {
-                $('#input_custom_label').hide()
-                $('#custom_label').val('')
-            }
-            console.log(label);
-        })
 
         $("#unit").select2({
             placeholder: 'Select Unit',
@@ -247,10 +221,6 @@
                     return `<div class="custom-checkbox custom-control"><input type="checkbox" id="check${data}" data-checkboxes="mygroup" name="id[]" value="${data}" class="custom-control-input child-chk select-customers-info"><label for="check${data}" class="custom-control-label">&nbsp;</label></div>`
                 }
             }, {
-                data: 'type',
-            }, {
-                data: 'date',
-            }, {
                 name: 'unit_id',
                 data: 'unit.code',
                 defaultContent: '',
@@ -262,7 +232,25 @@
                     }
                 }
             }, {
+                data: 'unit_detail',
+                className: 'text-start',
+            }, {
+                data: 'sn',
+                className: 'text-start',
+            }, {
+                data: 'hm',
+                className: 'text-center',
+                searchable: false,
+                render: function(data, type, row, meta) {
+                    if (type == 'display') {
+                        return hrg(data);
+                    } else {
+                        return data
+                    }
+                }
+            }, {
                 data: 'km',
+                className: 'text-center',
                 searchable: false,
                 render: function(data, type, row, meta) {
                     if (type == 'display') {
@@ -272,17 +260,9 @@
                     }
                 }
             }, {
-                data: 'last_date',
+                data: 'start_date',
             }, {
-                data: 'last_km',
-                searchable: false,
-                render: function(data, type, row, meta) {
-                    if (type == 'display') {
-                        return hrg(data);
-                    } else {
-                        return data
-                    }
-                }
+                data: 'finish_date',
             }, {
                 data: 'id',
                 searchable: false,
@@ -356,7 +336,7 @@
 
         $('#btn_item_add').click(function() {
             modal_item_add()
-            $('#service_id').attr('value', id)
+            $('#part_id').attr('value', id)
         })
 
         $('#modal_form_item').on('hidden.bs.modal', function() {
@@ -377,15 +357,15 @@
             row = $(this).parents('tr')[0];
             id = table.row(row).data().id
             $.get(url_index + '/' + id).done(function(result) {
-                $("#date").data('daterangepicker').setStartDate(result.data.date);
-                $("#date").data('daterangepicker').setEndDate(result.data.date);
-                $("#last_date").data('daterangepicker').setStartDate(result.data.last_date);
-                $("#last_date").data('daterangepicker').setEndDate(result.data.date);
+                $("#start_date").data('daterangepicker').setStartDate(result.data.start_date);
+                $("#start_date").data('daterangepicker').setEndDate(result.data.start_date);
+                $("#finish_date").data('daterangepicker').setStartDate(result.data.finish_date);
+                $("#finish_date").data('daterangepicker').setEndDate(result.data.finish_date);
+                $('#unit_detail').val(result.data.unit_detail)
+                $('#sn').val(result.data.sn)
+                $('#hm').val(result.data.hm)
                 $('#km').val(result.data.km)
-                $('#last_km').val(result.data.last_km)
 
-                $("input[name='type'][value='" + result.data.type + "']").prop('checked', true)
-                    .trigger('change');
                 if (result.data.unit_id != null) {
                     let option = new Option(`${result.data.unit.code} (${result.data.unit.type})`, result
                         .data.unit_id,
@@ -402,7 +382,7 @@
                 table_item = $("#table_item").DataTable({
                     processing: true,
                     serverSide: true,
-                    ajax: url_index_item + "?service_id=" + id,
+                    ajax: url_index_item + "?part_id=" + id,
                     dom: "<'dt--top-section'<'row mb-2'<'col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center'B><'col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-0'f>>>" +
                         "<'table-responsive'tr>" +
                         "<'dt--bottom-section d-sm-flex justify-content-sm-between text-center'<'dt--pages-count  mb-sm-0 mb-3'i><'dt--pagination'p>>",
@@ -424,7 +404,14 @@
                         [2, 'desc'],
                     ],
                     columns: [{
-                        data: 'label',
+                        data: 'type',
+                        render: function(data, type, row, meta) {
+                            if (type == 'display') {
+                                return data == 'new' ? 'PART BARU' : 'PART BEKAS';
+                            } else {
+                                return data
+                            }
+                        }
                     }, {
                         data: 'image',
                         searchable: false,
@@ -442,8 +429,8 @@
                         render: function(data, type, row, meta) {
                             if (type == 'display') {
                                 let text = `
-                                <button type="button" class="btn m-1 btn-info btn-sm btn-view">View</button>
-                                <button type="button" class="btn m-1 btn-danger btn-sm btn-delete">Delete</button>`;
+                            <button type="button" class="btn m-1 btn-info btn-sm btn-view">View</button>
+                            <button type="button" class="btn m-1 btn-danger btn-sm btn-delete">Delete</button>`;
                                 return text
                             } else {
                                 return data
@@ -451,7 +438,17 @@
                         }
                     }, ],
                     buttons: [],
-                });
+
+                    drawCallback: function(settings) {
+                        var api = this.api();
+                        let data = api.data().toArray()
+                        let countNew = data.filter(item => item.type === "new").length;
+                        let countOld = data.filter(item => item.type === "old").length;
+                        $('#part_baru').text(countNew)
+                        $('#part_bekas').text(countOld)
+
+                    }
+                }, );
 
                 $('#form').attr('action', url_index + '/' + id)
                 $('#modal_form_title').html('Edit Data')
@@ -475,13 +472,13 @@
         $('#table tbody').on('click', 'tr .btn-view', function() {
             row = $(this).parents('tr')[0];
             id = table.row(row).data().id
-            window.open('/service/' + id, '_blank')
+            window.open('/part/' + id, '_blank')
         });
 
         $('#table tbody').on('click', 'tr .btn-download', function() {
             row = $(this).parents('tr')[0];
             id = table.row(row).data().id
-            window.open('/service/' + id + '/download', '_blank')
+            window.open('/part/' + id + '/download', '_blank')
         });
 
         $('#form').submit(function(e) {
@@ -525,7 +522,7 @@
         })
 
         $('#modal_form').on('shown.bs.modal', function() {
-            $('#hm').focus();
+            $('#unit_detail').focus();
         })
 
         $('#table_item tbody').on('click', 'tr .btn-delete', function() {
@@ -536,10 +533,10 @@
 
         $('#table_item tbody').on('click', 'tr .btn-view', function() {
             row = $(this).parents('tr')[0];
-            let label = table_item.row(row).data().label
+            let type = table_item.row(row).data().type
             let image = table_item.row(row).data().image
             $('#detail_image').attr('src', image)
-            $('#modal_image_title').text(label)
+            $('#modal_image_title').text('Image ' + type)
             $('#modal_image').modal('show')
         });
 
@@ -550,12 +547,13 @@
             $('#modal_form_title').html('Tambah Data')
             $('#modal_form').modal('show')
 
-            $("input[name='type'][value='S']").prop('checked', true).trigger('change');
-            $('#km').val(0)
-            $('#last_km').val(0)
             $('#unit').val('').change()
-            set_date('date')
-            set_date('last_date')
+            $('#unit_detail').val('')
+            $('#sn').val('')
+            $('#hm').val(0)
+            $('#km').val(0)
+            set_date('start_date')
+            set_date('finish_date')
 
             $('#btn_item_add').hide()
             $('#div_item').hide()
@@ -568,12 +566,11 @@
             $('#modal_form_item_title').html('Add Image')
             $('#modal_form_item').modal('show')
 
-            $('#label').val('')
             $('#form_item')[0].reset()
 
             $('#form_item .image_preview').attr('src', '#');
             $('#form_item .image_preview').hide();
-            $('#label').val('other').change()
+            $('#type').val('new').change()
 
         }
 
@@ -623,57 +620,6 @@
                         })
                     }
                 });
-        }
-
-        function get_label(type) {
-            if (type == 'S') {
-                return ['REPLACE FUEL FILTER',
-                    'REPLACE PRE FUEL FILTER',
-                    'REPLACE ENGINE OIL FILTER',
-                    'FILL OIL ENGINE',
-                    'REPLACE PAPER CENTRIFUGAL',
-                    'KM',
-                    'O-RING KIT & SEALING WASHER',
-                    'CHECK BATTERY',
-                    'RETORQUE BRACKET PROPELLER SHAFT',
-                    'REPLACE V-BELT AC',
-                ]
-            } else if (type == 'M') {
-                return [
-                    'REPLACE FUEL FILTER',
-                    'REPLACE PRE FUEL FILTER',
-                    'REPLACE ENGINE OIL FILTER',
-                    'O-RING KIT & SEALING WASHER',
-                    'REPLACE AIR FILTER ELEMENT',
-                    'REPLACE FILTER DESSICANT APS',
-                    'REPLACE FILTER OIL DIFFERENTIAL',
-                    'REPLACE PAPER CENTRIFUGAL',
-                    'FILL OIL ENGINE',
-                    'CHECK BATTERY',
-                    'KM',
-                    'REPLACE POLY V-BELT ENGINE',
-                    'RETORQUE BRACKET PROPELLER SHAFT',
-                ]
-            } else if (type == 'L') {
-                return [
-                    'REPLACE FUEL FILTER',
-                    'REPLACE PRE FUEL FILTER',
-                    'REPLACE ENGINE OIL FILTER',
-                    'O-RING KIT & SEALING WASHER',
-                    'REPLACE FILTER OIL HYRAULIC',
-                    'REPLACE AIR FILTER ELEMENT',
-                    'REPLACE FILTER DESSICANT APS',
-                    'FILL OIL ENGINE',
-                    'REPLACE FILTER STEERING',
-                    'REPLACE FILTER OIL DIFFERENTIAL',
-                    'REPLACE PAPER CENTRIFUGAL',
-                    'CHECK BATTERY',
-                    'KM',
-                    'RETORQUE BRACKET PROPELLER SHAFT',
-                ]
-            } else {
-                return []
-            }
         }
     </script>
 @endpush

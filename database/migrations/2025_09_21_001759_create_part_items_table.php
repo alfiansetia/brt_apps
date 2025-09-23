@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('part_items', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('part_id');
-            $table->string('label');
             $table->string('image');
+            $table->enum('type', ['new', 'old'])->default('old');
             $table->timestamps();
             $table->foreign('part_id')->references('id')->on('parts')->cascadeOnDelete()->cascadeOnUpdate();
         });

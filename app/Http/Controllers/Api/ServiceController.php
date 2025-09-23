@@ -127,7 +127,7 @@ class ServiceController extends Controller
     {
         $this->validate($request, [
             'id'        => 'required|array|min:1',
-            'id.*'      => 'integer|exists:oil_coolants,id',
+            'id.*'      => 'integer|exists:services,id',
         ]);
         $ids = $request->id;
         $deleted = Service::with('items')->whereIn('id', $ids)->get();

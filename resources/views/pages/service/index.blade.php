@@ -380,7 +380,7 @@
                 $("#date").data('daterangepicker').setStartDate(result.data.date);
                 $("#date").data('daterangepicker').setEndDate(result.data.date);
                 $("#last_date").data('daterangepicker').setStartDate(result.data.last_date);
-                $("#last_date").data('daterangepicker').setEndDate(result.data.date);
+                $("#last_date").data('daterangepicker').setEndDate(result.data.last_date);
                 $('#km').val(result.data.km)
                 $('#last_km').val(result.data.last_km)
 

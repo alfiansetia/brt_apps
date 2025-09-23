@@ -155,14 +155,14 @@
             <a href="{{ route('parts.index') }}?pool={{ request()->query('pool') }}">
                 <div class="card card-statistic-1">
                     <div class="card-icon bg-warning">
-                        <i class="fas fa-cogs"></i>
+                        <i class="fas fa-cubes"></i>
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
                             <h4>Part</h4>
                         </div>
                         <div class="card-body cbm">
-                            {{ hrg($datas['service']) }} Data
+                            {{ hrg($datas['parts']) }} Data
                         </div>
                     </div>
                 </div>

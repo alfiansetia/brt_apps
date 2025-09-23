@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('pool_id')->nullable();
             $table->unsignedBigInteger('unit_id');
-            $table->string('unit')->nullable();
+            $table->string('unit_detail')->nullable();
             $table->string('sn')->nullable();
             $table->bigInteger('hm')->default(0);
             $table->bigInteger('km')->default(0);

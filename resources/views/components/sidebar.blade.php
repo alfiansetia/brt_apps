@@ -51,6 +51,10 @@
                     <a class="nav-link" href="{{ route('services.index') }}?pool={{ request()->query('pool') }}"><i
                             class="fas fa-cogs"></i><span>Service</span></a>
                 </li>
+                <li class="{{ $title == 'Data Part' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('parts.index') }}?pool={{ request()->query('pool') }}"><i
+                            class="fas fa-cubes"></i><span>Part</span></a>
+                </li>
             @endif
             <li class="{{ $title == 'Data Logbook Storing' ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('logbooks.index') }}"><i class="fas fa-tags"></i><span>LogBook
