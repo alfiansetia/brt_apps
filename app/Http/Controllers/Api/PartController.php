@@ -135,7 +135,7 @@ class PartController extends Controller
         $ids = $request->id;
         $deleted = Part::with('all_parts')->whereIn('id', $ids)->get();
         foreach ($deleted as $items) {
-            foreach ($items->items as $item) {
+            foreach ($items->all_parts as $item) {
                 $img = $item->getRawOriginal('image');
                 $destinationPath = public_path('/assets/img/part/');
                 if (!empty($img) && file_exists($destinationPath . $img)) {
