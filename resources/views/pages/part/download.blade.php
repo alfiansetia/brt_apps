@@ -13,7 +13,7 @@
 
         table {
             border-collapse: collapse;
-            page-break-after: always
+            page-break-inside: avoid;
         }
 
         @page {
@@ -97,95 +97,96 @@
 
 <body onload="window.print()">
     <table style="width: 100%">
-        <tr>
-            <td colspan="12" class="left2 top2 right2 bottom1 center f17 bold">
-                REPLACE V BELT AC, VIBRATION INSULATOR 2 PCS, WATER PUMP
-            </td>
-        </tr>
-        <tr>
-            <td colspan="12"></td>
-        </tr>
-        <tr style="width: 50%">
-            <td class="left2 top1 bold f13" style="white-space: nowrap;">Unit</td>
-            <td class="top1 bold f13" colspan="5">: {{ $data->unit_detail }}</td>
-            <td class="top1 bold f13" style="white-space: nowrap;">Start Date</td>
-            <td class="right2 top1 bold f13" colspan="5">: {{ $data->startDateIndo }}</td>
-        </tr>
-        <tr style="width: 50%">
-            <td class="left2 bold f13" style="white-space: nowrap;">Serial Number</td>
-            <td class="bold f13" colspan="5">: {{ $data->sn }}</td>
-            <td class="bold f13" style="white-space: nowrap;">Finish Date</td>
-            <td class="right2 bold f13" colspan="5">: {{ $data->finishDateIndo }}</td>
-        </tr>
-        <tr style="width: 50%">
-            <td class="bottom1 left2 bold f13" style="white-space: nowrap;">Unit Code</td>
-            <td class="bottom1 bold f13" colspan="5">: {{ $data->unit->code }}</td>
-            <td class="bottom1 bold f13" style="white-space: nowrap;">Hm / Km</td>
-            <td class="bottom1 right2 bold f13" colspan="5">: {{ $data->hm }} / {{ $data->km }}</td>
-        </tr>
-        @foreach ($news as $row)
+        <tbody>
             <tr>
-                @foreach ($row as $index => $item)
-                    @php
-                        $first = false;
-                        $last = false;
-                        if ($index % 4 == 0) {
-                            $first = true;
-                        }
-                        if ($index == 3) {
-                            $last = true;
-                        }
-                    @endphp
-                    <td class="{{ $first ? 'left2' : '' }} {{ $last ? 'right2' : '' }} center" colspan="3">
-                        <img class="image" src="{{ $item->imagepath() }}" />
-                    </td>
-                @endforeach
-                @for ($i = count($row); $i < 4; $i++)
-                    <td class="{{ $i == 3 ? 'right2' : 'center' }} center" colspan="3">
-                        {{-- kosong --}}
-                    </td>
-                @endfor
+                <td colspan="12" class="left2 top2 right2 bottom1 center f15 bold">
+                    REPLACE V BELT AC, VIBRATION INSULATOR 2 PCS, WATER PUMP
+                </td>
             </tr>
-        @endforeach
-
-        <tr>
-            <td class="left2 right2 top1 bottom1 bold center f20" colspan="12">
-                PART BARU
-            </td>
-        </tr>
-
-        @foreach ($olds as $row)
             <tr>
-                @foreach ($row as $index => $item)
-                    @php
-                        $first = false;
-                        $last = false;
-                        if ($index % 4 == 0) {
-                            $first = true;
-                        }
-                        if ($index == 3) {
-                            $last = true;
-                        }
-                    @endphp
-                    <td class="{{ $first ? 'left2' : '' }} {{ $last ? 'right2' : '' }} center" colspan="3">
-                        <img class="image" src="{{ $item->imagepath() }}" />
-                    </td>
-                @endforeach
-                @for ($i = count($row); $i < 4; $i++)
-                    <td class="{{ $i == 3 ? 'right2' : 'center' }} center" colspan="3">
-                        {{-- kosong --}}
-                    </td>
-                @endfor
+                <td colspan="12"></td>
             </tr>
-        @endforeach
+            <tr style="width: 50%">
+                <td class="left2 top1 bold f13" style="white-space: nowrap;">Unit</td>
+                <td class="top1 bold f13" colspan="5">: {{ $data->unit_detail }}</td>
+                <td class="top1 bold f13" style="white-space: nowrap;">Start Date</td>
+                <td class="right2 top1 bold f13" colspan="5">: {{ $data->startDateIndo }}</td>
+            </tr>
+            <tr style="width: 50%">
+                <td class="left2 bold f13" style="white-space: nowrap;">Serial Number</td>
+                <td class="bold f13" colspan="5">: {{ $data->sn }}</td>
+                <td class="bold f13" style="white-space: nowrap;">Finish Date</td>
+                <td class="right2 bold f13" colspan="5">: {{ $data->finishDateIndo }}</td>
+            </tr>
+            <tr style="width: 50%">
+                <td class="bottom1 left2 bold f13" style="white-space: nowrap;">Unit Code</td>
+                <td class="bottom1 bold f13" colspan="5">: {{ $data->unit->code }}</td>
+                <td class="bottom1 bold f13" style="white-space: nowrap;">Hm / Km</td>
+                <td class="bottom1 right2 bold f13" colspan="5">: {{ $data->hm }} / {{ $data->km }}</td>
+            </tr>
+            @foreach ($news as $row)
+                <tr>
+                    @foreach ($row as $index => $item)
+                        @php
+                            $first = false;
+                            $last = false;
+                            if ($index % 4 == 0) {
+                                $first = true;
+                            }
+                            if ($index == 3) {
+                                $last = true;
+                            }
+                        @endphp
+                        <td class="{{ $first ? 'left2' : '' }} {{ $last ? 'right2' : '' }} center" colspan="3">
+                            <img class="image" src="{{ $item->imagepath() }}" />
+                        </td>
+                    @endforeach
+                    @for ($i = count($row); $i < 4; $i++)
+                        <td class="{{ $i == 3 ? 'right2' : 'center' }} center" colspan="3">
+                            {{-- kosong --}}
+                        </td>
+                    @endfor
+                </tr>
+            @endforeach
 
-        <tr>
-            <td class="left2 right2 top1 bottom2 bold center f20" colspan="12">
-                PART BEKAS
-            </td>
-        </tr>
+            <tr>
+                <td class="left2 right2 top1 bottom1 bold center f20" colspan="12">
+                    PART BARU
+                </td>
+            </tr>
+
+            @foreach ($olds as $row)
+                <tr>
+                    @foreach ($row as $index => $item)
+                        @php
+                            $first = false;
+                            $last = false;
+                            if ($index % 4 == 0) {
+                                $first = true;
+                            }
+                            if ($index == 3) {
+                                $last = true;
+                            }
+                        @endphp
+                        <td class="{{ $first ? 'left2' : '' }} {{ $last ? 'right2' : '' }} center" colspan="3">
+                            <img class="image" src="{{ $item->imagepath() }}" />
+                        </td>
+                    @endforeach
+                    @for ($i = count($row); $i < 4; $i++)
+                        <td class="{{ $i == 3 ? 'right2' : 'center' }} center" colspan="3">
+                            {{-- kosong --}}
+                        </td>
+                    @endfor
+                </tr>
+            @endforeach
+
+            <tr>
+                <td class="left2 right2 top1 bottom2 bold center f20" colspan="12">
+                    PART BEKAS
+                </td>
+            </tr>
+        </tbody>
     </table>
-
 </body>
 
 </html>

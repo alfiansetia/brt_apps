@@ -478,7 +478,7 @@
         $('#table tbody').on('click', 'tr .btn-download', function() {
             row = $(this).parents('tr')[0];
             id = table.row(row).data().id
-            window.open('/part/' + id + '/download', '_blank')
+            window.open('/part/' + id + '/download')
         });
 
         $('#form').submit(function(e) {
