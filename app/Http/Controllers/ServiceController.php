@@ -40,7 +40,7 @@ class ServiceController extends Controller
         ];
         $pdf = Pdf::loadView('pages.service.download', $data)
             ->setPaper('a4', 'landscape');
-        $name = 'service_' . $service->type . '_' . $service->date . '_' . Str::random(5);
+        $name = 'service_' . ($service->unit->code ?? '') . '_' . $service->date . '_' . Str::random(5);
         return $pdf->download(Str::slug($name) . '.pdf');
     }
 }

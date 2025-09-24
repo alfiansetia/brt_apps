@@ -248,12 +248,15 @@
                 }
             }, {
                 data: 'type',
+                className: 'text-center',
             }, {
                 data: 'date',
+                className: 'text-left',
             }, {
                 name: 'unit_id',
                 data: 'unit.code',
                 defaultContent: '',
+                className: 'text-left',
                 render: function(data, type, row, meta) {
                     if (type == 'display') {
                         return row.unit_id != null ? `${row.unit.code} (${row.unit.type})` : '';
@@ -264,6 +267,7 @@
             }, {
                 data: 'km',
                 searchable: false,
+                className: 'text-center',
                 render: function(data, type, row, meta) {
                     if (type == 'display') {
                         return hrg(data);
@@ -273,9 +277,11 @@
                 }
             }, {
                 data: 'last_date',
+                className: 'text-left',
             }, {
                 data: 'last_km',
                 searchable: false,
+                className: 'text-center',
                 render: function(data, type, row, meta) {
                     if (type == 'display') {
                         return hrg(data);
@@ -286,6 +292,7 @@
             }, {
                 data: 'id',
                 searchable: false,
+                className: 'text-center',
                 render: function(data, type, row, meta) {
                     if (type == 'display') {
                         let text =
