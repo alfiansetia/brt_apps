@@ -62,13 +62,13 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="start">Start :</label>
-                            <input type="text" name="start" class="form-control datetimepicker" id="start"
+                            <input type="text" name="start" class="form-control datetimepicker-up" id="start"
                                 placeholder="Please Enter Start" required readonly>
                             <span class="error invalid-feedback err_start" style="display: hide;"></span>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="finish">Finish :</label>
-                            <input type="text" name="finish" class="form-control datetimepicker" id="finish"
+                            <input type="text" name="finish" class="form-control datetimepicker-up" id="finish"
                                 placeholder="Please Enter Finish" required readonly>
                             <span class="error invalid-feedback err_finish" style="display: hide;"></span>
                         </div>
