@@ -39,15 +39,15 @@ class PpmData extends Model
     protected function date(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => Carbon::parse($value)->format('d/m/Y'),
-            set: fn ($value) => Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d'),
+            get: fn($value) => Carbon::parse($value)->format('d/m/Y'),
+            set: fn($value) => Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d'),
         );
     }
 
     public function getFileAttribute($value)
     {
-        if ($value && file_exists(public_path('assets/file/ppm/' . $value))) {
-            return asset('assets/file/ppm/' . $value);
+        if ($value && file_exists(storage_path('/app/public/file/ppm/' . $value))) {
+            return asset('storage/file/ppm/' . $value);
         } else {
             return null;
         }

@@ -21,8 +21,8 @@ class OneScania extends Model
         if (!$value) {
             return null;
         }
-        if ($value && file_exists(public_path('/assets/file/one_scania/' . $value))) {
-            return url('assets/file/one_scania/' . $value);
+        if ($value && file_exists(storage_path('/app/public/file/one_scania/' . $value))) {
+            return asset('storage/file/one_scania/' . $value);
         } else {
             return null;
         }

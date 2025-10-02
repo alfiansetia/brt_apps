@@ -65,7 +65,7 @@ class PpmDataController extends Controller
         ]);
         $file = null;
         if ($files = $request->file('file')) {
-            $destinationPath = public_path('/assets/file/ppm/');
+            $destinationPath = storage_path('/app/public/file/ppm/');
             if (!file_exists($destinationPath)) {
                 File::makeDirectory($destinationPath, 755, true);
             }
@@ -103,7 +103,7 @@ class PpmDataController extends Controller
         ]);
         $file = $ppmdata->getRawOriginal('file');
         if ($files = $request->file('file')) {
-            $destinationPath = public_path('/assets/file/ppm/');
+            $destinationPath = storage_path('/app/public/file/ppm/');
             if (!empty($file) && file_exists($destinationPath . $file)) {
                 File::delete($destinationPath . $file);
             }

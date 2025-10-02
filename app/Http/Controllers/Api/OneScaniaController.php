@@ -61,7 +61,7 @@ class OneScaniaController extends Controller
         ]);
         $file = null;
         if ($files = $request->file('file')) {
-            $destinationPath = public_path('/assets/file/one_scania/');
+            $destinationPath = storage_path('/app/public/file/one_scania/');
             if (!file_exists($destinationPath)) {
                 File::makeDirectory($destinationPath, 755, true);
             }
@@ -117,7 +117,7 @@ class OneScaniaController extends Controller
         ]);
         $file = $one_scania->getRawOriginal('file');
         if ($files = $request->file('file')) {
-            $destinationPath = public_path('/assets/file/one_scania/');
+            $destinationPath = storage_path('/app/public/file/one_scania/');
             if (!empty($file) && file_exists($destinationPath . $file)) {
                 File::delete($destinationPath . $file);
             }
@@ -150,7 +150,7 @@ class OneScaniaController extends Controller
     public function destroy(OneScania $one_scania)
     {
         $file = $one_scania->getRawOriginal('file');
-        $destinationPath = public_path('/assets/file/ppm/');
+        $destinationPath = storage_path('/app/public/file/ppm/');
         if (!empty($file) && file_exists($destinationPath . $file)) {
             File::delete($destinationPath . $file);
         }
@@ -173,8 +173,8 @@ class OneScaniaController extends Controller
     public function truncate()
     {
         $deleted =  OneScania::truncate();
-        if (file_exists(public_path('/assets/file/one_scania/'))) {
-            File::cleanDirectory(public_path('/assets/file/one_scania/'));
+        if (file_exists(storage_path('/app/public/file/one_scania/'))) {
+            File::cleanDirectory(storage_path('/app/public/file/one_scania/'));
         }
         $message = 'Success Delete All Data !';
         return $this->response($message, $deleted);
