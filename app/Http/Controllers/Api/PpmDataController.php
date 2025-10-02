@@ -128,7 +128,7 @@ class PpmDataController extends Controller
     public function destroy(PpmData $ppmdata)
     {
         $file = $ppmdata->getRawOriginal('file');
-        $destinationPath = public_path('/assets/file/ppm/');
+        $destinationPath = storage_path('/app/public/file/ppm/');
         if (!empty($file) && file_exists($destinationPath . $file)) {
             File::delete($destinationPath . $file);
         }
@@ -151,8 +151,8 @@ class PpmDataController extends Controller
     public function truncate()
     {
         $deleted =  PpmData::truncate();
-        if (file_exists(public_path('/assets/file/ppm/'))) {
-            File::cleanDirectory(public_path('/assets/file/ppm/'));
+        if (file_exists(storage_path('/app/public/file/ppm/'))) {
+            File::cleanDirectory(storage_path('/app/public/file/ppm/'));
         }
         $message = 'Success Delete All Data !';
         return $this->response($message, $deleted);
