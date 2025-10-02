@@ -46,7 +46,7 @@ class PoolController extends Controller
         ]);
         $img = null;
         if ($files = $request->file('image')) {
-            $destinationPath = public_path('/assets/img/pool/');
+            $destinationPath = storage_path('/app/public/img/pool/');
             if (!file_exists($destinationPath)) {
                 File::makeDirectory($destinationPath, 755, true);
             }
@@ -80,7 +80,7 @@ class PoolController extends Controller
         ]);
         $img = $pool->getRawOriginal('image');
         if ($files = $request->file('image')) {
-            $destinationPath = public_path('/assets/img/pool/');
+            $destinationPath = storage_path('/app/public/img/pool/');
             if (!empty($img) && file_exists($destinationPath . $img)) {
                 File::delete($destinationPath . $img);
             }
@@ -103,7 +103,7 @@ class PoolController extends Controller
     public function destroy(Pool $pool)
     {
         $img = $pool->getRawOriginal('image');
-        $destinationPath = public_path('/assets/img/pool/');
+        $destinationPath = storage_path('/app/public/img/pool/');
         if (!empty($img) && file_exists($destinationPath . $img)) {
             File::delete($destinationPath . $img);
         }

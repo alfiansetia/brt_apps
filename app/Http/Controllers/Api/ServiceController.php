@@ -113,7 +113,7 @@ class ServiceController extends Controller
         $items = $service->items;
         foreach ($items as $item) {
             $img = $item->getRawOriginal('image');
-            $destinationPath = public_path('/assets/img/service/');
+            $destinationPath = storage_path('/app/public/img/service/');
             if (!empty($img) && file_exists($destinationPath . $img)) {
                 File::delete($destinationPath . $img);
             }
@@ -134,7 +134,7 @@ class ServiceController extends Controller
         foreach ($deleted as $items) {
             foreach ($items->items as $item) {
                 $img = $item->getRawOriginal('image');
-                $destinationPath = public_path('/assets/img/service/');
+                $destinationPath = storage_path('/app/public/img/service/');
                 if (!empty($img) && file_exists($destinationPath . $img)) {
                     File::delete($destinationPath . $img);
                 }

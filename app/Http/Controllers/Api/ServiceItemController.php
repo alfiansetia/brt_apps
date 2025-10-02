@@ -48,7 +48,7 @@ class ServiceItemController extends Controller
         }
         $img = null;
         if ($files = $request->file('image')) {
-            $destinationPath = public_path('/assets/img/service/');
+            $destinationPath = storage_path('/app/public/img/service/');
             if (!file_exists($destinationPath)) {
                 File::makeDirectory($destinationPath, 755, true);
             }
@@ -85,7 +85,7 @@ class ServiceItemController extends Controller
     public function destroy(ServiceItem $service_item)
     {
         $img = $service_item->getRawOriginal('image');
-        $destinationPath = public_path('/assets/img/service/');
+        $destinationPath = storage_path('/app/public/img/service/');
         if (!empty($img) && file_exists($destinationPath . $img)) {
             File::delete($destinationPath . $img);
         }

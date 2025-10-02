@@ -116,7 +116,7 @@ class PartController extends Controller
         $items = $part->all_parts;
         foreach ($items as $item) {
             $img = $item->getRawOriginal('image');
-            $destinationPath = public_path('/assets/img/part/');
+            $destinationPath = storage_path('/app/public/img/part/');
             if (!empty($img) && file_exists($destinationPath . $img)) {
                 File::delete($destinationPath . $img);
             }
@@ -137,7 +137,7 @@ class PartController extends Controller
         foreach ($deleted as $items) {
             foreach ($items->all_parts as $item) {
                 $img = $item->getRawOriginal('image');
-                $destinationPath = public_path('/assets/img/part/');
+                $destinationPath = storage_path('/app/public/img/part/');
                 if (!empty($img) && file_exists($destinationPath . $img)) {
                     File::delete($destinationPath . $img);
                 }

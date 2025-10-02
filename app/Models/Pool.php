@@ -20,8 +20,8 @@ class Pool extends Model
 
     public function getImageAttribute($value)
     {
-        if ($value && file_exists(public_path('assets/img/pool/' . $value))) {
-            return asset('assets/img/pool/' . $value);
+        if ($value && file_exists(storage_path('/app/public/img/pool/' . $value))) {
+            return asset('storage/img/pool/' . $value);
         } else {
             return asset('assets/img/noimage.jpg');
         }

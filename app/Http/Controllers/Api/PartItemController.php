@@ -12,7 +12,7 @@ use Yajra\DataTables\Facades\DataTables;
 
 class PartItemController extends Controller
 {
-     /**
+    /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
@@ -35,13 +35,13 @@ class PartItemController extends Controller
             'image'         => 'required|image|mimes:jpg,jpeg,png|max:5120',
         ]);
         $part = PartItem::query()->where('part_id', $request->part)
-        ->where('type', $request->type)->count();
-        if($part >= 8 ){
+            ->where('type', $request->type)->count();
+        if ($part >= 8) {
             return response()->json(['message' => 'Image Part ' . ($request->type == 'new' ? 'BARU' : 'BEKAS') . ' Tidak boleh lebih dari 8!'], 403);
         }
         $img = null;
         if ($files = $request->file('image')) {
-            $destinationPath = public_path('/assets/img/part/');
+            $destinationPath = storage_path('/app/public/img/part/');
             if (!file_exists($destinationPath)) {
                 File::makeDirectory($destinationPath, 755, true);
             }
@@ -62,7 +62,7 @@ class PartItemController extends Controller
     public function destroy(PartItem $part_item)
     {
         $img = $part_item->getRawOriginal('image');
-        $destinationPath = public_path('/assets/img/part/');
+        $destinationPath = storage_path('/app/public/img/part/');
         if (!empty($img) && file_exists($destinationPath . $img)) {
             File::delete($destinationPath . $img);
         }
