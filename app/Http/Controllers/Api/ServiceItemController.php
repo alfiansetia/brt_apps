@@ -53,7 +53,9 @@ class ServiceItemController extends Controller
                 File::makeDirectory($destinationPath, 755, true);
             }
             $img = 'service_' . $request->service . '_' . date('YmdHis') . "." . $files->getClientOriginalExtension();
-            $files->move($destinationPath, $img);
+            // $files->move($destinationPath, $img);
+            $image = scaleDown($files);
+            $image->save($destinationPath . $img, 80);
         }
         $service_item = ServiceItem::create([
             'service_id'    => $request->service,

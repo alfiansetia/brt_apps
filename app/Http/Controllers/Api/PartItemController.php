@@ -46,7 +46,9 @@ class PartItemController extends Controller
                 File::makeDirectory($destinationPath, 755, true);
             }
             $img = 'part_' . $request->service . '_' . date('YmdHis') . "." . $files->getClientOriginalExtension();
-            $files->move($destinationPath, $img);
+            // $files->move($destinationPath, $img);
+            $image = scaleDown($files);
+            $image->save($destinationPath . $img, 80);
         }
         $part_item = PartItem::create([
             'part_id'   => $request->part,

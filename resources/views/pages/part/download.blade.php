@@ -89,8 +89,9 @@
         }
 
         .image {
-            width: 120pt;
-            height: 162pt;
+            width: 160px;
+            height: 216px;
+            object-fit: cover;
         }
     </style>
 </head>

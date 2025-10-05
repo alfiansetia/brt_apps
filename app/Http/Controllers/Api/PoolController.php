@@ -51,7 +51,9 @@ class PoolController extends Controller
                 File::makeDirectory($destinationPath, 755, true);
             }
             $img = 'pool_' . date('YmdHis') . "." . $files->getClientOriginalExtension();
-            $files->move($destinationPath, $img);
+            // $files->move($destinationPath, $img);
+            $image = scaleDown($files);
+            $image->save($destinationPath . $img, 80);
         }
         $pool = Pool::create([
             'name'  => $request->name,
@@ -88,7 +90,9 @@ class PoolController extends Controller
                 File::makeDirectory($destinationPath, 755, true);
             }
             $img = 'pool_' . date('YmdHis') . "." . $files->getClientOriginalExtension();
-            $files->move($destinationPath, $img);
+            // $files->move($destinationPath, $img);
+            $image = scaleDown($files);
+            $image->save($destinationPath . $img, 80);
         }
         $pool->update([
             'name'      => $request->name,
