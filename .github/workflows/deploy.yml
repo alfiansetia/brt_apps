@@ -1,0 +1,43 @@
+name: Deploy to VPS
+
+# Auto-deploy: jalan otomatis setiap push ke main. Manual via tab Actions tetap bisa.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          port: ${{ secrets.SSH_PORT || 22 }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            set -e
+            cd ${{ secrets.PROJECT_PATH }}
+            git fetch origin main
+            git reset --hard origin/main
+            # --build wajib: source ikut di-bake ke image (COPY . .),
+            # tanpa ini container jalan dengan kode lama.
+            # --remove-orphans: bersihkan sisa container lama
+            # (misal who-app/who-web/worker/scheduler dari compose lama).
+            docker compose up -d --build --remove-orphans
+            # Tunggu php-fpm sehat dulu sebelum migrate (healthcheck start_period 20s).
+            echo "Waiting for brt-app to be healthy..."
+            for i in $(seq 1 12); do
+              STATUS=$(docker inspect --format='{{.State.Health.Status}}' brt-app 2>/dev/null || echo "starting")
+              if [ "$STATUS" = "healthy" ]; then
+                break
+              fi
+              sleep 5
+            done
+            # -T: tanpa TTY (SSH non-interaktif).
+            docker compose exec -T brt-app php artisan migrate --force
+            docker compose exec -T brt-app php artisan storage:link || true
+            docker compose exec -T brt-app php artisan optimize
+            docker compose ps
