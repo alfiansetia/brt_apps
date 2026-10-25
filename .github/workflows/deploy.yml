@@ -26,7 +26,7 @@ jobs:
             # tanpa ini container jalan dengan kode lama.
             # --remove-orphans: bersihkan sisa container lama
             # (misal who-app/who-web/worker/scheduler dari compose lama).
-            docker compose up -d --build --remove-orphans
+            docker compose up -d --build --pull always --remove-orphans
             # Tunggu php-fpm sehat dulu sebelum migrate (healthcheck start_period 20s).
             echo "Waiting for brt-app to be healthy..."
             for i in $(seq 1 12); do

@@ -1,5 +1,5 @@
 # ---------- Stage 1: PHP-FPM (Laravel, Blade tanpa build frontend) ----------
-FROM php:8.4-fpm AS app
+FROM php:8.4.27-fpm AS app
 
 # System deps + PHP extensions (Laravel, MySQL prod + sqlite lokal) + binary pendukung:
 # - default-mysql-client : mysqldump (dipakai backup DB MySQL saat IS_DOCKER=true)
